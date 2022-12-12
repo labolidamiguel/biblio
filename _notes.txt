@@ -1,0 +1,32 @@
+ estante problema no Volta
+  http://127.0.0.1:88/
+  versão em .\common\arch.php
+ pesquisa livro sem login
+ Arch::deleteCookie("flag_lido");
+ etiqueta    nopag definir critério  
+ exemplar.altera.php ==> marreta flag_lido lin 12, nopag fixHead
+20221111 titulo.lista.php não funciona o edit
+20221119 emprestimo  erro app\emprestimo.web.php(55)
+20221122 exemplar    não mostra detalhe na 2a vez
+20221122 leitor      apenas grava os 2 primeiros campos
+20221122 leitor.altera 46 // $audit->report("Alt  MARRETA
+20221126 estante CRUD dominio para CDE
+20221127 Editora lista order by nome
+20221127 app/exemplar.detalhe.web: tirar Tradutor: - não possui - da descrição
+20221127 relatorio   excluir aplicação
+20221130 exemplar.dominio count em zero
+20221205 app         CRUD nopag fixHead
+20221205 autor       CRUD nopag fixHead
+20221205 cde         CRUD nopag fixHead
+20221205 centro      CRUD nopag fixHead
+20221205 editora     CRUD nopag fixHead
+20221205 emprestimo  CRUD nopag fixHead
+20221205 espirito    CRUD nopag fixHead
+20221205 leitor      CRUD nopag fixHead
+20221205 publicado   CRUD nopag fixHead
+20221205 titulo      CRUD nopag fixHead
+20221205 tradutor    CRUD nopag fixHead
+20221205 usuario     CRUD nopag fixHead
+20221206 verificar em index.html login->www.cecx...
+20221208 auditoria   Ok analisar
+20221208 auditoria   lista e detalhe nopag fixHead

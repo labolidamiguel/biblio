@@ -1,0 +1,307 @@
+/* margin: top right bottom left */
+body{
+    background-color: #FFF;
+    color:#222;
+    font-family: "Segoe UI", Arial, sans-serif;
+    width:100%;
+    margin:0px;
+    padding:0px;
+}
+
+.appTitle{
+    background-color: rgb(116, 167, 209);
+    color:#FFF;
+    font-size:20px; /* 28 */
+    margin:0px;
+    padding:6px;
+}
+
+.appTitle2{
+    background-color: #FFF;
+    color:#000;
+    font-size:24px; /* 28 */
+    font-weight: bold;
+    font-family: Verdana, Helvetica, sans-serif;
+    margin:0px;
+    padding:6px;
+}
+
+.appMenu{
+    background-color: #EEE;
+    margin:0px;
+    padding:14px;
+}
+.appMain{
+    background-color: #FFF;
+    margin:0px;
+    padding:14px;
+}
+
+.table{
+    border-collapse:collapse; border-spacing:0;
+	width:100%;padding:0px;display:table;
+    border:0px solid #ccc;
+}
+
+.tableraw{
+    border-collapse:collapse; margin:10px; border-spacing:0;
+	padding:0px;display:table;
+    border:1px solid #333;
+}
+/* tabela com header fixo */
+.tableFixHead {
+    overflow-y: auto;
+    height: 60%;
+}
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border:0px;
+}
+th,
+td {
+    padding: 8px 4px;
+    border: 0px solid #ccc;
+    text-align: left;
+}
+th {
+    background: #eee;
+	color:#fff!important;background-color:#2196F3!important
+}
+
+tr:nth-child(even) {
+    background-color: #EEE;
+}
+
+tr:hover{
+    background-color: #AAA;
+    color: #FFF;
+    cursor: pointer;
+}
+
+td {height: 30px;
+    margin: 2px;
+    padding:5px;
+}
+
+.blue,.w3-hover-blue:hover {
+    color:#fff!important;background-color:#2196F3!important
+}
+
+hr{
+    border: 1px solid #DDD
+}
+
+a{
+    font-style: normal;
+    text-decoration:none;
+}
+
+.butbase{                               /* standard */
+    background-color:rgb(48, 163, 73);
+    color: #FFF;
+    font-size: 14px;
+    width: 90px;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.butbase:hover{
+    background-color:rgb(79, 176, 245);
+    transition: all 0.2s;
+}
+
+.buthide{
+    background-color:#FFF;
+    color: #FFF;
+    font-size: 14px;
+    width: 90px;
+    padding: 4px;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.butlist{
+    background-color:rgb(48, 163, 73);
+    color: #FFF;
+    font-size: 16px;
+    width: auto;
+    padding-top: 4px;
+    padding-bottom: 3px;
+    border:none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.buthidelist{
+    background-color:#FFF;
+    color: #FFF;
+    font-size: 14px;
+    width: 50px;
+    padding: 4px;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.butimg{
+    background-color:transparent;
+    border: none;
+    position: relative;
+    left: 2px;
+    bottom: -5px;
+}
+
+.butlong{
+    background-color:rgb(48, 163, 73);
+    color: #FFF;
+    font-size: 14px;
+    width: 160px;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.butlong:hover{
+    background-color:rgb(79, 176, 245);
+    transition: all 0.2s;
+}
+
+.check
+    {width: 22px; height: 22px;
+}
+
+.labelx{
+    background-color:#FFF;
+    color: #000;
+    font-size: 16px;
+    margin: 8px 0 0 0;
+    border: none;
+    width: 95% ;
+}
+
+.inputx{                                /* standard */
+    background-color:#FFF;
+    color: #222;
+    font-size: 18px;
+    border: 1px solid #ccc !important;
+    width: 260px;
+}
+
+.inputh{                                /* half width */
+    background-color:#FFF;
+    color: #222;
+    font-size: 18px;
+    border: 1px solid #ccc !important;
+    width: 120px;
+}
+
+.inputd{                                /* date Y-m-d */
+    background-color:#FFF;
+    color: #222;
+    font-size: 18px;
+    border: 1px solid #ccc !important;
+    width: 160px;
+}
+
+.inputq{                                /* quarter width */
+    background-color:#FFF;
+    color: #222;
+    font-size: 18px;
+    border: 1px solid #ccc !important;
+    width: 70px;
+}
+
+.inputa{                                /* textarea */
+    background-color:#FFF;
+    color: #222;
+    font-family: Verdana, Helvetica, sans-serif;
+    font-size: 18px;
+    border: 1px solid #ccc !important;
+    width: 260px;
+}
+
+.text{
+    background-color:#FFF;
+    color: #222;
+    font-size: 22px;
+    border: 1px;
+    border-color: #FFF #FFF rgb(129, 127, 127) #FFF ;
+    border-style: solid;
+    /*width: 50% ;*/
+}
+
+.texred{
+    background-color:#FFF;
+    color: #C00;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px;
+    padding: 0px;
+    margin:  0px;
+}
+
+.texgreen{
+    background-color:#FFF;
+    color: #080;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px;
+    padding: 0px;
+    margin:  0px;
+}
+
+/* Message System. */
+.messageOk{
+    color: #22AA22;
+    font-size: 18px;
+    background-color:#AAFFAA;
+    width:500px;
+}
+.messageError{
+    color: #DD2222;
+    font-size: 18px;
+    background-color:#FFFFAA;
+    width:400px;
+}
+
+#abas {     /* tabs */
+    font-size: 0;
+}
+.aba_off {
+    background-color: #CEF; /* #CEF; */
+    border-style: solid;
+    border-color: #000 #000 #000 #000;
+    border-radius: 8px 8px 0px 0px;
+    border-width: 1px;
+    font-size: 14;
+}
+.aba_on {
+    background-color: #FFF;
+    border-style: solid;
+    border-color: #000 #000 #FFF #000;
+    border-radius: 8px 8px 0px 0px;
+    border-width: 1px;
+    font-size: 14;
+}
+
+.center {                               /* para img */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* De momento nao precisa usar IF_CSS:
+@media only screen and (max-width: 600px) {}
+*/
