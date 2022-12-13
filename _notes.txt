@@ -1,3 +1,4 @@
+ autor.altera.php valida nome existe
  estante problema no Volta
   http://127.0.0.1:88/
   versão em .\common\arch.php
