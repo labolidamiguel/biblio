@@ -9,7 +9,7 @@ set com="_notes.txt _ed.bat"
 set emp=".\classes\class.emprestimo.php .\app\emprestimo.lista.php .\app\emprestimo.altera.php .\app\emprestimo.cria.php"
 set est=".\classes\class.estante.php .\app\estante.altera.php .\app\estante.cria.php .\app\estante.exclui.php .\app\estante.form.php .\app\estante.lista.php"
 set exe=".\classes\class.exemplar.php .\app\exemplar.altera.php .\app\exemplar.cria.php .\app\exemplar.dominio.php .\app\exemplar.exclui.php .\app\exemplar.lista.php"
-set imp=".\app\imprime.lista.php .\app\autor.rel.php .\app\cde.rel.php .\app\editora.rel.php .\app\espirito.rel.php .\app\estante.rel.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php .\app\leitor.rel.php .\app\tradutor.rel.php .\app\usuario.rel.php
+set imp=".\app\imprime.lista.php .\app\imprime.lista.php .\app\auditoria.rel.php .\app\autor.rel.php .\app\cde.rel.php .\app\editora.rel.php .\app\emprestimo.rel.php .\app\espirito.rel.php .\app\estante.rel.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php .\app\leitor.rel.php .\app\tradutor.rel.php .\app\usuario.rel.php
 set inc=".\layout\inc.relatorio.epilogo.php .\layout\inc.relatorio.prologo.php 
 set ini="C:\PHP\php.ini-development C:\PHP\php.ini-production"
 set lay=".\layout\css.css"
@@ -21,6 +21,6 @@ set tit=".\classes\class.titulo.php .\app\titulo.altera.php .\app\titulo.cria.ph
 set usu=".\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php"
 
 @echo off
-start "" %ed% "%com%" "%inc%" "%imp%"  /secondary /minimized
+start "" %ed% "%com%" "%aut%" /secondary /minimized
 exit
 

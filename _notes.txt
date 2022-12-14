@@ -1,6 +1,7 @@
  autor.altera.php valida nome existe
  estante problema no Volta
   http://127.0.0.1:88/
+  git push -u origin main
   versão em .\common\arch.php
  pesquisa livro sem login
  Arch::deleteCookie("flag_lido");

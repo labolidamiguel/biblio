@@ -18,7 +18,10 @@
         $numPagina ++;
         $hoje = date("d-m-Y");
         echo "<br><br>";
+
         echo "$margem";                 // titulo do cabecalho
+        echo Arch::session("siglacentro"); // instituicao
+        echo "&nbsp;-&nbsp;";
         echo $nomeRelatorio . " - $hoje - Página $numPagina<br><br>";
         echo "$margem";                 // titulos de colunas
         for($i=0; $i < count($tamcol); $i++){

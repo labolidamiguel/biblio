@@ -19,7 +19,7 @@ Arch::initController("autor");
     $auditoria = new Auditoria();
         
     if ($action == 'grava') {
-        $msg = $autor->valida($id_centro, $id_autor, $nome, $iniciais);
+        $msg = $autor->valida_cria($id_centro, $id_autor, $nome, $iniciais);
         if (strlen($msg) == 0) {
             $message = $autor->insert($id_centro, $nome, $iniciais);
             if ($message->code<0) {

@@ -48,7 +48,7 @@ class Autor {
         return $reg[0];
     }
 
-    function valida($id_centro, $id_autor, $nome, $iniciais) {
+    function valida_altera($id_centro, $id_autor, $nome, $iniciais) {
         $msg = "";
         if (strlen($nome) == 0) {
             $msg = $msg . "<p class=texred>* Nome deve ser preenchido</p>";
@@ -65,6 +65,11 @@ class Autor {
                 $msg = $msg . "<p class=texred>* Iniciais devem conter letras maiúsculas</p>"; 
             }
         }
+        return $msg;
+    }
+
+    function valida_cria($id_centro, $id_autor, $nome, $iniciais) {
+        $msg = self::valida_altera($id_centro, $id_autor, $nome, $iniciais);
         if (self::existe($id_centro, $id_autor, $nome) > 0) {
             $msg = $msg . "<p class=texred>* Nome já existe</p>"; 
         }
