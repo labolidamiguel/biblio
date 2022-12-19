@@ -91,7 +91,7 @@ Class Titulo {
         return $rs;
     }
     
-    function existe($id_centro, $id_titulo, $titulo) {
+    function existe($id_centro, $id_titulo, $nome_titulo) {
         if (strlen($id_titulo) == 0) {$id_titulo = 0;}
         $sql = "SELECT COUNT(ALL) FROM titulo 
             WHERE id_centro = $id_centro 
@@ -103,9 +103,11 @@ Class Titulo {
     }
 
     function insert($id_centro, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha) {
-        $sql = "INSERT INTO titulo (id_centro, id_titulo, nome_titulo, sigla, id_autor, id_espirito, id_cde, nro_volume, resenha) 
-        VALUES ($id_centro, NULL, '$nome_titulo', '$sigla', $id_autor, 
-        $id_espirito, $id_cde, '$nro_volume', '$resenha');";
+        $sql = "INSERT INTO titulo 
+        (id_centro, id_titulo, nome_titulo, sigla, 
+        id_autor, id_espirito, id_cde, nro_volume, resenha) 
+        VALUES ($id_centro, NULL, '$nome_titulo', '$sigla', 
+        $id_autor, $id_espirito, $id_cde, '$nro_volume', '$resenha');";
         return $this->$pdo->query($sql); // PDO
     }
 
@@ -159,7 +161,7 @@ Class Titulo {
         if (strlen($nro_volume) == 0) {
             $msg = $msg . "<p class=texred>* Nro.Volume deve ser preenchido</p>";
         }
-        if ($this->existe($id_centro, $id_titulo, $titulo) > 0) {
+        if ($this->existe($id_centro, $id_titulo, $nome_titulo) > 0) {
             $msg = $msg . "<p class=texred>* Título já existe</p>"; 
         }
         return $msg;                
@@ -170,7 +172,7 @@ Class Titulo {
         $sql = "SELECT COUNT(*) FROM exemplar 
         WHERE exemplar.id_centro = $id_centro 
         AND exemplar.id_titulo = $id_titulo;";
-        $rs = Arch::database_query($sql);
+        $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         if (($reg[0]) > 0) {
             $msg = "<p class=texred>* Título não pode ser excluído,<br>&nbsp;&nbsp;há Exemplar(es) associado(s)</p>";

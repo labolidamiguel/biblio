@@ -1,12 +1,10 @@
- autor.altera.php valida nome existe
- estante problema no Volta
-  http://127.0.0.1:88/
   git push -u origin main
+  http://127.0.0.1:88/
   versão em .\common\arch.php
- pesquisa livro sem login
  Arch::deleteCookie("flag_lido");
  etiqueta    nopag definir critério  
  exemplar.altera.php ==> marreta flag_lido lin 12, nopag fixHead
+ pesquisa livro sem login
 20221111 titulo.lista.php não funciona o edit
 20221119 emprestimo  erro app\emprestimo.web.php(55)
 20221122 exemplar    não mostra detalhe na 2a vez
@@ -32,3 +30,4 @@
 20221206 verificar em index.html login->www.cecx...
 20221208 auditoria   Ok analisar
 20221208 auditoria   lista e detalhe nopag fixHead
+20221214 autor.altera.php valida nome existe
