@@ -17,10 +17,13 @@ class Publicado {
         SELECT 
             id_publicado, 
             publicado.cod_cde, 
+            cde.id_cde,
             nome_titulo
-        FROM publicado ";
+        FROM publicado 
+        left join cde on publicado.cod_cde = cde.cod_cde
+        WHERE cde.id_centro = 1 "; // REFERENCIA É CECX
         if (strlen($pesq) > 0) {
-            $sql = $sql . " WHERE (publicado.cod_cde LIKE '%$pesq%' 
+            $sql = $sql . " AND (publicado.cod_cde LIKE '%$pesq%' 
             OR nome_titulo LIKE '%$pesq%') ";
         }
         $sql = $sql . "ORDER BY publicado.cod_cde;";

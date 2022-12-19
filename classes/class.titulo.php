@@ -10,6 +10,7 @@ Class Titulo {
         exibe(__CLASS__ . ": new pdo");    //DEBUG
         $this->$pdo = new PDO(get_connection_string()) // PDO
         or die(__CLASS__ . " Erro conexão dB"); // PDO
+        $this->$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // 20221219
     }
 
     function select($id_centro, $pesq) {
