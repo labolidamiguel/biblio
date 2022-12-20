@@ -48,10 +48,7 @@ Arch::initView(TRUE);
     echo "<p class=appTitle2>Auditoria</p>";
     echo "<form>";
     echo "<div>";
-    echo "<input type='text' value='$pesq' name='pesq' id='pesq' class='inputh'>";
-    echo "<a href='?pesq='><img src='../layout/img/limp.ico' width='22' height='22' class='butimg'></a>"; // reset
-    echo $space5;
-    echo "<input type='image' src='../layout/img/pesq.ico' alt='Submit' width='22' height='22' class='butimg'>";
+    botaoPesquisa($pesq);
     echo "$space10 Exclui&nbsp;";
     echo "<a href='auditoria.exclui.php?id_autor=$id_autor&nome=$nome&iniciais=$iniciais'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
     echo "</div>";

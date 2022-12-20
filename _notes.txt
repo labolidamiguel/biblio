@@ -1,3 +1,5 @@
+ preferencia.php bug mudança de senha. msg:Erro ao trocar de senha. Provavelmente a senha antiga seja incorreta.
+ titulo.exclui não mostra nome_titulo na confirmação
   git push -u origin main
   http://127.0.0.1:88/
   versão em .\common\arch.php

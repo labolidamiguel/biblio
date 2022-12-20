@@ -20,17 +20,13 @@ Arch::initController("autor");
 Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
     echo "<p class=appTitle2>Autor</p>";
     echo "<form>";
     echo "<div>";
-
-    echo "<input type='text' value='$pesq' name='pesq' id='pesq' class='inputh'>";
-    echo "<a href='?pesq='><img src='../layout/img/limp.ico' width='22' height='22' class='butimg'></a>"; // reset
-    echo $space5;
-    echo "<input type='image' src='../layout/img/pesq.ico' alt='Submit' width='22' height='22' class='butimg'>";
-
-    echo "$space10 Cria";
-    echo "<a href='autor.cria.php?callback=autor.lista.php'><img border='0' class='butimg'; alt='alt' src='../layout/img/cria.ico' style='width: 26px; margin-left:-2px; margin-bottom:1px;'></a>";
+    botaoPesquisa($pesq);
+    echo $space10;
+    botaoCria("autor.cria.php", "autor.lista.php");
     echo "</div>";
     echo "</form>";
 
