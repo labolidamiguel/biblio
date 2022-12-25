@@ -8,26 +8,20 @@ Arch::initController("cde");
     $id_centro  = Arch::session("id_centro");
     $action     = Arch::request("action");
     $step       = Arch::request("step");
-    $search     = Arch::request("search");
+    $pesq       = Arch::request("pesq");
     $callback   = Arch::requestOrCookie("callback");
 
     $cde = new Cde();
-    $count = $cde->getCount($id_centro, $search);
-    $rs = $cde->select($id_centro, $search);
+    $count = $cde->getCount($id_centro, $pesq);
+    $rs = $cde->select($id_centro, $pesq);
     
 Arch::initView(TRUE);
+    echo "<form>";
+    echo "<div>";
+    botaoPesquisa($pesq);
+    echo "</div>";
+    echo "</form>";
 
-?>
-    <p class=appTitle2>Classificação Decimal Espírita</p>
-    <form>
-    <div>
-        <input type="hidden" value="<?php echo $callback ?>" name="callback" id="callback" class="callback">
-        <input type="text" value="<?php echo $search ?>" name="search" id="search" class="inputh">
-        <input type="image" src="../layout/img/pesq.ico" alt="Submit" width="22" height="22" class="butimg">
-    </div>
-    </form>
-
-<?php
     echo "<div class='tableFixHead'>";  // header fixo
     echo "<table>";
     echo "<thead>";

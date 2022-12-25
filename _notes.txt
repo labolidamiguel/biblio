@@ -1,3 +1,6 @@
+ exemplar.altera.php comentada lin 62 $auditoria->report
+ mudanca de senha separado em usuario.senha.altera.php
+ titulo exemplar multiplos bugs
  preferencia.php bug mudança de senha. msg:Erro ao trocar de senha. Provavelmente a senha antiga seja incorreta.
  titulo.exclui não mostra nome_titulo na confirmação
   git push -u origin main

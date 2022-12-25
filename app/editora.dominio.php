@@ -21,11 +21,7 @@ Arch::initView(TRUE);
     echo "<p class=appTitle2>Editora</p>";
     echo "<form>";
     echo "<div>";
-    echo "<input type='hidden' value='$callback' name='callback' id='callback' class='callback'>";
-    echo "<input type='text' value='$pesq' name='pesq' id='pesq' class='inputh'>";
-    echo "<a href='?pesq='><img src='../layout/img/limp.ico' width='22' height='22' class='butimg'></a>"; // reset
-    echo $space5;
-    echo "<input type='image' src='../layout/img/pesq.ico' alt='Submit' width='22' height='22' class='butimg'>";
+    botaoPesquisa($pesq);
     echo "</div>";
     echo "</form>";
 

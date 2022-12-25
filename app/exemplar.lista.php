@@ -9,7 +9,7 @@ Arch::initController("titulo");   // exemplar App nao existe
     $id_centro  = Arch::session("id_centro");
     $pesq       = Arch::requestOrCookie("pesq");
     $id_titulo  = Arch::get("id_titulo");
-    $nome_titulo = Arch::get("noem_titulo");
+    $nome_titulo = Arch::get("nome_titulo");
     $titulotrunc = $nome_titulo;
     if (strlen($titulotrunc) > 40)
         $titulotrunc = substr($titulotrunc, 0, 40) . " ...";
@@ -22,21 +22,17 @@ Arch::initController("titulo");   // exemplar App nao existe
 Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-?>
-    <p class=appTitle2>Exemplar(es)</p>
-    <p class=appTitle4><?php echo $titulotrunc ?></p>
-    <form>
-    <div>
-        <input type="text" value="<?php echo $pesq ?>" name="pesq" id="pesq" class="inputh">
-        <a href="?pesq="><img src="../layout/img/limp.ico" width="22" height="22" class="butimg"></a> <!-- reset -->
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="image" src="../layout/img/pesq.ico" alt="Submit" width="22" height="22" class="butimg">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cria
-        <a href='exemplar.cria.php?id_titulo=<?php echo $id_titulo?>&titulo=<?php echo $titulo?>'><img border='0' class='butimg'; alt='alt' src='../layout/img/cria.ico' style='width: 26px; margin-left:-2px; margin-bottom:1px;'></a>
-    </div>
-    </form>
 
-<?php
+    echo "<p class=appTitle2>Exemplar(es)</p>";
+    echo "<p class=appTitle4>$titulotrunc</p>";
+    echo "<form>";
+    echo "<div>";
+    botaoPesquisa($pesq);
+    echo $space10;
+    botaoCria("exemplar.cria.php","exemplar.lista.php&id_titulo=$id_titulo&nome_titulo=$nome_titulo");
+    echo "</div>";
+    echo "</form>";
+
     echo "<div class='tableFixHead'>";  // header fixo
     echo "<table>";
     echo "<thead>";
@@ -59,7 +55,7 @@ Arch::initView(TRUE);
         echo "<td>" . $editora . "</td>";
         echo "<td>" . $tradutor . "</td>";
         echo "<td>" . $nro_exemplar . "</td>";
-        echo "<td><a href='exemplar.altera.php?id_exemplar=$id_exemplar&id_titulo=$id_titulo&titulo=$titulo'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='exemplar.altera.php?id_exemplar=$id_exemplar&id_titulo=$id_titulo&nome_titulo=$nome_titulo'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
 
         echo "<td><a href='exemplar.exclui.php?id_titulo=$id_titulo&id_exemplar=$id_exemplar&tradutor=$tradutor&editora=$editora'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
         echo "</tr>";

@@ -19,17 +19,13 @@ Arch::initController("cde");
 Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+
     echo "<form>";
     echo "<div>";
     echo "<p class=appTitle2>Classificação Decimal Espírita</p>";
-    echo "<input type='text' value='$pesq' name='pesq' id='pesq' class='inputh'>";
-    echo "<a href='?pesq='><img src='../layout/img/limp.ico' width='22' height='22' class='butimg'></a>"; // reset
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-
-    echo "<input type='image' src='../layout/img/pesq.ico' alt='Submit' width='22' height='22' class='butimg'>";
-
-    echo "$space10 Cria";
-    echo "<a href='cde.cria.php?callback=cde.lista.php'><img border='0' class='butimg'; alt='alt' src='../layout/img/cria.ico' style='width: 26px; margin-left:-2px; margin-bottom:1px;'></a>";
+    botaoPesquisa($pesq);
+    echo $space10;
+    botaoCria("cde.cria.php", "cde.lista.php");
     echo "</div>";
     echo "</form>";
 

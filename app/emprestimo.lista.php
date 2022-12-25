@@ -19,20 +19,14 @@ Arch::initController("devolucao");      // DEVOLUÇÃO
 Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-?>
-    <p class=appTitle2>Devolução</p>
-    <form>
-    <div>
-        <input type="text" value="<?php echo $pesq ?>" name="pesq" id="pesq" class="inputh">
-        <a href="?pesq="><img src="../layout/img/limp.ico" width="22" height="22" class="butimg"></a> <!-- reset -->
-        &nbsp;&nbsp;&nbsp;&nbsp;
 
-        <input type="image" src="../layout/img/pesq.ico" alt="Submit" width="22" height="22" class="butimg">
+    echo "<p class=appTitle2>Devolução</p>";
+    echo "<form>";
+    echo "<div>";
+    botaoPesquisa($pesq);
+    echo "</div>";
+    echo "</form>";
 
-    </div>
-    </form>
-
-<?php
     echo "<div class='tableFixHead'>";  // header fixo
     echo "<table>";
     echo "<thead>";

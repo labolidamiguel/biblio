@@ -26,7 +26,7 @@ Arch::deleteCookie("flag_lido");    // MARRETA ANALISAR
     $msg = "";
 
     $exemplar = new Exemplar();
-    $audit = new Auditoria();
+    $auditoria = new Auditoria();
 
     if ($action == 't') {               // dominio tradutor
     	header("Location: tradutor.dominio.php?callback=exemplar.altera.php");
@@ -58,7 +58,9 @@ Arch::deleteCookie("flag_lido");    // MARRETA ANALISAR
                 $msg="<p class=texred>Problemas ".$message->description."</p>";
             }else{
                 $msg="<p class=texgreen>* Exemplar alterado</p>";
-                $audit->report("Altera $id_centro, $id_exemplar, $id_tradutor, $id_editora, $nro_edicao, $ano_publicacao, $data_entrada, $nro_exemplar, $nome_titulo, $tradutor, $editora" );
+// ERRO congela  
+//                $auditoria->report("Altera $id_centro, $id_exemplar, $id_tradutor, $id_editora, $nro_edicao, $ano_publicacao, $data_entrada, $nro_exemplar, $nome_titulo");
+
             }
             Arch::deleteAllCookies();
         }
@@ -66,12 +68,11 @@ Arch::deleteCookie("flag_lido");    // MARRETA ANALISAR
     
 Arch::initView(TRUE);
 include "./exemplar.form.php";
-        if (! strpos($msg, "alterado")) {  // omite botao alterado
-            echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
-        }
-        ?>
-        <input type='hidden' name='id_titulo' value='<?php echo $id_titulo?>'/>
-        <button type='submit' class='butbase' formaction='exemplar.lista.php'>Volta</button>
-    </form>
-    <?php Arch::endView(); 
+    if (! strpos($msg, "alterado")) {  // omite botao alterado
+        echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
+    }
+    echo "<input type='hidden' name='id_titulo' value='$id_titulo'/>";
+    echo "<button type='submit' class='butbase' formaction='exemplar.lista.php'>Volta</button>";
+    echo "</form>";
+Arch::endView(); 
 ?>

@@ -46,7 +46,7 @@ class Auditoria {
             OR  mensagem    like '%".$pesq."%')";
         }
         $sql = $sql . ";";
-//echo "*** $sql ***";    // DEBUG
+
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         $numberResult = $reg[0];
@@ -63,6 +63,7 @@ class Auditoria {
             INSERT INTO auditoria (id_centro, id_usuario, codigo_app, data, hora, mensagem) 
             VALUES ('$id_centro', '$id_usuario', '$codigo_app', '$dt', '$hs', '$mensagem');
         ";
+
         return $this->$pdo->query($sql); // PDO
     }
 
@@ -81,7 +82,7 @@ class Auditoria {
         $sql = "DELETE FROM auditoria 
         WHERE id_centro = $id_centro 
         AND data BETWEEN '$data1' AND '$data2';";
-//echo "class.auditoria $sql";    // DEBUG
+
         return $this->$pdo->query($sql); // PDO
     }
 

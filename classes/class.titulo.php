@@ -82,6 +82,7 @@ Class Titulo {
             left join espirito  on titulo.id_espirito = espirito.id_espirito
             left join cde       on titulo.id_cde      = cde.id_cde 
         WHERE titulo.id_centro = $id_centro AND id_titulo = $id_titulo;";
+
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }

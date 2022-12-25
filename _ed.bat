@@ -21,6 +21,6 @@ set tit=".\classes\class.titulo.php .\app\titulo.altera.php .\app\titulo.cria.ph
 set usu=".\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php"
 
 @echo off
-start "" %ed% "%com%" "%tit%" /secondary /minimized
+start "" %ed% "%com%" ".\app\leitor.lista.php" .\classes\class.titulo.php "%exe%" /secondary /minimized
 exit
 

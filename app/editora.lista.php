@@ -23,12 +23,9 @@ Arch::initView(TRUE);
     echo "<p class=appTitle2>Editora</p>";
     echo "<form>";
     echo "<div>";
-    echo "<input type='text' value='$pesq' name='pesq' id='pesq' class='inputh'>";
-    echo "<a href='?pesq='><img src='../layout/img/limp.ico' width='22' height='22' class='butimg'></a>"; // reset
-    echo $space5;
-    echo "<input type='image' src='../layout/img/pesq.ico' alt='Submit' width='22' height='22' class='butimg'>";
-    echo "$space10 Cria";
-    echo "<a href='editora.cria.php?callback=editora.lista.php'><img border='0' class='butimg'; alt='alt' src='../layout/img/cria.ico' style='width: 26px; margin-left:-2px; margin-bottom:1px;'></a>";
+    botaoPesquisa($pesq);
+    echo $space10;
+    botaoCria("editora.cria.php", "editora.lista.php");
     echo "</div>";
     echo "</form>";
 
