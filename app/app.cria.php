@@ -17,14 +17,15 @@ Arch::initController("app");
     $url        = Arch::requestOrCookie("url");
     $ordem      = Arch::requestOrCookie("ordem");
     $msg = "";
-    $App = new App();
+
+    $app = new App();
         
     if ($action == 'grava') {
-        $msg = $App->valida($id_app, $codigo, $titulo, $imagem, $perfil, $url, $ordem);
+        $msg = $app->valida($id_app, $codigo, $titulo, $imagem, $perfil, $url, $ordem);
 
         if ( strlen($msg)==0) {
             $audit = new Auditoria();
-            $message = $App->insert($codigo, $titulo, $imagem, $perfil, $url, $ordem);
+            $message = $app->insert($codigo, $titulo, $imagem, $perfil, $url, $ordem);
             if ($message->code<0) {
                 $msg="<p class=texred>Problemas ".$message->description."</p>";
             }else{
@@ -35,39 +36,16 @@ Arch::initController("app");
     }
     
 Arch::initView(TRUE);
-?>
-    <form method='get'>
-        <p class=appTitle2>Aplicação</p>
+include "./app.form.php";
 
-        <p class=labelx>Código</p>
-        <input type='text' name='codigo' value='<?php echo $codigo?>' class='inputx'/>
+    if (! strpos($msg, "criado")) {  // omite botao cria
+        echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
+    }
 
-        <p class=labelx>Título</p>
-        <input type='text' name='titulo' value='<?php echo $titulo?>' class='inputx'/>
+//    echo "<input type='hidden' name='id_app' value='$id_app'/>";
 
-        <p class=labelx>Imagem</p>
-        <input type='text' name='imagem' value='<?php echo $imagem?>' class='inputx'/>
+    echo "<button type='submit' class='butbase' formaction='app.lista.php'>Volta</button>";
+    echo "</form>";
 
-        <p class=labelx>Perfil</p>
-        <input type='text' name='perfil' value='<?php echo $perfil?>' class='inputx'/>
-
-        <p class=labelx>URL</p>
-        <input type='text' name='url' value='<?php echo $url?>' class='inputx'/>
-
-        <p class=labelx>Ordem</p>
-        <input type='text' name='ordem' value='<?php echo $ordem?>' class='inputx'/>
-        <br>
-        <b><?php echo $msg ?></b> <br>  <!-- mensagens -->
-
-        <?php 
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_app' value='<?php echo $id_app?>'/>
-
-        <button type='submit' class='butbase' formaction='app.lista.php'>Volta</button>
-    </form>
-
-<?php Arch::endView(); 
+Arch::endView(); 
 ?>

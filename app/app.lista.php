@@ -7,6 +7,7 @@ include "../classes/class.app.php";
 Arch::initController("app");
     error_reporting (E_ALL ^ E_NOTICE);
     $pesq       = Arch::requestOrCookie("pesq");
+    $flag_lido  = "";
     $app = new App();
 
     $count = $app->getCount($pesq);
@@ -16,38 +17,10 @@ Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
-    echo "<style>";
-    echo ".tableFixHead {";
-    echo "    overflow-y: auto;";
-    echo "    height: 66%;";
-    echo "}";
-    echo ".tableFixHead thead th {";
-    echo "    position: sticky;";
-    echo "    top: 0;";
-    echo "}";
-    echo "table {";
-    echo "    border-collapse: collapse;";
-    echo "    width: 100%;";
-    echo "    border:0px;";
-    echo "}";
-    echo "th,";
-    echo "td {";
-    echo "    padding: 8px 4px;";
-    echo "    border: 0px solid #ccc;";
-    echo "    text-align: left;";
-    echo "}";
-    echo "th {";
-    echo "    background: #eee;";
-    echo "	  color:#fff!important;";
-    echo "    background-color:#2196F3!important";
-    echo "}";
-    echo "</style>";
-
     echo "<p class=appTitle2>App</p>";
     echo "<form>";
     echo "<div>";
-//    botaoPesquisa($pesq);
-    echo $space10;
+    echo $space10 . $space10 . $space10;
     botaoCria("app.cria.php", "app.lista.php");
     echo "</div>";
     echo "</form>";
@@ -75,11 +48,10 @@ Arch::initView(TRUE);
         $ordem      = $reg["ordem"];
         echo "<td>$codigo</td>";
         echo "<td>$titulo</td>";
-//        echo "<td>" . $reg["imagem"] . "</td>";
         echo "<td>$perfil</td>";
         echo "<td>" . $reg["url"] . "</td>"; // URL
         echo "<td>$ordem</td>";
-        echo "<td><a href='app.altera.php?id_app=$id_app'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='app.altera.php?id_app=$id_app&flag_lido='><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
         echo "<td><a href='app.exclui.php?id_app=$id_app&codigo=$codigo&titulo=$titulo'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
         echo "</tr>";
     }
@@ -89,5 +61,4 @@ Arch::initView(TRUE);
     echo "$space10 ($count itens)";//NOPAG
 
 Arch::endView();
-
 ?>

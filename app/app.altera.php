@@ -23,7 +23,6 @@ Arch::initController("app");
     if (strlen($flag_lido) == 0) {           // 1a vez Select from dB
         setcookie("flag_lido", "ja lido");
         $rs  = $App->selectId($id_app); 
-//        $reg = $rs->fetchArray();
         $reg = $rs->fetch();            // PDO
         $codigo     = $reg["codigo"];
         $titulo     = $reg["titulo"];
@@ -49,35 +48,15 @@ Arch::initController("app");
     }
     
 Arch::initView(TRUE);
-?>
-    <form method='get'>
-        <p class=appTitle2>App</p>
-        <p class=labelx>Código</p>
-        <input type='text' name='codigo' value='<?php echo $codigo?>' class='inputx'/>
+include "./app.form.php";
 
-        <p class=labelx>Título</p>
-        <input type='text' name='titulo' value='<?php echo $titulo?>' class='inputx'/>
+    if (! strpos($msg, "alterado")) {  // omite botao altera
+        echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
+    }
 
-        <p class=labelx>Imagem</p>
-        <input type='text' name='imagem' value='<?php echo $imagem?>' class='inputx'/>
+//    echo "<input type='hidden' name='id_app' value='$id_app'/>";
+    echo "<button type='submit' class='butbase' formaction='app.lista.php'>Volta</button>";
+    echo "</form>";
 
-        <p class=labelx>Perfil</p>
-        <input type='text' name='perfil' value='<?php echo $perfil?>' class='inputx'/>
-
-        <p class=labelx>URL</p>
-        <input type='text' name='url' value='<?php echo $url?>' class='inputx'/>
-
-        <p class=labelx>Ordem</p>
-        <input type='text' name='ordem' value='<?php echo $ordem?>' class='inputx'/>
-        <b><?php echo $msg ?></b> <br>  <!-- mensagem -->
-        <?php 
-        if (! strpos($msg, "alterado")) {  // omite botao altera
-            echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
-        }
-        ?>
-        <input type='hidden' name='id_app' value='<?php echo $id_app?>'/>
-        <button type='submit' class='butbase' formaction='app.lista.php'>Volta</button>
-    </form>
-<?php 
 Arch::endView(); 
 ?>

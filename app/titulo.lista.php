@@ -1,4 +1,6 @@
 <?php
+// titulo.lista
+// 20230320 chamada exemplar.lista.php limpa pesq
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -53,7 +55,7 @@ Arch::initView(TRUE);
         echo "<td>" . $nome_titulo . "</td>";
         echo "<td>" . $autor . "</td>";
 
-        echo "<td><a href='exemplar.lista.php?id_titulo=$id_titulo&nome_titulo=$nome_titulo'><img border='0' alt='exem' src='../layout/img/exem.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='exemplar.lista.php?id_titulo=$id_titulo&nome_titulo=$nome_titulo&pesq='><img border='0' alt='exem' src='../layout/img/exem.ico' width='20' height='20'></a><br></td>";
 
         echo "<td><a href='titulo.altera.php?id_titulo=$id_titulo'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
 

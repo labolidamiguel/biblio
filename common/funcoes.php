@@ -30,6 +30,13 @@
         echo "margin-bottom:1px;'></a>";
     }
 
+// monta botao (ação)
+    function botaoAction() {
+    }
+
+// monta botao Volta
+    function botaoVolta() {
+    }
 
 //  EXIBE                               // DEBUG
     function exibe($mensagem) {         // DEBUG

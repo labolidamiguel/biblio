@@ -1,4 +1,6 @@
 <?php
+// tradutor.dominio
+// 20230320 retirada função cria
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -23,9 +25,10 @@ Arch::initView(TRUE);
         <a href="?pesq="><img src="../layout/img/limp.ico" width="22" height="22" class="butimg"></a> <!-- reset -->
         &nbsp;&nbsp;&nbsp;&nbsp;
         <input type="image" src="../layout/img/pesq.ico" alt="Submit" width="22" height="22" class="butimg">
-
+<!--
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cria
         <a href='tradutor.crud.write.web.php?callback=tradutor.lista.web.php&action=cria&step=inicio'><img class='butimg'; alt='alt' src='../layout/img/cria.ico' style='width: 26px; margin-left:-2px; margin-bottom:1px;'></a>
+-->
     </form>
 
 <?php

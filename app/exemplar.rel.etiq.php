@@ -2,14 +2,16 @@
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
+include "../classes/class.estante.php";
 include "../classes/class.relatorio.php";
 
 Arch::initController("imprime");
+
 include "../layout/inc.relatorio.prologo.php";
 
 Arch::initView(TRUE, TRUE);
     $nomeRelatorio = "Exemplar ordenado por Etiqueta"; // nome
-    $tamcol=array('8','3','3','3','3','30','16','10'); // tam.col
+    $tamcol=array('8','3','3','3','3','28','14','10'); // tam.col
     $titcol=array('CDE','Ini','Sig','Vol','Ex','Título','Autor','Espírito');
         $sql = 
         "SELECT 
@@ -29,7 +31,7 @@ Arch::initView(TRUE, TRUE);
         WHERE exemplar.id_centro = $id_centro
         ORDER BY cde.cod_cde, titulo.nome_titulo, exemplar.nro_exemplar;";
 
-include "../layout/inc.relatorio.epilogo.php";
+include "../layout/inc.relatorio.epilogo.estante.php";
 
     Arch::endView(); 
 ?>

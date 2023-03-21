@@ -1,4 +1,6 @@
 <?php
+// exemplar.cria
+// 20230320 chamada tradutor.dominio.php limpa pesq
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -37,7 +39,7 @@ Arch::initController("titulo");         // exemplar App nao existe
     }
 
     if ($action == 't') {               // dominio tradutor
-    	header("Location: tradutor.dominio.php?callback=exemplar.cria.php");
+    	header('Location: tradutor.dominio.php?callback=exemplar.cria.php&pesq=');
     }    
     if ($action == 'e') {               // dominio editora
     	header("Location: editora.dominio.php?callback=exemplar.cria.php");

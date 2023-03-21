@@ -29,18 +29,17 @@ Arch::initController("app");
         }
     }
 Arch::initView(TRUE);
-?>
-    <p class=appTitle2>App</p>
-    <table class='tableraw'>
-        <tr><td>Código</td><td><?php echo $codigo; ?></td></tr>
-        <tr><td>Título</td><td><?php echo $titulo; ?></td></tr>
-    </table>
-    <b><?php echo $msg; ?></b> <br><br>
-    <?php if ($action == ""){ ?>
-        <p class='texgreen'>* Confirma a exclusão?</p> <br>
-        <a href='?action=confirma&id_app=<?php echo $id_app?>&codigo=<?php echo $codigo?>&titulo=<?php echo $titulo?>'><button class=butbase>Confirma</button></a>
-    <?php } ?>
-    <a href='app.lista.php'><button class="butbase">Volta</button></a>
+    echo "<p class=appTitle2>App</p>";
+    echo "<table class='tableraw'>";
+    echo "<tr><td>Código</td><td>$codigo</td></tr>";
+    echo "<tr><td>Título</td><td>$titulo</td></tr>";
+    echo "</table>";
+    echo "<b>$msg</b> <br><br>";
+    if ($action == ""){
+        echo "<p class='texgreen'>* Confirma a exclusão?</p> <br>";
+        echo "<a href='?action=confirma&id_app=$id_app&codigo=$codigo&titulo=$titulo'><button class=butbase>Confirma</button></a>";
+    }
+    echo "<a href='app.lista.php'><button class='butbase'>Volta</button></a>";
 
-<?php Arch::endView(); 
+Arch::endView(); 
 ?>

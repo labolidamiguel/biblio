@@ -1,6 +1,7 @@
 <?php
-// inc.relatorio.epilogo.php
+// inc.relatorio.epilogo.estante.php
     $relatorio = new Relatorio();
+    $estante = new Estante();
     $rs = $relatorio->executa_query($sql); // PDO
 
     echo "<div id='noprint'>";          // botoes controle
@@ -16,6 +17,8 @@
             if ($qtlin > 0)
                 echo "<P style='page-break-before: always'>";
             // cabeçalho
+//        $id_centro = $reg["id_centro"];
+        $cod_cde = $reg["cod_cde"];
         $numPagina ++;
         $hoje = date("d-m-Y");
         echo "<br><br>";
@@ -30,6 +33,7 @@
             $col = substr($aux, 0, $tamcol[$i]);
             echo "$col  ";
         }
+        echo "Estante  ";
         echo "<br>";
         echo "$margem";
         echo $tracejado;
@@ -43,6 +47,7 @@
             $col = substr($aux, 0, $tamcol[$i]);
             echo "$col  ";
         }
+        echo $estante->getEstante($id_centro, $cod_cde); // 20230320
         echo "<br>";
     }
 

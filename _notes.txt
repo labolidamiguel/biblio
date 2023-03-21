@@ -1,3 +1,19 @@
+ 20230320 acertos
+ 20230317 common\arch.php versao() e C:\Source\biblio\index.html
+ 20230317 exemplar combo tradutor vazio p/causa do campo pesquisa
+ 20230317 exemplar combo editora vazio p/causa do campo pesquisa
+ 20230317 tradutor.dominio.php?callback=exemplar.cria
+ 20230317 pesquisa de titulo deve incluir ID
+ 20230317 exemplar lista não apaga pesquisa
+ 20230317 tradutor dominio não apaga pesquisa
+ 20230317 cria tradutor não funciona na pag. do exemplar
+ 20230317 estante cria duplica item
+ 20230317 criar relatorio com estante
+ 20230317 atualização estante demora muito
+ 20230317 atualização estante volta demora muito
+ Troca de semha: exibe mensagem: "Erro ao trocar de senha. Provavelmente a senha antiga seja incorreta.", 
+ mas troca corretamente.
+ separar o codigo em ./app/usuario.mudasenha.php
  exemplar.altera.php comentada lin 62 $auditoria->report
  mudanca de senha separado em usuario.senha.altera.php
  titulo exemplar multiplos bugs
