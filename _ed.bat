@@ -18,11 +18,10 @@ set login=".\common\arch.php .\app\logged.settings.chsess.php .\app\logged.setti
 set not="_notes.txt _ed.bat"
 set pub=".\classes\class.publicado.php .\app\publicado.altera.php .\app\publicado.cria.php .\app\publicado.exclui.php .\app\publicado.lista.php"
 set relexe=".\app\imprime.lista.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php"
-set tit=".\classes\class.titulo.php .\app\titulo.altera.php .\app\titulo.cria.php .\app\titulo.detalhe.php .\app\titulo.dominio.php .\app\titulo.exclui.php .\app\titulo.form.php .\app\titulo.lista.php .\app\titulo.pesquisa.php"
+set tit=".\classes\class.titulo.php .\classes\class.titulo.php .\app\titulo.altera.php .\app\titulo.cria.php .\app\titulo.detalhe.php .\app\titulo.dominio.php .\app\titulo.exclui.php .\app\titulo.form.php .\app\titulo.lista.php .\app\titulo.pesquisa.php"
 set usu=".\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php"
 
 @echo off
-start "" %ed% "%not%" "%com%" "%aut%"  /secondary /minimized
+start "" %ed% "%com%" "%tit%" /secondary /minimized
 exit
 
-echo start "" %ed% "%com%" ".\app\leitor.lista.php" .\classes\class.titulo.php "%exe%" /secondary /minimized

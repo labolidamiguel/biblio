@@ -9,7 +9,7 @@ session_start();
 class Arch {
 
     static function versao() {          // versao do sistema
-        return "1.02";
+        return "1.03";
     }
 
     /***********************************************************
