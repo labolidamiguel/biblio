@@ -1,3 +1,7 @@
+
+  buscacde.lista.php assume $pesq último
+  main.web.php acrescentar na urs ?pesq=""
+  Leitor Aleni não deixa excluir-> criar emprestimo.exclui
  20230508 Empresta incluir CDE e prateleira no titulo.dominio.php
  20230320 acertos
  20230317 common\arch.php versao() e C:\Source\biblio\index.html

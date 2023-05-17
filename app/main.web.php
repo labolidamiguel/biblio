@@ -32,9 +32,11 @@ Arch::initView(TRUE);
     // MENU - APRESENTA BOTOES SEGUNDO PERFIL DO USUARIO
 
     if ( isset($_SESSION["perfis"])) {
-        $userPerfis = $_SESSION["perfis"]; // sessao declarada e recolhidaDB no login.web
+        $userPerfis = $_SESSION["perfis"]; // declarada e recolhidaDB no login.web
     }
-    
+
+    Arch::deleteCookie("pesq");         // inicializa string
+
     $app = new App();
     $rs = $app->select_all();//ordem
     while( $reg = $rs->fetch()){        // PDO
@@ -45,7 +47,7 @@ Arch::initView(TRUE);
         $perfil = $reg["perfil"];
         $url    = $reg["url"]   ;
         
-        if (strlen($titulo) > 2) {      // Se "tituloApp" for vazio entao nao pinta botao
+        if (strlen($titulo) > 2) {      // Se "tituloApp" vazio nao pinta botao
             $found = strpos( $userPerfis , $perfil);
             // Arch::logx("main.web:menu:found=".$found);
             // O strpos nao devolve sempre int. 

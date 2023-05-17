@@ -85,7 +85,7 @@ class Leitor {
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         if (($reg[0]) > 0) {
-            $msg = "<p class=texred>* Leitor não pode ser excluído,<br>&nbsp;&nbsp;há Empréstimo(s) associado(s)</p>";
+            $msg = "<p class=texred>* Leitor não pode ser excluído,<br>&nbsp;&nbsp;há Empréstimo(s) pendente(s)</p>";
         }
         return $msg;
     }
