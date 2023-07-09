@@ -117,7 +117,7 @@ class Usuario {
         return $perfis;
     }
     
-    function valida($id_usuario, $nome, $perfis) {
+    function valida($id_usuario, $nome, $perfis, $senha) {
         $msg = "";
         if (strlen($nome) == 0) {
             $msg = $msg . "<p class=texred>* Nome deve ser preenchido</p>";
@@ -128,13 +128,17 @@ class Usuario {
         if (self::existe($id_usuario, $nome) > 0) {
             $msg = $msg . "<p class=texred>* Nome já existe</p>"; 
         }
+        $msg = self::validaSenha($senha);
         return $msg;
     }
 
     function validaSenha($senha) {
         $msg = "";
-        if (strlen($senha) == 0) {  // VALIDATE: Senha obrigatoria
+        if (strlen($senha) == 0) {  // Senha obrigatoria
             $msg = $msg . "<p class=texred>* Senha deve ser preenchida</p>";
+        }
+        if (strlen($senha) < 6) {  // Senha 6 char minimo
+            $msg = $msg . "<p class=texred>* Senha deve possuir no mínimo 6 caracteres</p>";
         }
         return $msg;
     }
@@ -153,7 +157,7 @@ class Usuario {
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
-    /* TROCA SENHA DO USUARIO LOGADO - File:'preferencia.php' */
+    /* TROCA SENHA DO USUARIO LOGADO - File:'app/preferencia.php' */
     function changePassword( $senha_new , $senha_old , $id_centro , $id_usuario , $nome ) {
         $sql=" 
                     UPDATE usuario 

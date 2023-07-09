@@ -71,10 +71,12 @@ class Emprestimo {
         WHERE emprestimo.id_centro = $id_centro
         AND emprestimo.devolvido = '' ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "AND leitor like '%".$pesq."%' ";
+            $sql = $sql . "AND (leitor like '%".$pesq."%' 
+            OR titulo.nome_titulo like '%".$pesq."%') ";
         }
-        $sql = $sql . "order by emprestado DESC ";
+        $sql = $sql . "ORDER BY emprestado DESC ";
         $sql = $sql . ";";
+//echo $sql;      // DEBUG
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }

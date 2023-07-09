@@ -1,4 +1,9 @@
+  login usuario.cria.php preferencia.php logged.settings
+  muda senha app/preferencia.php
+  emprestimo.cria.php?action=valida incluir nome titulo e telefone
+  usuario incluir telefone e e-mail
   Leitor Aleni não deixa excluir-> criar emprestimo.exclui
+  leitor.cria.php e-mail deve ser obrigatorio
  20230317 atualização estante demora muito
  20230317 atualização estante volta demora muito
  20230317 common\arch.php versao() e C:\Source\biblio\index.html
@@ -56,3 +61,4 @@
 20221208 auditoria   Ok analisar
 20221208 auditoria   lista e detalhe nopag fixHead
 20221214 autor.altera.php valida nome existe
+
