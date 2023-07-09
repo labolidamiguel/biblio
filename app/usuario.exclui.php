@@ -12,6 +12,8 @@ Arch::initController("usuario");
     $nome       = Arch::get("nome");
     $perfis     = Arch::get("perfis");
     $action     = Arch::get("action");
+    $telefone   = Arch::get("telefone");
+    $email      = Arch::get("email");
     $msg = "";
 
     if ($action == 'Confirma') {

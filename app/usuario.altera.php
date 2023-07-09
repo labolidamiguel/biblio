@@ -15,6 +15,8 @@ Arch::initController("usuario");
     $nome       = Arch::requestOrCookie("nome");
     $senha      = Arch::get("senha");
     $perfis     = Arch::requestOrCookie("perfis");
+    $telefone   = Arch::get("telefone");
+    $email      = Arch::get("email");
     $perf       = Arch::post("perf");   // Volta da selecao domain Perfil
     $msg = "";
     $Usuario = new Usuario();
@@ -28,15 +30,17 @@ Arch::initController("usuario");
         $rs = $Usuario->selectId($id_centro , $id_usuario); 
 //        $reg = $rs->fetchArray();
         $reg = $rs->fetch();            // PDO
-        $nome   = $reg["nome"];  
-        $perfis = $reg["perfis"];
+        $nome       = $reg["nome"];  
+        $perfis     = $reg["perfis"];
+        $telefone   = $reg["telefone"];  
+        $email      = $reg["email"];
     }
 
     if ($action == 'grava') {
-        $msg = $Usuario->valida($id_usuario, $nome, $perfis);
+        $msg = $Usuario->valida2($id_usuario, $nome, $perfis, $telefone, $email);
         if (strlen($msg) == 0) {
             $audit = new Auditoria();
-            $message = $Usuario->update2($id_centro, $id_usuario, $nome, $perfis);
+            $message = $Usuario->update2($id_centro, $id_usuario, $nome, $perfis, $telefone, $email);
             if ($message->code<0) {
                 $msg="<p class=texred>Problemas ".$message->description."</p>";
             }else{
@@ -60,6 +64,13 @@ Arch::initView(TRUE);
         <input type='text' name='perfis' class='inputx' value='<?php echo $perfis?>' readonly/>
 
         <input type='submit' name='action' value='p' class='buthidelist' style='background-image: url(../layout/img/alte2.ico); background-repeat:no-repeat; background-size:26px 26px;'>
+
+        <p class=labelx>Telefone</p>
+        <input type='text' name='telefone' class='inputx' value='<?php echo $telefone?>'/>
+
+        <p class=labelx>Email</p>
+        <input type='text' name='email' class='inputx' value='<?php echo $email?>'/>
+
         <br>
         
         <b><?php echo $msg ?></b> <br>  <!-- MESSAGE -->

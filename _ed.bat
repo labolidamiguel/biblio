@@ -19,11 +19,11 @@ set not="_notes.txt _ed.bat"
 set pub=".\classes\class.publicado.php .\app\publicado.altera.php .\app\publicado.cria.php .\app\publicado.exclui.php .\app\publicado.lista.php"
 set rel=".\app\imprime.lista.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php"
 set tit=".\classes\class.titulo.php .\classes\class.titulo.php .\app\titulo.altera.php .\app\titulo.cria.php .\app\titulo.detalhe.php .\app\titulo.dominio.php .\app\titulo.exclui.php .\app\titulo.form.php .\app\titulo.lista.php .\app\titulo.pesquisa.php"
-set usu=".\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php"
+set usu=".\classes\class.usuario.php .\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php .\app\usuario.lista.php"
 
 @echo off
 
-start "" %ed% "%com%" "%log%" /secondary /minimized
+start "" %ed% "%com%" "%usu%" /secondary /minimized
 
 exit
 

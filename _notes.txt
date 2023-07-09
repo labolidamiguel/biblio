@@ -1,9 +1,5 @@
-estante.altera.php
-estante.exclui.php
-estante.form.php
-estante.lista.php
-estante.rel.php
- 20230709 troca label Estante por Prateleira
+  eliminar cookies
+  renomear tabela classe e app Estante por Prateleira
   login usuario.cria.php preferencia.php logged.settings
   muda senha app/preferencia.php
   emprestimo.cria.php?action=valida incluir nome titulo e telefone
@@ -25,6 +21,7 @@ estante.rel.php
  20230320 acertos
  20230508 Empresta incluir CDE e prateleira no titulo.dominio.php
  20230517 app/main.web.php inicializa cookie pesq
+ 20230709 troca label Estante por Prateleira
 
  Troca de semha: exibe mensagem: "Erro ao trocar de senha. Provavelmente a senha antiga seja incorreta.", 
  mas troca corretamente.

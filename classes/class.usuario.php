@@ -38,7 +38,7 @@ class Usuario {
     }
 
     function selectId( $id_centro , $id_usuario ) {
-        $sql = "SELECT id_centro,id_usuario,nome,perfis,senha 
+        $sql = "SELECT id_centro,id_usuario,nome,perfis,senha,telefone,email 
                 FROM   usuario 
                 WHERE  id_centro = $id_centro 
                 AND    id_usuario = $id_usuario " ;
@@ -77,17 +77,22 @@ class Usuario {
         }
     }
 
-    function insert($id_centro, $nome, $perfis, $senha) {
-        $sql = "INSERT INTO usuario (id_centro, id_usuario, nome, perfis, senha) VALUES ($id_centro, NULL, '$nome', '$perfis', '$senha');";
+    function insert($id_centro, $nome, $perfis, $senha, $telefone, $email) {
+        $sql = "INSERT INTO usuario (id_centro, id_usuario, nome, perfis, senha, telefone, email) 
+            VALUES ($id_centro, NULL, '$nome', '$perfis', '$senha', '$telefone', '$email');";
         $rs = $this->$pdo->query($sql); // PDO
     }
 
-    function update($id_centro, $id_usuario, $nome, $perfis, $senha){
-        $sql = "UPDATE usuario SET nome = '$nome', perfis = '$perfis', senha = '$senha' WHERE id_centro = $id_centro AND id_usuario = $id_usuario;";
+    function update($id_centro, $id_usuario, $nome, $perfis, $senha, $telefone, $email){
+        $sql = "UPDATE usuario SET nome = '$nome', perfis = '$perfis', senha = '$senha', telefone = '$telefone', email = '$email' 
+            WHERE id_centro = $id_centro AND id_usuario = $id_usuario;";
         $rs = $this->$pdo->query($sql); // PDO
     }
-    function update2($id_centro, $id_usuario, $nome, $perfis){
-        $sql = "UPDATE usuario SET nome = '$nome', perfis = '$perfis' WHERE id_centro = $id_centro AND id_usuario = $id_usuario;";
+    function update2(       // sem password
+        $id_centro, $id_usuario, $nome, $perfis, $telefone, $email){
+        $sql = "UPDATE usuario 
+        SET nome = '$nome', perfis = '$perfis', telefone = '$telefone', email = '$email' 
+        WHERE id_centro = $id_centro AND id_usuario = $id_usuario;";
         $rs = $this->$pdo->query($sql); // PDO
     }
 
@@ -117,7 +122,7 @@ class Usuario {
         return $perfis;
     }
     
-    function valida($id_usuario, $nome, $perfis, $senha) {
+    function valida($id_usuario, $nome, $perfis, $senha, $telefone, $email) {
         $msg = "";
         if (strlen($nome) == 0) {
             $msg = $msg . "<p class=texred>* Nome deve ser preenchido</p>";
@@ -125,12 +130,44 @@ class Usuario {
         if (strlen($perfis) == 0) {
             $msg = $msg . "<p class=texred>* Perfis deve ser preenchido</p>";
         }
+
+        if (strlen($telefone) == 0) {
+            $msg = $msg . "<p class=texred>* Telefone deve ser preenchido</p>";
+        }
+        if (strlen($email) == 0) {
+            $msg = $msg . "<p class=texred>* email deve ser preenchido</p>";
+        }
+
         if (self::existe($id_usuario, $nome) > 0) {
             $msg = $msg . "<p class=texred>* Nome já existe</p>"; 
         }
         $msg = self::validaSenha($senha);
         return $msg;
     }
+
+    function valida2(   // sem password
+        $id_usuario, $nome, $perfis, $telefone, $email) {
+        $msg = "";
+        if (strlen($nome) == 0) {
+            $msg = $msg . "<p class=texred>* Nome deve ser preenchido</p>";
+        }
+        if (strlen($perfis) == 0) {
+            $msg = $msg . "<p class=texred>* Perfis deve ser preenchido</p>";
+        }
+
+        if (strlen($telefone) == 0) {
+            $msg = $msg . "<p class=texred>* Telefone deve ser preenchido</p>";
+        }
+        if (strlen($email) == 0) {
+            $msg = $msg . "<p class=texred>* email deve ser preenchido</p>";
+        }
+
+        if (self::existe($id_usuario, $nome) > 0) {
+            $msg = $msg . "<p class=texred>* Nome já existe</p>"; 
+        }
+        return $msg;
+    }
+
 
     function validaSenha($senha) {
         $msg = "";
@@ -142,6 +179,7 @@ class Usuario {
         }
         return $msg;
     }
+
 
     /* ESPECIFICO LOGIN -- O 'NOME' É um UniqueIdentific  */
     function login( $nome , $senha ) {

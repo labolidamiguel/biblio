@@ -13,7 +13,8 @@ Arch::initController("usuario");
     $nome           = Arch::requestOrCookie("nome");
     $senha          = Arch::requestOrCookie("senha");
     $perfis         = Arch::requestOrCookie("perfis");
-
+    $telefone       = Arch::get("telefone");
+    $email          = Arch::get("email");
     $perf           = Arch::post("perf"); // ret domain perfil
     $msg = "";
 
@@ -25,11 +26,11 @@ Arch::initController("usuario");
     }
         
     if ($action == 'grava') {
-        $msg = $usuario->valida($id_usuario, $nome, $perfis, $senha);
+        $msg = $usuario->valida($id_usuario, $nome, $perfis, $senha, $telefone, $email);
 
         if ( strlen($msg)==0) {
             $senhasha = hash('sha1', $senha );
-            $message = $usuario->insert($id_centro, $nome, $perfis, $senhasha);
+            $message = $usuario->insert($id_centro, $nome, $perfis, $senhasha, $telefone, $email);
             if ($message->code<0) {
                 $msg="<p class=texred>Problemas ".$message->description."</p>";
             }else{
@@ -54,6 +55,13 @@ Arch::initView(TRUE);
 
         <p class=labelx>Senha</p>
         <input type='text' name='senha' value='<?php echo $senha?>' class='inputx'/>
+
+        <p class=labelx>Telefone</p>
+        <input type='text' name='telefone' value='<?php echo $telefone?>' class='inputx'/>
+
+        <p class=labelx>Email</p>
+        <input type='text' name='email' value='<?php echo $email?>' class='inputx'/>
+
         <br>
         <b><?php echo $msg ?></b> <br>  <!-- MESSAGE -->
 
