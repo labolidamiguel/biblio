@@ -36,7 +36,7 @@ Arch::initView(TRUE);
     echo "<tr class=\"blue\">";
     echo "<th align='left'>Nome</th>";
     echo "<th align='left'>iniciais</th>";
-    echo "<th align='left' colspan=2></td>";
+    echo "<th align='left' colspan=2></td>"; //ico edit excl
     echo "</tr>";
     echo "</thead>";
 

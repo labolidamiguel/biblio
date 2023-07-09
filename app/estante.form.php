@@ -1,7 +1,7 @@
-<?php
-    echo "<p class=appTitle2>Estante</p>";
+<?php                                   // estante.form.php
+    echo "<p class=appTitle2>Prateleira</p>";
     echo "<form method='get'>";
-    echo "<p class=labelx>Estante</p>";
+    echo "<p class=labelx>Prateleira</p>";
     echo "<input type='text' name='cod_estante' value='$cod_estante' class='inputx'/>";
 
     echo "<p class=labelx>CDE inicial</p>";

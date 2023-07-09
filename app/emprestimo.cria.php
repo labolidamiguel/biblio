@@ -91,7 +91,7 @@ Arch::initView(TRUE);
         echo "<tr><td>Número de volume</td><td>".$reg["nro_volume"]."</td></tr>";
         echo "<tr><td>Número de exemplar</td><td>".$reg["nro_exemplar"]."</td></tr>";
         $cod_estante = $estante->getEstante($id_centro, $reg["cod_cde"]);
-        echo "<tr><td>Estante(s)</td><td>".$cod_estante."</td></tr>";
+        echo "<tr><td>Prateleira(s)</td><td>".$cod_estante."</td></tr>";
         echo "</table>";
         echo "<p>Verifique se os dados são corretos</p>";
         echo "<table class='tableraw'>";

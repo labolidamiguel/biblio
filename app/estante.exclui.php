@@ -1,4 +1,4 @@
-<?php
+<?php                                   // estante.exclui.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -33,9 +33,9 @@ Arch::initController("estante");
 
 Arch::initView(TRUE);
 
-    echo "<p class=appTitle2>Estante</p>";
+    echo "<p class=appTitle2>Prateleira</p>";
     echo "<table class='tableraw'>";
-    echo "<tr><td>Estante</td><td>$cod_estante</td></tr>";
+    echo "<tr><td>Prateleira</td><td>$cod_estante</td></tr>";
     echo "<tr><td>CDE inicial</td><td>$cde_inicial</td></tr>";
     echo "<tr><td>CDE final</td><td>$cde_final</td></tr>";
     echo "</table>";

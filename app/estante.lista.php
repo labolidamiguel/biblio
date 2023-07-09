@@ -1,4 +1,4 @@
-<?php
+<?php                                   // estante.lista.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -23,7 +23,7 @@ Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
     $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 
-    echo "<p class=appTitle2>Estante</p>";
+    echo "<p class=appTitle2>Prateleira</p>";
     echo "<form>";
     echo "<div>";
     botaoPesquisa($pesq);
@@ -32,10 +32,20 @@ Arch::initView(TRUE);
     echo "</div>";
     echo "</form>";
 
-    echo "<p class='blue'>&nbsp; Estante $space5 CDE inicial $space5 CDE final</p>";//NOPAG
+//    echo "<div style='height:55%; overflow-y: scroll;'>";//NOPAG
+    echo "<div class='tableFixHead'>";  // header fixo
+    echo "<table>";
 
-    echo "<div style='height:55%; overflow-y: scroll;'>";//NOPAG
-    echo "<table class='table striped' style=\"width:98%\">";
+    echo "<thead>";
+    echo "<tr class=\"blue\">";
+//    echo "<th align='left'>Prate-<br>leira</th>";
+    echo "<th align='left'>Prateleira</th>";
+    echo "<th align='left'>CDE inicial</th>";
+    echo "<th align='left'>CDE final</td>";
+    echo "<th align='left' colspan=2></td>";//ico edit excl
+    echo "</tr>";
+    echo "</thead>";
+
 
     while($reg = $rs->fetch() ){        // PDO
         $id_estante = $reg["id_estante"];

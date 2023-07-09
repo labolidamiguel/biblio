@@ -1,3 +1,9 @@
+estante.altera.php
+estante.exclui.php
+estante.form.php
+estante.lista.php
+estante.rel.php
+ 20230709 troca label Estante por Prateleira
   login usuario.cria.php preferencia.php logged.settings
   muda senha app/preferencia.php
   emprestimo.cria.php?action=valida incluir nome titulo e telefone

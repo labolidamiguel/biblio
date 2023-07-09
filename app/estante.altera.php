@@ -1,4 +1,4 @@
-<?php
+<?php                                   // estante.altera.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -36,7 +36,7 @@ Arch::initController("estante");
             if ($message->code<0) {
                 $msg="<p class=texred>Problemas ".$message->description."</p>";
             }else{
-                $msg="<p class=texgreen>* Estante alterado</p>";
+                $msg="<p class=texgreen>* Prateleira alterada</p>";
                 $audit->report("Altera $id_centro, $id_estante, $cod_estante, $cde_inicial, $cde_final");
             }
 

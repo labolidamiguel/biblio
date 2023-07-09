@@ -48,7 +48,7 @@ Arch::initView(TRUE);
     ref('espirito.rel.php',$id_centro);
     echo "</tr>";
 
-    echo "<tr><td>Cadastro de Estante</td>";
+    echo "<tr><td>Cadastro de Prateleira</td>";
     ref('estante.rel.php',$id_centro);
     echo "</tr>";
 
