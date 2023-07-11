@@ -82,17 +82,16 @@ class Emprestimo {
     }
 
     function getCount($id_centro, $pesq) {
-        $sql = "
-            select
-                count(*),
-                emprestimo.id_emprestimo,
-                leitor.nome
-            from emprestimo
-            left join leitor on leitor.id_leitor = emprestimo.id_leitor
+        $sql = "SELECT COUNT(*)
+        FROM emprestimo
+        LEFT JOIN leitor on leitor.id_leitor = emprestimo.id_leitor
+        LEFT JOIN exemplar on exemplar.id_exemplar = emprestimo.id_exemplar
+        LEFT JOIN titulo on titulo.id_titulo = exemplar.id_titulo
             WHERE emprestimo.id_centro = $id_centro
             AND emprestimo.devolvido = '' ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "AND leitor.nome like '%".$pesq."%' ";
+            $sql = $sql . "AND (leitor.nome like '%".$pesq."%' 
+            OR titulo.nome_titulo like '%".$pesq."%') ";
         }
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO

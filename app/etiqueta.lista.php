@@ -24,7 +24,7 @@ Arch::initController("etiqueta");
     if ($action == "valida") {
         $msg = valida($inicial, $final, $min, $max);
         if (strlen($msg) == 0) {
-            $target = "etiqueta.relatorio.php?callback=etiqueta.lista.php&inicial=$inicial&final=$final";
+            $target = "etiqueta.rel.a4.php?callback=etiqueta.lista.php&inicial=$inicial&final=$final";
             $action = "ok";
             setcookie("action", "ok");
     	    header("Location: $target"); 

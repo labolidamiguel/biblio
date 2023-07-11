@@ -1,0 +1,1 @@
+﻿SELECT COUNT(*) FROM emprestimo LEFT JOIN leitor on leitor.id_leitor = emprestimo.id_leitor LEFT JOIN exemplar on exemplar.id_exemplar = emprestimo.id_exemplar LEFT JOIN titulo on titulo.id_titulo = exemplar.id_titulo WHERE emprestimo.id_centro = 1 AND emprestimo.devolvido = '' AND (leitor.nome like '%mei%' OR titulo.nome_titulo like '%mei%')

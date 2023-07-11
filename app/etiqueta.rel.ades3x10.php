@@ -1,4 +1,4 @@
-<?php
+<?php                        // etiqueta.rel.ades3x10.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";

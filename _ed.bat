@@ -8,6 +8,7 @@ set cen=".\classes\class.centro.php .\app\centro.altera.php .\app\centro.cria.ph
 set com=".\common\arch.php .\common\funcoes.php 
 set emp=".\classes\class.emprestimo.php  .\app\emprestimo.altera.php .\app\emprestimo.cria.php .\app\emprestimo.lista.php .\app\emprestimo.rel.php .\app\emprestimo.rel.php"
 set est=".\classes\class.estante.php .\app\estante.altera.php .\app\estante.cria.php .\app\estante.exclui.php .\app\estante.form.php .\app\estante.lista.php"
+set eti=".\app\etiqueta.lista.php .\app\etiqueta.lista.php .\app\etiqueta.rel.a4.php .\app\etiqueta.rel.a4.php"
 set exe=".\classes\class.exemplar.php .\app\exemplar.altera.php .\app\exemplar.cria.php .\app\exemplar.dominio.php .\app\exemplar.exclui.php .\app\exemplar.lista.php"
 set imp=".\app\imprime.lista.php .\app\imprime.lista.php .\app\auditoria.rel.php .\app\autor.rel.php .\app\cde.rel.php .\app\editora.rel.php .\app\emprestimo.rel.php .\app\espirito.rel.php .\app\estante.rel.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php .\app\leitor.rel.php .\app\tradutor.rel.php .\app\usuario.rel.php
 set inc=".\layout\inc.relatorio.epilogo.php .\layout\inc.relatorio.prologo.php 
@@ -23,7 +24,7 @@ set usu=".\classes\class.usuario.php .\classes\class.usuario.php .\app\perfil.do
 
 @echo off
 
-start "" %ed% "%com%" "%usu%" /secondary /minimized
+start "" %ed% "%com%" "%eti%" /secondary /minimized
 
 exit
 

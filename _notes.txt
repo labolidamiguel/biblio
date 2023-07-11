@@ -1,43 +1,25 @@
+  Arch::deleteCookie("flag_lido");
+  Leitor Aleni não deixa excluir-> criar emprestimo.exclui
+  Troca semha "Erro ao trocar de senha. Prov s antiga e incorr." mas troca OK
+  auditoria não exclui - formato data no celular dd/mm/aaaa
+  data no celular - criar selecao em php ou vide exemplar.altera.php
   eliminar cookies
-  renomear tabela classe e app Estante por Prateleira
+  emprestimo.cria.php?action=valida incluir nome titulo e telefone
+  etiqueta    nopag definir critério  
+  etiqueta em papel A4 com marcas de corte
+  etiqueta selecao A4 adesivo carta
+  exemplar.altera.php ==> marreta flag_lido lin 12, nopag fixHead
+  exemplar.altera.php comentada lin 62 $auditoria->report
+  http://127.0.0.1:88/
+  leitor.cria.php e-mail deve ser obrigatorio
   login usuario.cria.php preferencia.php logged.settings
   muda senha app/preferencia.php
-  emprestimo.cria.php?action=valida incluir nome titulo e telefone
-  usuario incluir telefone e e-mail
-  Leitor Aleni não deixa excluir-> criar emprestimo.exclui
-  leitor.cria.php e-mail deve ser obrigatorio
- 20230317 atualização estante demora muito
- 20230317 atualização estante volta demora muito
- 20230317 common\arch.php versao() e C:\Source\biblio\index.html
- 20230317 cria tradutor não funciona na pag. do exemplar
- 20230317 criar relatorio com estante
- 20230317 estante cria duplica item
- 20230317 exemplar combo editora vazio p/causa do campo pesquisa
- 20230317 exemplar combo tradutor vazio p/causa do campo pesquisa
- 20230317 exemplar lista não apaga pesquisa
- 20230317 pesquisa de titulo deve incluir ID
- 20230317 tradutor dominio não apaga pesquisa
- 20230317 tradutor.dominio.php?callback=exemplar.cria
- 20230320 acertos
- 20230508 Empresta incluir CDE e prateleira no titulo.dominio.php
- 20230517 app/main.web.php inicializa cookie pesq
- 20230709 troca label Estante por Prateleira
-
- Troca de semha: exibe mensagem: "Erro ao trocar de senha. Provavelmente a senha antiga seja incorreta.", 
- mas troca corretamente.
- separar o codigo em ./app/usuario.mudasenha.php
- exemplar.altera.php comentada lin 62 $auditoria->report
- mudanca de senha separado em usuario.senha.altera.php
- titulo exemplar multiplos bugs
- preferencia.php bug mudança de senha. msg:Erro ao trocar de senha. Provavelmente a senha antiga seja incorreta.
- titulo.exclui não mostra nome_titulo na confirmação
-  git push -u origin main
-  http://127.0.0.1:88/
+  mudanca de senha separado em usuario.senha.altera.php
+  renomear tabela, classe e app Estante por Prateleira
+  separar o codigo em ./app/usuario.mudasenha.php
+  titulo exemplar multiplos bugs
+  titulo.exclui não mostra nome_titulo na confirmação
   versão em .\common\arch.php
- Arch::deleteCookie("flag_lido");
- etiqueta    nopag definir critério  
- exemplar.altera.php ==> marreta flag_lido lin 12, nopag fixHead
- pesquisa livro sem login
 20221111 titulo.lista.php não funciona o edit
 20221119 emprestimo  erro app\emprestimo.web.php(55)
 20221122 exemplar    não mostra detalhe na 2a vez
@@ -64,4 +46,20 @@
 20221208 auditoria   Ok analisar
 20221208 auditoria   lista e detalhe nopag fixHead
 20221214 autor.altera.php valida nome existe
-
+20230317 atualização estante demora muito
+20230317 atualização estante volta demora muito
+20230317 common\arch.php versao() e C:\Source\biblio\index.html
+20230317 cria tradutor não funciona na pag. do exemplar
+20230317 criar relatorio com estante
+20230317 estante cria duplica item
+20230317 exemplar combo editora vazio p/causa do campo pesquisa
+20230317 exemplar combo tradutor vazio p/causa do campo pesquisa
+20230317 exemplar lista não apaga pesquisa
+20230317 pesquisa de titulo deve incluir ID
+20230317 tradutor dominio não apaga pesquisa
+20230317 tradutor.dominio.php?callback=exemplar.cria
+20230320 acertos
+20230508 Empresta incluir CDE e prateleira no titulo.dominio.php
+20230517 app/main.web.php inicializa cookie pesq
+20230709 troca label Estante por Prateleira
+20230709 usuario incluidas colunas telefone e email
