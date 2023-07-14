@@ -4,7 +4,7 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.auditoria.php";
 include "../classes/class.emprestimo.php";
-include "../classes/class.estante.php";
+include "../classes/class.prateleira.php";
 
 Arch::initController("devolucao");      // DEVOLUÇÃO
     $id_centro      = Arch::session("id_centro");
@@ -15,7 +15,7 @@ Arch::initController("devolucao");      // DEVOLUÇÃO
     $msg = "";
 
     $emprestimo = new Emprestimo();
-    $estante = new Estante();
+    $prateleira = new Prateleira();
     $auditoria = new Auditoria();
 
     $rs = $emprestimo->getEmprestimo($id_centro, $id_emprestimo); 
@@ -56,8 +56,8 @@ Arch::initView(TRUE);
         echo "</tr><tr>";
         echo "<td>Data do empréstimo</td><td>".$reg["emprestado"]."</td>";
         echo "</tr><tr>";
-        $esta = $estante->getEstante($id_centro, $reg["cod_cde"]);
-        echo "<td>Estante(s)</td><td>".$esta."</td>";
+        $esta = $prateleira->getPrateleira($id_centro, $reg["cod_cde"]);
+        echo "<td>Prateleira(s)</td><td>".$esta."</td>";
         echo "</tr>";
         echo "</table>";
 

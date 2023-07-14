@@ -1,4 +1,4 @@
-<?php
+<?php                               // etiqueta.lista.php
 include "../common/arch.php";
 include "../classes/class.app.php";
 include "../classes/class.exemplar.php";

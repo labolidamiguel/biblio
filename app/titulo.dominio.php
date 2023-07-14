@@ -2,7 +2,7 @@
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
-include "../classes/class.estante.php";
+include "../classes/class.prateleira.php";
 include "../classes/class.titulo.php";
 
 Arch::initController("lista");  // antes titulo
@@ -11,7 +11,7 @@ Arch::initController("lista");  // antes titulo
     $callback   = Arch::requestOrCookie("callback") ;
 
     $titulo = new Titulo();
-    $estante = new Estante();
+    $prateleira = new Prateleira();
 
     $count = $titulo->getCount($id_centro, $pesq);
     $rs = $titulo->select($id_centro, $pesq);
@@ -44,7 +44,7 @@ Arch::initView(TRUE);
     while($reg = $rs->fetch()) {        // PDO
         $tit = $reg["nome_titulo"];
         $cde = $reg["cod_cde"];
-        $est = $estante->getEstante($id_centro, $cde);
+        $est = $prateleira->getPrateleira($id_centro, $cde);
         $nome_titulo = str_replace(" ","%20",$reg["nome_titulo"]);
         if ($callback == "emprestimo.cria.php") { // apaga exemplar
             echo "<tr onclick=window.location.href='$callback?id_titulo=".$reg["id_titulo"]."&nome_titulo=$nome_titulo&id_exemplar=&nro_exemplar=&msg='></a>";
@@ -53,7 +53,7 @@ Arch::initView(TRUE);
         }
         echo "<td>" . $tit . "</td>";
         echo "<td>" . $cde . "</td>";
-        echo "<td>" . $est . "</td>"; // estante
+        echo "<td>" . $est . "</td>"; // prateleira
         echo "</tr>";
     }
     echo "</table>";

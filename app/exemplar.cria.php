@@ -4,7 +4,7 @@
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
-include "../classes/class.estante.php";
+include "../classes/class.prateleira.php";
 include "../classes/class.exemplar.php";
 include "../classes/class.titulo.php";
 include "../classes/class.auditoria.php";
@@ -29,13 +29,13 @@ Arch::initController("titulo");         // exemplar App nao existe
     $esta = "";
 
     $exemplar = new Exemplar();
-    $estante = new Estante();
+    $prateleira = new Prateleira();
     $titulo = new Titulo();
     $audit = new Auditoria();
 
     $rs = $titulo->selectId($id_centro, $id_titulo);
     while($reg = $rs->fetch()){         // PDO
-        $esta = $estante->getEstante($id_centro, $reg["cde"]);
+        $esta = $prateleira->getPrateleira($id_centro, $reg["cde"]);
     }
 
     if ($action == 't') {               // dominio tradutor
@@ -53,7 +53,7 @@ Arch::initController("titulo");         // exemplar App nao existe
                 $msg="<p class=texred>Problemas ".$message->description."</p>";
             }else{
                 $msg="<p class=texgreen>* Exemplar criado</p>";
-                $msg=$msg."<p class=texgreen>* Estante(s): $esta</p>";
+                $msg=$msg."<p class=texgreen>* Prateleira(s): $esta</p>";
                 $audit->report("Cria $id_centro, $id_titulo, $id_tradutor, $id_editora, $nro_edicao, $ano_publicacao, $data_entrada, $nro_exemplar, $nome_titulo, $tradutor, $editora" );
             }
             Arch::deleteAllCookies();

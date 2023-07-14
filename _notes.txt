@@ -1,3 +1,5 @@
+
+
   Arch::deleteCookie("flag_lido");
   Leitor Aleni não deixa excluir-> criar emprestimo.exclui
   Troca semha "Erro ao trocar de senha. Prov s antiga e incorr." mas troca OK
@@ -6,7 +8,7 @@
   eliminar cookies
   emprestimo.cria.php?action=valida incluir nome titulo e telefone
   etiqueta    nopag definir critério  
-  etiqueta em papel A4 com marcas de corte
+20230711 etiqueta em papel A4 com marcas de corte
   etiqueta selecao A4 adesivo carta
   exemplar.altera.php ==> marreta flag_lido lin 12, nopag fixHead
   exemplar.altera.php comentada lin 62 $auditoria->report

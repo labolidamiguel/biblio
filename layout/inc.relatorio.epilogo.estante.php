@@ -1,7 +1,7 @@
 <?php
-// inc.relatorio.epilogo.estante.php
+// inc.relatorio.epilogo.prateleira.php
     $relatorio = new Relatorio();
-    $estante = new Estante();
+    $prateleira = new Prateleira();
     $rs = $relatorio->executa_query($sql); // PDO
 
     echo "<div id='noprint'>";          // botoes controle
@@ -33,7 +33,7 @@
             $col = substr($aux, 0, $tamcol[$i]);
             echo "$col  ";
         }
-        echo "Estante  ";
+        echo "Prateleira  ";
         echo "<br>";
         echo "$margem";
         echo $tracejado;
@@ -47,7 +47,7 @@
             $col = substr($aux, 0, $tamcol[$i]);
             echo "$col  ";
         }
-        echo $estante->getEstante($id_centro, $cod_cde); // 20230320
+        echo $prateleira->getPrateleira($id_centro, $cod_cde); // 20230320
         echo "<br>";
     }
 

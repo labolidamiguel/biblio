@@ -1,7 +1,7 @@
 <?php
 include "../classes/class.cde.php";
 
-class Estante {
+class Prateleira {
 
 	private $pdo;                       // PDO
 
@@ -14,20 +14,20 @@ class Estante {
     }
 
     function select($id_centro, $pesq){
-        $sql = "SELECT * FROM estante WHERE id_centro = '$id_centro' ";
+        $sql = "SELECT * FROM prateleira WHERE id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "AND cod_estante LIKE '%".$pesq."%' "; // ???
+            $sql = $sql . "AND cod_prateleira LIKE '%".$pesq."%' "; // ???
         }
-        $sql = $sql . "ORDER BY cod_estante ";
+        $sql = $sql . "ORDER BY cod_prateleira ";
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
 
     function getCount($id_centro, $pesq) {
-        $sql = "SELECT count(*) FROM estante WHERE id_centro = '$id_centro' ";
+        $sql = "SELECT count(*) FROM prateleira WHERE id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "AND cod_estante LIKE '%".$pesq."%' ";
+            $sql = $sql . "AND cod_prateleira LIKE '%".$pesq."%' ";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -36,27 +36,27 @@ class Estante {
         return $numberResult;
     }
 
-    function selectId($id_centro, $id_estante){
-        $sql = "SELECT * FROM estante WHERE id_centro = $id_centro AND id_estante = $id_estante;";
+    function selectId($id_centro, $id_prateleira){
+        $sql = "SELECT * FROM prateleira WHERE id_centro = $id_centro AND id_prateleira = $id_prateleira;";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
 
-    function existe($id_centro, $id_estante, $cod_estante) {
-//echo "*** id_estante " . $id_estante . "***";  // DEBUG
-        if (strlen($id_estante) == 0) {$id_estante = 0;}
-        $sql = "SELECT COUNT(ALL) FROM estante WHERE id_centro = $id_centro AND cod_estante = '$cod_estante' AND id_estante <> $id_estante;";
+    function existe($id_centro, $id_prateleira, $cod_prateleira) {
+//echo "*** id_prateleira " . $id_prateleira . "***";  // DEBUG
+        if (strlen($id_prateleira) == 0) {$id_prateleira = 0;}
+        $sql = "SELECT COUNT(ALL) FROM prateleira WHERE id_centro = $id_centro AND cod_prateleira = '$cod_prateleira' AND id_prateleira <> $id_prateleira;";
 //echo "***" . $sql . "***";  // DEBUG
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         return $reg[0];
     }
 
-    function valida($id_centro, $id_estante, $cod_estante, $cde_inicial, $cde_final) {
-//echo "valida $id_estante=". $id_estante. "***"; // DEBUG
+    function valida($id_centro, $id_prateleira, $cod_prateleira, $cde_inicial, $cde_final) {
+//echo "valida $id_prateleira=". $id_prateleira. "***"; // DEBUG
         $msg = "";
-        if (strlen($cod_estante) == 0) {
-            $msg = $msg . "<p class=texred>* Estante deve ser preenchido</p>";
+        if (strlen($cod_prateleira) == 0) {
+            $msg = $msg . "<p class=texred>* Prateleira deve ser preenchido</p>";
         }
         if (strlen($cde_inicial) == 0) {
             $msg = $msg . "<p class=texred>* CDE inicial deve ser preenchido</p>";
@@ -64,8 +64,8 @@ class Estante {
         if (strlen($cde_final) == 0) {
             $msg = $msg . "<p class=texred>* CDE final deve ser preenchido</p>";
         }
-        if (self::existe($id_centro, $id_estante, $estante) > 0) {
-            $msg = $msg . "<p class=texred>* Estante já existe</p>";
+        if (self::existe($id_centro, $id_prateleira, $prateleira) > 0) {
+            $msg = $msg . "<p class=texred>* Prateleira já existe</p>";
         }
         $cde = new Cde();
         if (! $cde->existe($id_centro, 0, $cde_inicial)) {
@@ -80,39 +80,40 @@ class Estante {
         return $msg;
     }
 
-    function insert($id_centro, $cod_estante, $cde_inicial, $cde_final) {
+    function insert($id_centro, $cod_prateleira, $cde_inicial, $cde_final) {
         error_reporting (E_ALL ^ E_NOTICE);
-        $sql = "INSERT INTO estante (id_centro, id_estante, cod_estante, cde_inicial, cde_final) VALUES ('$id_centro', NULL, '$cod_estante', '$cde_inicial', '$cde_final');";
+        $sql = "INSERT INTO prateleira (id_centro, id_prateleira, cod_prateleira, cde_inicial, cde_final) VALUES ('$id_centro', NULL, '$cod_prateleira', '$cde_inicial', '$cde_final');";
         return $this->$pdo->query($sql); // PDO
     }
 
-    function update($id_centro, $id_estante, $cod_estante, $cde_inicial, $cde_final) {
+    function update($id_centro, $id_prateleira, $cod_prateleira, $cde_inicial, $cde_final) {
         error_reporting (E_ALL ^ E_NOTICE);
-        $sql = "UPDATE estante SET cod_estante = '$cod_estante', cde_inicial = '$cde_inicial', cde_final = '$cde_final'
-        WHERE id_centro = $id_centro AND id_estante = $id_estante;";
+        $sql = "UPDATE prateleira SET cod_prateleira = '$cod_prateleira', cde_inicial = '$cde_inicial', cde_final = '$cde_final'
+        WHERE id_centro = $id_centro 
+        AND id_prateleira = $id_prateleira;";
         return $this->$pdo->query($sql); // PDO
     }
 
-    function delete($id_centro, $id_estante) {
-        $sql = "DELETE FROM estante WHERE id_centro = $id_centro AND id_estante = $id_estante;";
+    function delete($id_centro, $id_prateleira) {
+        $sql = "DELETE FROM prateleira WHERE id_centro = $id_centro AND id_prateleira = $id_prateleira;";
         return $this->$pdo->query($sql); // PDO
     }
 
-    function getEstante($id_centro, $cod_cde) {
+    function getPrateleira($id_centro, $cod_cde) {
         $resul = "";
-        $sql = "SELECT cod_estante FROM estante WHERE id_centro = $id_centro AND '$cod_cde' BETWEEN cde_inicial AND cde_final;";
+        $sql = "SELECT cod_prateleira FROM prateleira WHERE id_centro = $id_centro AND '$cod_cde' BETWEEN cde_inicial AND cde_final;";
         $rs = $this->$pdo->query($sql); // PDO
         while($reg = $rs->fetch() ) {   // PDO
-            $estan = $reg["cod_estante"];
+            $estan = $reg["cod_prateleira"];
             $resul = $resul . $estan . " ";
         }
         if (strlen($resul) == 0) {
-            $resul = "Não encontrado. Verifique cadastro de Estantes";
+            $resul = "Não encontrado. Verifique cadastro de Prateleira";
         }
         return $resul;
     }
 
-    function integridade($id_centro, $id_estante) {
+    function integridade($id_centro, $id_prateleira) {
         return "";
     }
 

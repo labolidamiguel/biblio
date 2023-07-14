@@ -1,10 +1,10 @@
 <?php
 // exemplar.rel.cde.php
-// 20230320 incluido estante
+// 20230320 incluido prateleira
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
-include "../classes/class.estante.php";
+include "../classes/class.prateleira.php";
 include "../classes/class.relatorio.php";
 
 Arch::initController("imprime");
@@ -30,7 +30,7 @@ Arch::initView(TRUE, TRUE);             // suprime top header
     WHERE exemplar.id_centro = $id_centro
     ORDER BY cde.cod_cde, titulo.nome_titulo, exemplar.nro_exemplar;";
 
-include "../layout/inc.relatorio.epilogo.estante.php";
+include "../layout/inc.relatorio.epilogo.prateleira.php";
 
     Arch::endView(); 
 ?>

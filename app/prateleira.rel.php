@@ -1,4 +1,4 @@
-<?php                                   // estante.rel.php
+<?php                            // prateleira.rel.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -14,11 +14,11 @@ Arch::initView(TRUE, TRUE);
 
     $sql = 
     "SELECT 
-        cod_estante, 
+        cod_prateleira, 
         cde_inicial,
         cde_final
-    FROM estante 
-    WHERE estante.id_centro = $id_centro;";
+    FROM prateleira 
+    WHERE prateleira.id_centro = $id_centro;";
 
 include "../layout/inc.relatorio.epilogo.php";
 

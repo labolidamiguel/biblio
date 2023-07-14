@@ -1,23 +1,23 @@
-<?php                                   // estante.lista.php
+<?php                         // prateleira.lista.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
-include "../classes/class.estante.php";
+include "../classes/class.prateleira.php";
 
-Arch::initController("estante");
+Arch::initController("prateleira");
     $id_centro  = Arch::session("id_centro");
     $pesq       = Arch::requestOrCookie("pesq");
-    Arch::deleteCookie("id_estante");
-    Arch::deleteCookie("cod_estante");
+    Arch::deleteCookie("id_prateleira");
+    Arch::deleteCookie("cod_prateleira");
     Arch::deleteCookie("cde_inicial");
     Arch::deleteCookie("cde_final");
     Arch::deleteCookie("flag_lido");
     $linxpage = 10;
 
-    $estante = new Estante();
+    $prateleira = new Prateleira();
 
-    $count = $estante->getCount($id_centro, $pesq);
-    $rs = $estante->select($id_centro, $pesq);
+    $count = $prateleira->getCount($id_centro, $pesq);
+    $rs = $prateleira->select($id_centro, $pesq);
 
 Arch::initView(TRUE);
     $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -28,7 +28,7 @@ Arch::initView(TRUE);
     echo "<div>";
     botaoPesquisa($pesq);
     echo $space10;
-    botaoCria("estante.cria.php", "estante.lista.php");
+    botaoCria("prateleira.cria.php", "prateleira.lista.php");
     echo "</div>";
     echo "</form>";
 
@@ -46,18 +46,17 @@ Arch::initView(TRUE);
     echo "</tr>";
     echo "</thead>";
 
-
     while($reg = $rs->fetch() ){        // PDO
-        $id_estante = $reg["id_estante"];
-        $cod_estante  = $reg["cod_estante"];
-        $cde_inicial  = $reg["cde_inicial"];
-        $cde_final  = $reg["cde_final"];
+        $id_prateleira  = $reg["id_prateleira"];
+        $cod_prateleira = $reg["cod_prateleira"];
+        $cde_inicial    = $reg["cde_inicial"];
+        $cde_final      = $reg["cde_final"];
 
-        echo "<td>" . $cod_estante . "</td>";
+        echo "<td>" . $cod_prateleira . "</td>";
         echo "<td>" . $cde_inicial . "</td>";
         echo "<td>" . $cde_final . "</td>";
-        echo "<td><a href='estante.altera.php?id_estante=$id_estante'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
-        echo "<td><a href='estante.exclui.php?id_estante=$id_estante&cod_estante=$cod_estante&cde_inicial=$cde_inicial&cde_final=$cde_final'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='prateleira.altera.php?id_prateleira=$id_prateleira'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='prateleira.exclui.php?id_prateleira=$id_prateleira&cod_prateleira=$cod_prateleira&cde_inicial=$cde_inicial&cde_final=$cde_final'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
         echo "</tr>";
     }
     echo "</table>";

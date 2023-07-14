@@ -4,7 +4,7 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.exemplar.php";
 include "../classes/class.emprestimo.php";
-include "../classes/class.estante.php";
+include "../classes/class.prateleira.php";
 include "../classes/class.auditoria.php";
 
 Arch::initController("emprestimo");
@@ -33,7 +33,7 @@ Arch::initController("emprestimo");
 
     $emprestimo = new Emprestimo();
     $exemplar = new Exemplar();
-    $estante = new Estante();
+    $prateleira = new Prateleira();
     $audit = new Auditoria();
 
     if ($action=="valida") {
@@ -90,8 +90,8 @@ Arch::initView(TRUE);
         echo "<tr><td>Sigla do Título</td><td>".$reg["sigla"]."</td></tr>";
         echo "<tr><td>Número de volume</td><td>".$reg["nro_volume"]."</td></tr>";
         echo "<tr><td>Número de exemplar</td><td>".$reg["nro_exemplar"]."</td></tr>";
-        $cod_estante = $estante->getEstante($id_centro, $reg["cod_cde"]);
-        echo "<tr><td>Prateleira(s)</td><td>".$cod_estante."</td></tr>";
+        $cod_prateleira = $prateleira->getPrateleira($id_centro, $reg["cod_cde"]);
+        echo "<tr><td>Prateleira(s)</td><td>".$cod_prateleira."</td></tr>";
         echo "</table>";
         echo "<p>Verifique se os dados são corretos</p>";
         echo "<table class='tableraw'>";

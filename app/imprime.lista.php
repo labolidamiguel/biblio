@@ -49,7 +49,7 @@ Arch::initView(TRUE);
     echo "</tr>";
 
     echo "<tr><td>Cadastro de Prateleira</td>";
-    ref('estante.rel.php',$id_centro);
+    ref('prateleira.rel.php',$id_centro);
     echo "</tr>";
 
     echo "<tr><td>Cadastro de Leitor</td>";
