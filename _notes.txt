@@ -1,5 +1,4 @@
 
-
   Arch::deleteCookie("flag_lido");
   etiqueta A4 68x32
   Leitor Aleni não deixa excluir-> criar emprestimo.exclui

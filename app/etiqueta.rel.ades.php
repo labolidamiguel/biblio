@@ -1,4 +1,4 @@
-<?php                        // etiqueta.rel.ades3x10.php
+<?php                        // etiqueta.rel.ades.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -6,34 +6,37 @@ include "../classes/class.exemplar.php";
 
 Arch::initController("etiqueta");
     $id_centro  = Arch::session("id_centro");
-    $inicial    = Arch::get("inicial");
-    $final      = Arch::get("final");
+    $selecao    = Arch::get("selecao");
+    $arrIds = array();
     $arr = array(array());              // etiq 7 lin x 3 cols
     zeraArr();                          // inicializa matriz
 
     $exemplar = new Exemplar();
-    $rs = $exemplar->getEtiqueta($id_centro, $inicial, $final);
 
-Arch::initView(TRUE, TRUE);             // suprime top header
+Arch::initView(TRUE, TRUE);           // suprime top header
                               
     echo "<div id='noprint'>";          // botoes controle
     echo "&nbsp;&nbsp;";
     echo "<button onclick='window.print()'><img src='../layout/img/impb.ico' width='22' height='22'></button>";
     echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "<a href='etiqueta.lista.php'><img src='../layout/img/excl.ico' width='22' height='22'></a>";
+    echo "<a href='etiqueta.cria.php'><img src='../layout/img/excl.ico' width='22' height='22'></a>";
     echo "</div>";
     echo "<pre>";
 
-    while($reg = $rs->fetch()){         // PDO
+    $arrIds = $exemplar->parseEtiquetas($selecao);
+    for ($d = 0; $d < count($arrIds); $d ++) {
+        $rs = $exemplar->getEtiqueta(
+            $id_centro, $arrIds[$d]);
+        $reg = $rs->fetch();
+        if (strlen($reg["idex"]) == 0)  // outro centro 
+            continue;                   // ou excluido
         $ultCol = criaEtiq($reg);
         if ($ultCol == 0) {             // linha completa
             imprimeEtiq();
             zeraArr();
         }
-    }
-    if ($ultCol != 0) {                 // linha incompleta
-        imprimeEtiq();
     } 
+
     echo "</pre>";                      // final
 ?>
 <style>
