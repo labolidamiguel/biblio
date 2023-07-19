@@ -60,7 +60,7 @@ Arch::initView(TRUE);
     echo "<p>Informar os id dos exemplares.<br>";
     echo "Exemplo: 1 2 5-17 22<br>";
     echo "ou: 1, 2, 5-17, 22</p>";
-    echo "<textarea id='ids' name='ids' rows='4' cols='50'>";
+    echo "<textarea id='ids' name='ids' rows='4' cols='40'>";
     echo $ids;
     echo "</textarea>";
 
