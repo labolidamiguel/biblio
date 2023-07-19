@@ -49,24 +49,16 @@ class Usuario {
     function existe($id_usuario, $nome) {
         if (strlen($id_usuario) == 0) {$id_usuario = 0;} // safe
         $sql = "SELECT COUNT(ALL) FROM usuario WHERE nome = '$nome' 
-        AND id_usuario <> $id_usuario;"; // ele mesmo quando altera
+        AND id_usuario <> $id_usuario;"; // ele mesmo 
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         return $reg[0];
     }
-/*
-    function existeWhereNome($nome) {
-        $sql = "SELECT COUNT(ALL) FROM usuario WHERE nome='$nome'";
-        $rs = $this->$pdo->query($sql); // PDO
-        $reg = $rs->fetch();            // PDO
-        return $reg[0];
-    }
-*/
 
     // Gera um novo usuario admin para um centro.
     function createAdmin( $idcentro ){
         $nomeUsuario = "admin_".$idcentro;
-        $senha = hash('sha1', "123" );
+        $senha = hash('sha1', "123456" );
         $perfis = "01357";
         $r = $this->insert($idcentro, $nomeUsuario, $perfis, $senha);
         if ( strpos($r,"ERROR")==0) {

@@ -7,7 +7,7 @@ set cde=".\classes\class.cde.php .\app\cde.altera.php .\app\cde.cria.php .\app\c
 set cen=".\classes\class.centro.php .\app\centro.altera.php .\app\centro.cria.php .\app\centro.exclui.php .\app\centro.lista.php"
 set com="_ed.bat .\common\arch.php .\common\funcoes.php 
 set emp=".\classes\class.emprestimo.php  .\app\emprestimo.altera.php .\app\emprestimo.cria.php .\app\emprestimo.lista.php .\app\emprestimo.rel.php .\app\emprestimo.rel.php"
-set eti=".\app\etiqueta.lista.php .\app\etiqueta.lista.php .\app\etiqueta.rel.a4.php .\app\etiqueta.rel.a4.php"
+set eti=".\classes\class.exemplar.php .\classes\class.exemplar.php .\app\etiqueta.cria.php .\app\etiqueta.lista.php .\app\etiqueta.lista.php .\app\etiqueta.rel.a4.php .\app\etiqueta.rel.a4.php"
 set exe=".\classes\class.exemplar.php .\app\exemplar.altera.php .\app\exemplar.cria.php .\app\exemplar.dominio.php .\app\exemplar.exclui.php .\app\exemplar.lista.php"
 set imp=".\app\imprime.lista.php .\app\imprime.lista.php .\app\auditoria.rel.php .\app\autor.rel.php .\app\cde.rel.php .\app\editora.rel.php .\app\emprestimo.rel.php .\app\espirito.rel.php .\app\estante.rel.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php .\app\leitor.rel.php .\app\tradutor.rel.php .\app\usuario.rel.php
 set inc=".\layout\inc.relatorio.epilogo.php .\layout\inc.relatorio.prologo.php 
@@ -20,11 +20,11 @@ set pra=".\classes\class.prateleira.php .\classes\class.prateleira.php .\app\pra
 set pub=".\classes\class.publicado.php .\app\publicado.altera.php .\app\publicado.cria.php .\app\publicado.exclui.php .\app\publicado.lista.php"
 set rel=".\app\imprime.lista.php .\app\exemplar.rel.cde.php .\app\exemplar.rel.etiq.php"
 set tit=".\classes\class.titulo.php .\classes\class.titulo.php .\app\titulo.altera.php .\app\titulo.cria.php .\app\titulo.detalhe.php .\app\titulo.dominio.php .\app\titulo.exclui.php .\app\titulo.form.php .\app\titulo.lista.php .\app\titulo.pesquisa.php"
-set usu=".\classes\class.usuario.php .\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php .\app\usuario.lista.php"
+set usu=".\classes\class.usuario.php .\classes\class.usuario.php .\app\perfil.dominio.php .\app\usuario.altera.php .\app\usuario.cria.php .\app\usuario.exclui.php .\app\usuario.lista.php .\app\usuario.lista.php .\app\usuario.muda.senha.php .\app\usuario.muda.senha.php"
 
 @echo off
 
-start "" %ed% "%com%" "%pra%" /secondary /minimized
+start "" %ed% "%com%" "%eti%" /secondary /minimized
 
 exit
 

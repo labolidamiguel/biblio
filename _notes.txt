@@ -1,6 +1,7 @@
 
 
   Arch::deleteCookie("flag_lido");
+  etiqueta A4 68x32
   Leitor Aleni não deixa excluir-> criar emprestimo.exclui
   Troca semha "Erro ao trocar de senha. Prov s antiga e incorr." mas troca OK
   auditoria não exclui - formato data no celular dd/mm/aaaa
@@ -21,6 +22,7 @@
   separar o codigo em ./app/usuario.mudasenha.php
   titulo exemplar multiplos bugs
   titulo.exclui não mostra nome_titulo na confirmação
+  usuario telefone e email devem ser obrigatorios
   versão em .\common\arch.php
 20221111 titulo.lista.php não funciona o edit
 20221119 emprestimo  erro app\emprestimo.web.php(55)

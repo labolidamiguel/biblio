@@ -74,7 +74,13 @@ class Exemplar {
         return $rs;       
     }
     
-    function getEtiqueta($id_centro, $inicial, $final) {
+    function getEtiqueta($id_centro, $id_exemplar) {
+//            substr(autor.nome,1,10) as nom1,
+//            substr(autor.nome,11,10) as nom2,
+//            substr(titulo.nome_titulo,1,10) as tit1,
+//            substr(titulo.nome_titulo,11,10) as tit2,
+//            substr(titulo.nome_titulo,21,10) as tit3,
+
         $sql = "
         SELECT
             centro.sigla as cent,
@@ -82,12 +88,50 @@ class Exemplar {
             substr(cde.cod_cde,1,2) as cde1,
             substr(cde.cod_cde,4,2) as cde2,
             substr(cde.cod_cde,7,2) as cde3,
-            substr(autor.nome,1,10) as nom1,
-            substr(autor.nome,11,10) as nom2,
+            substr(autor.nome,1,9) as nom1,
+            substr(autor.nome,10,9) as nom2,
             autor.iniciais as inic,
-            substr(titulo.nome_titulo,1,10) as tit1,
-            substr(titulo.nome_titulo,11,10) as tit2,
-            substr(titulo.nome_titulo,21,10) as tit3,
+
+            substr(titulo.nome_titulo,1,9) as tit1,
+            substr(titulo.nome_titulo,10,9) as tit2,
+            substr(titulo.nome_titulo,19,9) as tit3,
+
+            titulo.sigla as sigl,
+            titulo.nro_volume as volu,
+            exemplar.nro_exemplar as exem
+        FROM exemplar 
+        LEFT JOIN centro on centro.id_centro = exemplar.id_centro
+        LEFT JOIN titulo on titulo.id_titulo = exemplar.id_titulo 
+        LEFT JOIN cde on cde.id_cde = titulo.id_cde 
+        LEFT JOIN autor on autor.id_autor = titulo.id_autor 
+        WHERE exemplar.id_centro = $id_centro
+        AND exemplar.id_exemplar == $id_exemplar;";
+        $rs = $this->$pdo->query($sql); // PDO
+        return $rs;
+    }
+
+    function getEtiquetas($id_centro, $inicial, $final) {
+//            substr(autor.nome,1,10) as nom1,
+//            substr(autor.nome,11,10) as nom2,
+//            substr(titulo.nome_titulo,1,10) as tit1,
+//            substr(titulo.nome_titulo,11,10) as tit2,
+//            substr(titulo.nome_titulo,21,10) as tit3,
+
+        $sql = "
+        SELECT
+            centro.sigla as cent,
+            exemplar.id_exemplar as idex,
+            substr(cde.cod_cde,1,2) as cde1,
+            substr(cde.cod_cde,4,2) as cde2,
+            substr(cde.cod_cde,7,2) as cde3,
+            substr(autor.nome,1,9) as nom1,
+            substr(autor.nome,10,9) as nom2,
+            autor.iniciais as inic,
+
+            substr(titulo.nome_titulo,1,9) as tit1,
+            substr(titulo.nome_titulo,10,9) as tit2,
+            substr(titulo.nome_titulo,19,9) as tit3,
+
             titulo.sigla as sigl,
             titulo.nro_volume as volu,
             exemplar.nro_exemplar as exem
@@ -103,7 +147,26 @@ class Exemplar {
         return $rs;
     }
 
-    function selectId($id_centro, $id_exemplar){        
+    function parseEtiquetas($selecao) { // linha selecao
+        $arrIds = array();
+        $tok = strtok($selecao," ,");   // parsing
+        while ($tok !== false) {        // parsing
+            $pos = strpos($tok, "-");
+            if ($pos !== false) {
+                $lim = explode("-", $tok);
+                for ($i = $lim[0]; $i <= $lim[1]; $i ++) {
+                    $arrIds[] = $i;
+                }
+            }
+            else {
+                $arrIds[] = $tok;
+            }
+            $tok = strtok(" ,");
+        }
+        return $arrIds;
+    }
+
+    function selectId($id_centro, $id_exemplar) {
         $sql = "
         SELECT  
             exemplar.id_exemplar,
