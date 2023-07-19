@@ -7,8 +7,8 @@ include "../classes/class.titulo.php";
 
 Arch::initController("lista");  // antes titulo
     $id_centro  = Arch::session("id_centro");
-    $pesq       = Arch::request("pesq") ;
-    $callback   = Arch::requestOrCookie("callback") ;
+    $pesq       = Arch::get("pesq") ;
+    $callback   = Arch::get("callback") ;
 
     $titulo = new Titulo();
     $prateleira = new Prateleira();

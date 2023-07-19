@@ -6,9 +6,9 @@ include "../classes/class.emprestimo.php";
 
 Arch::initController("devolucao");      // DEVOLUÇÃO
     $id_centro  = Arch::session("id_centro");
-    $id_emprestimo  = Arch::requestOrCookie("id_emprestimo");
-    $pesq           = Arch::request("pesq") ;
-    $action         = Arch::requestOrCookie("action") ;
+    $id_emprestimo  = Arch::get("id_emprestimo");
+    $pesq           = Arch::get("pesq") ;
+    $action         = Arch::get("action") ;
 //    Arch::deleteCookie("flag_lido");
     
     $emprestimo = new Emprestimo();
