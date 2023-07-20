@@ -3,7 +3,6 @@ include "../common/arch.php";
 include "../classes/class.app.php";
 include "../classes/class.exemplar.php";
 include "../common/funcoes.php";
-$arrIds = array();
 
 Arch::initController("etiqueta");
     $id_centro      = Arch::session("id_centro");
@@ -12,11 +11,10 @@ Arch::initController("etiqueta");
     $ids            = Arch::get("ids");
     $msg = "";
 
-    $exemplar = new Exemplar();
-
-    if ($action == "cria") {
-        $msg = $ids;                    // mantem ids
-//echo $etiq . "<br>";     // DEBUG 998-1040
+    if ($action == "cria")
+        $msg = valida($ids);
+    if (($action == "cria")
+    and (strlen($msg) == 0)) {
         switch ($etiq) {
         case "A424":
             $targ = "etiqueta.rel.a424.php";
@@ -28,21 +26,12 @@ Arch::initController("etiqueta");
             $targ = "etiqueta.rel.ades.php";
             break;
         }
-//echo $targ . "<br>";     // DEBUG 
 
-        $arrIds = $exemplar->parseEtiquetas($ids);
-//$msg = "<p class=texred>deu ruim</p>";  // DEBUG
-
-            $target = "$targ?callback=etiqueta.cria.php&selecao=$ids";
-            $action = "ok";
-    	    header("Location: $target"); 
+        $target = "$targ?callback=etiqueta.cria.php&selecao=$ids";
+    	header("Location: $target"); 
     }
 
 Arch::initView(TRUE);
-    $GLOBALS['$arrIds'];
-    $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-
     echo "<form>";
     echo "<p class=appTitle2>Etiquetas</p>";
 
@@ -68,9 +57,6 @@ Arch::initView(TRUE);
     echo $msg;
     echo "<br>";
 
-    for ($d = 0; $d < count($arrIds); $d ++) { // DEBUG
-        echo $arrIds[$d] . " ";             // DEBUG
-    }
     echo "<br><br>";
     echo "<button type='submit' name='action' value='cria'";
     echo "class='butbase'>Cria</button>";
@@ -80,10 +66,19 @@ Arch::initView(TRUE);
 
     echo "</div>";//NOPAG
 
-    function valida() {
-        $msg = "";
-        $msg = $msg . "<p class=texred> * inválido</p>";
-        return $msg;
+    function valida($ids) {
+        $arrIds = array();
+        $exemplar = new Exemplar();
+        if (strlen($ids) == 0) {
+            return "<p class=texred> * id vazio</p>";
+        }
+        $arrIds = $exemplar->parseEtiquetas($ids);
+        for ($d = 0; $d < count($arrIds); $d ++) { // is_num
+            if (! is_numeric($arrIds[$d])) {
+                return "<p class=texred> * id inválido:  '$arrIds[$d]'</p>";
+            }
+        }
+        return "";
     }
 Arch::endView();
 ?>
