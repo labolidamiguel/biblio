@@ -1,0 +1,5 @@
+cde 
+0|id_centro|integer|1||0
+1|id_cde|integer|0||1
+2|cod_cde|text|0||0
+3|clas_cde|text|0||0

@@ -1,0 +1,9 @@
+leitor 
+0|id_centro|integer|1||0
+1|id_leitor|integer|0||1
+2|nome_leitor|text|0||0
+3|celular|text|0||0
+4|email|text|0||0
+5|endereco|text|0||0
+6|cep|text|0||0
+7|notas|text|0||0

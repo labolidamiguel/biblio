@@ -1,0 +1,176 @@
+// Parse
+import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.text.SimpleDateFormat;  
+
+public class Parse {
+    static BufferedReader entrada = null;
+    static String   nomeEntidade;
+    static String   nomeClasse;
+    static String[] tipoColuna = new String[50];
+    static String[] nomeColuna = new String[50];
+    static String[] tituloColuna = new String[50];
+    static String[] dominio = new String[50];
+    static String[] dominioColuna = new String[50];
+    static String[] dominioDestino = new String[50];
+    static int      idxColuna;
+    static String   dataSys;
+    static String   dataRel;
+    static Date     date = new Date();
+
+    public static void ajuda(String tituloApp) {
+        System.out.println(tituloApp);
+        System.out.println("uso: " + tituloApp + " arqu.param");
+        System.out.println("onde arqu.param possui:");
+        System.out.println("  (1a linha)");
+        System.out.println("    E nomeEntidade (tabela)");
+        System.out.println("  (linhas seguintes:)");
+        System.out.println(
+        "tipoColuna nomeColuna tituloColuna [dominio]");
+        System.out.println("  onde tipoColuna:");
+        System.out.println("    A textarea");
+        System.out.println("    D data dd/mm/aaaa");
+        System.out.println("    F foreign key (dominio)");
+        System.out.println("    P password");
+        System.out.println("    R texto readonly");
+        System.out.println("    S selecao");
+        System.out.println("    X texto");
+    }
+
+    public static void parse(String parametros) {
+        SimpleDateFormat formatter = 
+            new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        dataSys = formatter.format(date);
+        SimpleDateFormat formatRel = 
+            new SimpleDateFormat("yyyyMMdd_HHmmss");
+        dataRel = formatRel.format(date);
+        FileReader fr = null;
+        String arr[];
+        String lin;
+        idxColuna = 0;
+        try {
+            fr = new FileReader(parametros);
+            entrada = new BufferedReader(fr);
+        }
+        catch (Exception e) {
+            System.out.println("parse: " + e.getMessage());
+        }
+            while(true) {
+                lin = leitura();
+                if (lin == null) break;
+                if (lin.trim().length() == 0) break;
+                arr = lin.split("[ ]+");
+
+                switch(arr[0].toUpperCase()) {
+                case "E":       // entidade = tabela
+                    nomeEntidade = arr[1];
+                    nomeClasse = 
+                    nomeEntidade.substring(0, 1).toUpperCase() 
+                    + nomeEntidade.substring(1);
+                    break;
+                case "F":       // foreign key - dominio
+                    if (arr.length != 5) {
+                        System.out.println(
+                        "parámetro 'F' deve ter 5 argumentos ("
+                        + lin + ")");
+                        System.exit(0);
+                    }
+                    tipoColuna[idxColuna] = arr[0];
+                    nomeColuna[idxColuna] = arr[1];
+                    tituloColuna[idxColuna] = 
+                        arr[2].replace('_', ' ');
+                    dominio[idxColuna] = arr[3];
+                    dominioColuna[idxColuna] = arr[4];
+     dominioDestino[idxColuna] = arr[4];
+/*
+                    if (arr.length == 5) {
+                        dominioDestino[idxColuna] = arr[5];
+                    } else {
+                        dominioDestino[idxColuna] = arr[4];
+                    }
+*/
+                    idxColuna ++;
+                    break;
+                case "S":       // selecao combo
+                    tipoColuna[idxColuna] = arr[0];
+                    nomeColuna[idxColuna] = arr[1];
+                    tituloColuna[idxColuna] = 
+                        arr[2].replace('_', ' ');
+                    dominio[idxColuna] = "";
+                    for (int i = 3; i < arr.length; i++) {
+                        if (i > 3) {
+                            dominio[idxColuna] = 
+                            dominio[idxColuna] + ":";
+                        }
+                        dominio[idxColuna] = 
+                        dominio[idxColuna] + arr[i];
+                    }
+                    idxColuna ++;
+                    break;
+                default:        // A, P, ...
+                    if (arr.length != 3) {
+                        System.out.println(
+                        "parámetro deve ter 3 argumentos ("
+                        + lin + ")");
+                        System.exit(0);
+                    }
+                    tipoColuna[idxColuna] = arr[0];
+                    nomeColuna[idxColuna] = arr[1];
+                    tituloColuna[idxColuna] = 
+                        arr[2].replace('_', ' ');
+                    idxColuna ++;
+                    break;
+                }
+            }
+            dump();
+/*
+        }
+        catch (Exception e) {
+            System.out.println("parse: " + e.getMessage());
+        }
+*/
+    }
+
+    public static String leitura() {
+        try {
+            String buf = entrada.readLine();
+            return buf;
+        }
+        catch (Exception e) {
+            System.out.println("leitura: " + e.getMessage());
+            return "";
+        }
+    }
+
+    public static void dump() {
+        try {
+            System.out.println("= = = = parse = = = =");
+            System.out.println(nomeEntidade);
+            System.out.println(nomeClasse);
+            for (int i = 0; i < idxColuna; i++) {
+                System.out.print(tipoColuna[i] + " ");
+                System.out.print(nomeColuna[i] + " ");
+                System.out.print(tituloColuna[i] + " ");
+// foreign key - dominio
+                if (tipoColuna[i].equalsIgnoreCase("F")) {
+                    System.out.print(dominio[i] + " ");
+                    System.out.print(dominioColuna[i] + " ");
+                    if (dominioDestino[i].length() > 0);
+                        System.out.print(dominioDestino[i]);
+                }
+// select - combo
+                if (tipoColuna[i].equalsIgnoreCase("S")) {
+                    System.out.print(dominio[i]);
+                }
+                System.out.println("");
+            }
+            System.out.println("= = = = = = = = = = =");
+        }
+        catch (Exception e) {
+            System.out.println("dump: " + e.getMessage());
+        }
+    }
+}

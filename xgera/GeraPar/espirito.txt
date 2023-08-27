@@ -1,0 +1,4 @@
+espirito 
+0|id_centro|integer|1||0
+1|id_espirito|integer|0||1
+2|nome|text|0||0

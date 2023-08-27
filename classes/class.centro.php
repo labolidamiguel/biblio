@@ -15,7 +15,9 @@ class Centro {
     function select($pesq){
         $sql = "SELECT * FROM centro ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "WHERE nome LIKE '%".$pesq."%' ";
+            $sql = $sql . 
+                "WHERE nome_centro LIKE '%$pesq%' 
+                OR sigla_centro LIKE '%$pesq%'";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -31,7 +33,9 @@ class Centro {
     function getCount($pesq) {
         $sql = "SELECT count(*) FROM centro ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "WHERE nome LIKE '%".$pesq."%' ";
+            $sql = $sql . 
+                "WHERE nome_centro LIKE '%$pesq%' 
+                OR sigla_centro LIKE '%$pesq%'";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -40,58 +44,85 @@ class Centro {
         return $numberResult;
     }
 
+    function integridade() {
+    }
+
     function selectId($id_centro) {
-        $sql = "SELECT * FROM centro WHERE id_centro = $id_centro;";
+        $sql = "SELECT * FROM centro 
+                WHERE id_centro = $id_centro;";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
     
-    function valida($id_centro, $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep) {
+    function valida($id_centro, $nome_centro, $sigla_centro, $telefone, $endereco, $cidade, $estado, $cep) {
         $msg = "";
-        if (strlen($nome) == 0) {
-            $msg = $msg . "<p class=texred>* Nome deve ser preenchido</p>";
+        if (strlen($nome_centro) == 0) {
+            $msg = $msg . "<p class=texred>
+            * Nome deve ser preenchido</p>";
         }
 
-        if (strlen($sigla) == 0) {
-            $msg = $msg . "<p class=texred>* Sigla deve ser preenchida</p>";
+        if (strlen($sigla_centro) == 0) {
+            $msg = $msg . "<p class=texred>
+            * Sigla deve ser preenchida</p>";
         }
-        if (strlen($sigla) > 8) {
-            $msg = $msg . "<p class=texred>* Sigla não pode ter mais de 8 caracetres</p>";
+        if (strlen($sigla_centro) > 8) {
+            $msg = $msg . "<p class=texred>
+            * Sigla não pode ter mais de 8 caracetres</p>";
         }
         
         if (strlen($telefone) == 0) {
-            $msg = $msg . "<p class=texred>* Telefone deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * Telefone deve ser preenchido</p>";
         }
         if (strlen($endereco) == 0) {
-            $msg = $msg . "<p class=texred>* Endereco deve ser preenchida</p>";
+            $msg = $msg . "<p class=texred>
+            * Endereco deve ser preenchida</p>";
         }
         if (strlen($cidade) == 0) {
-            $msg = $msg . "<p class=texred>* Cidade deve ser preenchida</p>";
+            $msg = $msg . "<p class=texred>
+            * Cidade deve ser preenchida</p>";
         }
         if (strlen($estado) == 0) {
-            $msg = $msg . "<p class=texred>* Estado deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * Estado deve ser preenchido</p>";
         }
         if (strlen($cep) == 0) {
-            $msg = $msg . "<p class=texred>* CEP deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * CEP deve ser preenchido</p>";
         }
 
-        if (self::existe($id_centro, $nome) > 0) {
-            $msg = $msg . "<p class=texred>* Nome já existe</p>"; 
+        if (self::existe($id_centro, $nome_centro) > 0) {
+            $msg = $msg . "<p class=texred>
+            * Nome já existe</p>"; 
         }                
         return $msg;
     }
 
-    function existe($id_centro, $nome) {
+    function existe($id_centro, $nome_centro) {
         if (strlen($id_centro) == 0) {$id_centro = 0;}
-        $sql = "SELECT COUNT(ALL) FROM Centro WHERE nome = '$nome' AND id_centro <> $id_centro;";
+        $sql = "SELECT COUNT(ALL) FROM Centro 
+                WHERE nome_centro = '$nome_centro' 
+                AND id_centro <> $id_centro;";
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         return $reg[0];
     }
 
-    function insert($nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep) {
-        $sql = "INSERT INTO centro (id_centro, nome, sigla, telefone, endereco, cidade, estado, cep) VALUES (NULL, '$nome', '$sigla', '$telefone', '$endereco', '$cidade', '$estado', '$cep');";
-        return $this->$pdo->query($sql); // PDO
+    function insert(
+        $id_centro, $nome_centro, $sigla_centro, 
+        $telefone, 
+        $endereco, $cidade, $estado, $cep) {
+        $sql = "INSERT INTO centro (
+                id_centro, nome_centro, sigla_centro, 
+                telefone, 
+                endereco, cidade, estado, cep) 
+                VALUES (NULL, '$nome_centro', '$sigla_centro', 
+                '$telefone', '$endereco', '$cidade', 
+                '$estado', '$cep');";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function getId() {
@@ -102,16 +133,32 @@ class Centro {
         return $id;
     }
 
-    function update($id_centro, $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep) {
-        $sql = "UPDATE centro SET nome = '$nome', sigla = '$sigla',
-        telefone = '$telefone', endereco = '$endereco', cidade = '$cidade', estado = '$estado', cep = '$cep'
-        WHERE id_centro = $id_centro;";
-        return $this->$pdo->query($sql); // PDO
+    function update(
+        $id_centro, $nome_centro, $sigla_centro, 
+        $telefone, 
+        $endereco, $cidade, $estado, $cep) {
+        $sql = "UPDATE centro SET 
+                nome_centro = '$nome_centro', 
+                sigla_centro = '$sigla_centro',
+                telefone = '$telefone', 
+                endereco = '$endereco', 
+                cidade = '$cidade', 
+                estado = '$estado', 
+                cep = '$cep'
+                WHERE id_centro = $id_centro;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
     
     function delete($id_centro) {
-        $sql = "DELETE FROM centro WHERE id_centro = $id_centro;";
-        return $this->$pdo->query($sql); // PDO
+        $sql = "DELETE FROM centro 
+                WHERE id_centro = $id_centro;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function __destruct() {

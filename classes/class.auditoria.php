@@ -17,16 +17,19 @@ class Auditoria {
     }
 
     function select($id_centro, $pesq){
-        $sql = "SELECT auditoria.id_centro, auditoria.id_usuario, codigo_app, data, hora, mensagem, usuario.nome 
-        FROM auditoria 
-        LEFT JOIN usuario ON auditoria.id_usuario = usuario.id_usuario 
-        WHERE auditoria.id_centro = '$id_centro' ";
+        $sql = "SELECT auditoria.id_centro,
+                auditoria.id_usuario, codigo_app, 
+                data, hora, mensagem, nome_usuario
+                FROM auditoria 
+                LEFT JOIN usuario 
+                ON auditoria.id_usuario = usuario.id_usuario 
+                WHERE auditoria.id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
             $sql = $sql . 
-            "AND (usuario.nome like '%".$pesq."%' 
-            OR  data        like '%".$pesq."%'
-            OR  codigo_app  like '%".$pesq."%'
-            OR  mensagem    like '%".$pesq."%')";
+                "AND (nome_usuario like '%$pesq%' 
+                OR  data        like '%$pesq%'
+                OR  codigo_app  like '%$pesq%'
+                OR  mensagem    like '%$pesq%')";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -35,15 +38,16 @@ class Auditoria {
 
     function getCount($id_centro, $pesq) {
         $sql = "SELECT count(*) 
-        FROM auditoria 
-        LEFT JOIN usuario ON auditoria.id_usuario = usuario.id_usuario 
-        WHERE auditoria.id_centro = '$id_centro' ";
+                FROM auditoria 
+                LEFT JOIN usuario 
+                ON auditoria.id_usuario = usuario.id_usuario 
+                WHERE auditoria.id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
             $sql = $sql . 
-            "AND (usuario.nome like '%".$pesq."%' 
-            OR  data        like '%".$pesq."%'
-            OR  codigo_app  like '%".$pesq."%'
-            OR  mensagem    like '%".$pesq."%')";
+                "AND (nome_usuario like '%$pesq%' 
+                OR  data        like '%$pesq%'
+                OR  codigo_app  like '%$pesq%'
+                OR  mensagem    like '%$pesq%')";
         }
         $sql = $sql . ";";
 
@@ -60,20 +64,25 @@ class Auditoria {
         $dt = date('Y-m-d');
         $hs = date('H:i:s');
         $sql = "
-            INSERT INTO auditoria (id_centro, id_usuario, codigo_app, data, hora, mensagem) 
-            VALUES ('$id_centro', '$id_usuario', '$codigo_app', '$dt', '$hs', '$mensagem');
-        ";
-
-        return $this->$pdo->query($sql); // PDO
+            INSERT INTO auditoria (id_centro, id_usuario, 
+            codigo_app, data, hora, mensagem) 
+            VALUES ('$id_centro', '$id_usuario',
+            '$codigo_app', '$dt', '$hs', '$mensagem');";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function valida($id_centro, $data1, $data2) {
         $msg = "";
         if (strlen($data1) == 0) {
-            $msg = $msg . "<p class=texred>* data DE deve ser preenchida</p>";
+            $msg = $msg . "<p class=texred>
+            * data DE deve ser preenchida</p>";
         }
         if (strlen($data2) == 0) {
-            $msg = $msg . "<p class=texred>* data ATÉ deve ser preenchida</p>";
+            $msg = $msg . "<p class=texred>
+            * data ATÉ deve ser preenchida</p>";
         }
         return $msg;
     }
@@ -82,8 +91,10 @@ class Auditoria {
         $sql = "DELETE FROM auditoria 
         WHERE id_centro = $id_centro 
         AND data BETWEEN '$data1' AND '$data2';";
-
-        return $this->$pdo->query($sql); // PDO
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function __destruct() {

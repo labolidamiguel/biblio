@@ -1,0 +1,9 @@
+e centro
+r id_centro    Id
+x nome_centro  Nome
+x sigla_centro Sigla
+x telefone     Telefone
+x endereco     Endereco
+x cidade       Cidade
+x estado       Estado
+x cep          CEP

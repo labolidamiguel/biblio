@@ -1,0 +1,10 @@
+exemplar 
+0|id_centro|integer|1||0
+1|id_exemplar|integer|0||1
+2|id_titulo|integer|1||0
+3|id_tradutor|integer|1||0
+4|id_editora|integer|1||0
+5|nro_edicao|integer|0||0
+6|ano_publicacao|integer|0||0
+7|data_entrada|text|0||0
+8|nro_exemplar|integer|0||0

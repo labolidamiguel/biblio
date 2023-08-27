@@ -10,7 +10,7 @@ include "../classes/class.auditoria.php";
 Arch::initController("emprestimo");
     $id_centro    = Arch::session("id_centro");
     $id_leitor    = Arch::requestOrCookie("id_leitor");
-    $leitor       = Arch::requestOrCookie("leitor");
+    $nome_leitor  = Arch::requestOrCookie("nome_leitor");
     $id_titulo    = Arch::requestOrCookie("id_titulo");
     $nome_titulo  = Arch::requestOrCookie("nome_titulo");
     $id_exemplar  = Arch::requestOrCookie("id_exemplar");
@@ -19,7 +19,7 @@ Arch::initController("emprestimo");
     $action       = Arch::requestOrCookie("action");
     $msg          = Arch::requestOrCookie("msg");
 
-    Arch::deleteCookie("nome");
+//    Arch::deleteCookie("nome_leitor");
     Arch::deleteCookie("celular");
     Arch::deleteCookie("email");
     Arch::deleteCookie("endereco");
@@ -37,21 +37,24 @@ Arch::initController("emprestimo");
     $audit = new Auditoria();
 
     if ($action=="valida") {
-        $msg = $emprestimo->valida($id_centro, $leitor, $nome_titulo, $id_exemplar);
+        $msg = $emprestimo->valida(
+        $id_centro, $nome_leitor, $nome_titulo, $id_exemplar);
         if (strlen($msg) == 0) {
-            $rs = $exemplar->selectId($id_centro, $id_exemplar);
+            $rs = $exemplar->selectId(
+                $id_centro, $id_exemplar);
             $reg = $rs->fetch();        // PDO
             $action = "decide";         // force
         }
     }
 
     if ($action=="ok") {
-        $message = $emprestimo->insert($id_centro, $id_leitor, $id_exemplar);
-        if ($message->code < 0) {
-            $msg="<p class=texred>Problemas ".$message->description."</p>";
+        $err = $emprestimo->insert(
+            $id_centro, $id_leitor, $id_exemplar);
+        if (strlen($err) > 0) {
+            $msg="<p class=texred>Problemas ".$err."</p>";
         }else{
             $msg="<p class=texgreen>* Emprestimo criado</p>";
-            $audit->report("Cria $id_centro, $id_leitor, $id_exemplar, $leitor, $nome_titulo, $nro_exemplar");
+            $audit->report("Cria $id_centro, $id_leitor, $id_exemplar, $nome_leitor, $nome_titulo, $nro_exemplar");
         }
     }
     if ($action == "ok" 
@@ -65,7 +68,7 @@ Arch::initView(TRUE);
         echo "<p class=appTitle2>Empréstimo</p>";
 
         echo "<p class=labelx>Leitor</p>";
-        echo "<input type='text' name='leitor' class='inputx' value='".$leitor."' style='width: 260px' readonly/>";
+        echo "<input type='text' name='nome_leitor' class='inputx' value='$nome_leitor' style='width: 260px' readonly/>";
         echo "<a href='leitor.dominio.php?callback=emprestimo.cria.php&search='><img border='0' alt='alt' src='../layout/img/alte.ico' width='26' height='26' style='margin-left:6px; margin-bottom:-6px;'></a><br>";
 
         echo "<p class=labelx>T&iacute;tulo</p>";
@@ -95,7 +98,7 @@ Arch::initView(TRUE);
         echo "</table>";
         echo "<p>Verifique se os dados são corretos</p>";
         echo "<table class='tableraw'>";
-        echo "<tr><td>Leitor</td><td>".$leitor."</td></tr>";
+        echo "<tr><td>Leitor</td><td>".$nome_leitor."</td></tr>";
         echo "<tr><td>Título</td><td>".$nome_titulo."</td></tr>";
         echo "<tr><td>Exemplar</td><td>".$nro_exemplar."</td></tr>";
         echo "</table>";

@@ -1,48 +1,67 @@
-<?php
+<?php                   // editora.exclui.php
+// criado por GeraExclui em 20-08-2023 15:26:49
 include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.editora.php";
-include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
+// include "../classes/class.auditoria.php"; 
 
-Arch::initController("editora");
+Arch::initController("editora"); 
+    $id_centro = Arch::session("id_centro"); 
+    $id_editora = Arch::get("id_editora"); 
+    $action = Arch::get("action"); 
 
-    $id_centro  = Arch::session("id_centro");
-    $id_editora   = Arch::get("id_editora");
-    $nome       = Arch::get("nome");
+// instancia classe(s) 
+    $editora = new Editora(); 
+//    $auditoria = new Auditoria(); 
+// obtém dados das colunas 
+    $rs = $editora->selectId($id_centro, $id_editora); 
+    $reg = $rs->fetch(); 
+    $nome_editora = $reg["nome_editora"]; 
+// valida integridade referencial 
+    $msg = $editora->integridade($id_centro, $id_editora); 
+    if (strlen($msg) == 0) { 
+        if ($action == 'Confirma') { 
+// exclui instância 
+            $err = $editora->delete($id_centro, $id_editora); 
+            if (strlen($err) > 0) { 
+                $msg="<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen>* Editora excluido</p>"; 
+//                $auditoria->report("Exclui editora $id_centro, $id_editora"); 
+// desabilitada temporariamente
+            } 
+        } 
+    } 
 
-    $action     = Arch::get("action");
-    $msg = "";
-
-    $Editora = new Editora();
-
-    $msg = $Editora->integridade($id_centro, $id_editora);
-    if (strlen($msg) == 0) {
-        if ($action == 'Confirma') {
-            $audit = new Auditoria();
-            $message = $Editora->delete($id_centro, $id_editora);
-            if ( $message->code<0 ) {
-                $msg="<p class=texred>* Erro na exclusão</p>" . $message->description;
-            }else{
-                $msg="<p class=texgreen>* Editora excluido</p>";
-                $audit->report("Exclui editora $id_centro, $id_editora, $nome");
-            }
-        }
-    }
-
-Arch::initView(TRUE);
-?>
-    <p class=appTitle2>Editora</p>
-    <table class='tableraw'>
-        <tr><td>Nome</td><td><?php echo $nome; ?></td></tr>
-    </table>
-    <b><?php echo $msg; ?></b> <br><br>
-    <?php if (strlen($msg) == 0) { ?>
-        <p class='texgreen'>* Confirma a exclusão?</p> <br>
-        <a href='?action=Confirma&id_editora=<?php echo $id_editora;?>&nome=<?php echo $nome;?>'><button class="butbase">Confirma</button></a>
-    <?php } ?>
-    <a href='editora.lista.php'><button class="butbase">Volta</button></a>
-
-<?php Arch::endView(); 
-?>
+Arch::initView(TRUE); 
+    echo "<form method='get'>"; 
+    echo "<p class=appTitle2>Editora</p>"; 
+    echo "<table class='tableraw'>"; 
+// colunas a exibir 
+    echo "<tr><td>Id</td><td>$id_centro</td></tr>"; 
+    echo "<tr><td>Id</td><td>$id_editora</td></tr>"; 
+    echo "<tr><td>Nome</td><td>$nome_editora</td></tr>"; 
+    echo "</table>"; 
+    echo "<b>$msg</b> <br><br>"; 
+// se não hover erro solicita confirmação 
+    if (strlen($msg) == 0) { 
+        echo "<p class='texgreen'>"; 
+        echo "* Confirma a exclusão?</p> <br>"; 
+        echo "<input type='hidden' name='action' "; 
+        echo "value='Confirma'/>";  
+        echo "<input type='hidden' name='id_editora' "; 
+        echo "value='$id_editora'/>"; 
+// botão de confirmação 
+        echo "<button type='submit' "; 
+        echo "class='butbase' "; 
+        echo "formaction='"; 
+        echo "'>Confirma</button>"; 
+    } 
+// botão Volta 
+    botaoVolta("editora.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraExclui 20-08-2023 15:26:49</p>"; 
+Arch::endView(); 
+?> 

@@ -1,0 +1,6 @@
+prateleira 
+0|id_centro|integer|1||0
+1|id_prateleira|integer|0||1
+2|cod_prateleira|varchar(8)|0||0
+3|cde_inicial|varchar(8)|0||0
+4|cde_final|varchar(8)|0||0

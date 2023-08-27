@@ -1,58 +1,69 @@
-<?php
+<?php                   // cde.cria.php
+// criado por GeraCria em 19-08-2023 11:37:40
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.cde.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("cde");
-    $id_centro      = Arch::session("id_centro");
-    $action         = Arch::get("action");
-    $id_cde         = Arch::requestOrCookie("id_cde");
-    $cod_cde        = Arch::requestOrCookie("cod_cde");
-    $classe         = Arch::requestOrCookie("classe");
-    $callback       = Arch::requestOrCookie("callback");
-    $msg = "";
+Arch::initController("cde"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $id_cde = Arch::requestOrCookie("id_cde"); 
+    $cod_cde = Arch::requestOrCookie("cod_cde"); 
+    $clas_cde = Arch::requestOrCookie("clas_cde"); 
 
-    $cde = new Cde();
-    $audit = new Auditoria();
+    $msg = ""; 
 
-    if ($action == 'grava') {
-        $msg = $cde->valida($id_centro, $id_cde, $cod_cde, $classe);
-        if ( strlen($msg)==0) {
-            $message = $cde->insert($id_centro, $cod_cde, $classe);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* CDE criado</p>";
-                $audit->report("Cria $id_centro, $cod_cde, $classe");
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <p class=appTitle2>Classificação Decimal Espírita</p>
+// instancia classe(s) 
+    $cde = new Cde(); 
+    $audit = new Auditoria(); 
 
-    <form method='get'>
-        <p class=labelx>CDE</p>
-        <input type='text' name='cod_cde' value='<?php echo $cod_cde?>' class='inputx'/>
+    if ($action == 'grava') { 
+        $msg = $cde->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_cde, 
+            $cod_cde, 
+            $clas_cde); 
+        if (strlen($msg) == 0) { 
+// cria nova instância 
+            $err = $cde->insert( 
+                $id_centro, 
+                $id_cde, 
+                $cod_cde, 
+                $clas_cde); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Cde criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_centro, $id_cde, $cod_cde, $clas_cde"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-        <p class=labelx>Classe</p>
-        <input type='text' name='classe' value='<?php echo $classe?>' class='inputx'/>
-        <br>
-        <b><?php echo $msg ?></b> <br>  <!-- mensagens -->
+Arch::initView(TRUE); 
+include "./cde.form.php"; 
 
-        <?php 
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_cde' value='<?php echo $id_cde?>'/>
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_cde'"; 
+    echo "value='$id_cde'/>"; 
 
-        <button type='submit' class='butbase' formaction='<?php echo $callback?>'>Volta</button>
-    </form>
-
-<?php Arch::endView(); 
-?>
+// botão volta 
+    botaoVolta("cde.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraCria 19-08-2023 11:37:40</p>"; 
+Arch::endView(); 
+?> 

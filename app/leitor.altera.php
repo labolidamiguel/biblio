@@ -1,65 +1,100 @@
-<?php
+<?php                   // leitor.altera.php
+// criado por GeraAltera em 23-08-2023 10:03:42
 include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.leitor.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("leitor");
-    $id_centro  = Arch::session("id_centro");
-    $action     = Arch::get("action");
-    $flag_lido  = Arch::requestOrCookie("flag_lido");
-    $id_leitor  = Arch::requestOrCookie("id_leitor");
-    $nome       = Arch::requestOrCookie("nome");
-    $celular    = Arch::requestOrCookie("celular");
-    $email      = Arch::requestOrCookie("email");
-    $endereco   = Arch::requestOrCookie("endereco");
-    $cep        = Arch::requestOrCookie("cep");
-    $notas      = Arch::requestOrCookie("notas");
+Arch::initController("leitor"); 
+    $operacao = "altera"; 
+    $id_centro = Arch::session("id_centro"); 
+    $id_leitor = Arch::get("id_leitor"); 
+    $action    = Arch::get("action"); 
+    $flag_lido = Arch::get("flag_lido"); 
+// mantém dados em cookies 
+    $nome_leitor = Arch::requestOrCookie("nome_leitor"); 
+    $celular = Arch::requestOrCookie("celular"); 
+    $email = Arch::requestOrCookie("email"); 
+    $endereco = Arch::requestOrCookie("endereco"); 
+    $cep = Arch::requestOrCookie("cep"); 
+    $notas = Arch::requestOrCookie("notas"); 
 
-    $msg = "";
+    $msg = ""; 
 
-    $leitor = new Leitor();
-    $auditoria = new Auditoria();
-    
-    if (strlen($flag_lido) == 0) {   // 1a vez Select from dB
-        setcookie("flag_lido", "ja lido");
-        $rs = $leitor->selectId($id_centro , $id_leitor); 
-        $reg = $rs->fetch();            // PDO
-        $nome     = $reg["nome"];  
-        $celular  = $reg["celular"];
-        $email    = $reg["email"];
-        $endereco = $reg["endereco"];
-        $cep      = $reg["cep"];
-        $notas    = $reg["notas"];
-    }
+// instancia classe(s) 
+    $leitor = new Leitor(); 
+    $audit = new Auditoria(); 
 
-    if ($action == 'grava') {
-        $msg = $leitor->valida($id_centro, $id_leitor, $nome, $celular);
-        if (strlen($msg) == 0) {
-            $message = $leitor->update($id_centro, $id_leitor, $nome, $celular, $email, $endereco, $cep, $notas);
-            if ($message->code < 0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Leitor alterado</p>";
-                $auditoria->report("Altera $id_centro, $id_leitor, $nome, $celular, $email, $endereco, $cep, $notas");
-            }
+// na primeira vez carrega do DB 
+    if (strlen($flag_lido) == 0) { 
+        $rs = $leitor->selectId($id_centro, $id_leitor); 
+        $reg = $rs->fetch(); 
+// obtém valores das colunas 
+        $id_centro = $reg["id_centro"]; 
+        $id_leitor = $reg["id_leitor"]; 
+        $nome_leitor = $reg["nome_leitor"]; 
+        $celular = $reg["celular"]; 
+        $email = $reg["email"]; 
+        $endereco = $reg["endereco"]; 
+        $cep = $reg["cep"]; 
+        $notas = $reg["notas"]; 
+    } 
+// validação 
+    if ($action == "altera") { 
+        $msg = $leitor->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_leitor, 
+            $nome_leitor, 
+            $celular, 
+            $email, 
+            $endereco, 
+            $cep, 
+            $notas); 
 
-        Arch::deleteAllCookies();
-        }
-    }
-    
-Arch::initView(TRUE);
-include "./leitor.form.php";
+        if (strlen($msg) == 0) { 
+            $err = $leitor->update( 
+// colunas a atualizar 
+                $id_centro, 
+                $id_leitor, 
+                $nome_leitor, 
+                $celular, 
+                $email, 
+                $endereco, 
+                $cep, 
+                $notas); 
 
-    if (! strpos($msg, "alterado")) {  // omite botao altera
-        echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
-    }
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Leitor alterado</p>"; 
+//                $audit->report( 
+//                "Cria $id_centro, $id_centro, $id_leitor, $nome_leitor, $celular, $email, $endereco, $cep, $notas"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-    echo "<input type='hidden' name='id_leitor' value='$id_leitor'/>";
-    echo "<button type='submit' class='butbase' formaction='leitor.lista.php'>Volta</button>";
-    echo "</form>";
+Arch::initView(TRUE); 
+include "./leitor.form.php"; 
 
+// botão altera - omite se já foi alterado 
+    if (! strpos($msg, "alterado")) { 
+        echo "<button type='submit' name='action' "; 
+        echo "value='altera' class='butbase'> 
+        Altera</button>"; 
+    } 
+    echo "<input type='hidden' name='id_leitor'"; 
+    echo "value='$id_leitor'/>"; 
+    echo "<input type='hidden' name='flag_lido'"; 
+    echo "value='lido'/>"; 
+
+// botão volta 
+    botaoVolta("leitor.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraAltera 23-08-2023 10:03:42</p>"; 
 Arch::endView(); 
-?>
+?> 

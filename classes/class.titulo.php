@@ -14,29 +14,31 @@ Class Titulo {
     }
 
     function select($id_centro, $pesq) {
-        $sql = "
-            SELECT 
+        $sql = "SELECT 
                 titulo.id_titulo, titulo.nome_titulo, 
                 titulo.sigla, titulo.id_autor, 
                 titulo.id_espirito, titulo.id_cde, 
                 titulo.nro_volume, titulo.resenha,
-                autor.id_autor, autor.nome as autor,
-                espirito.nome as espirito,
-                cde.cod_cde as cod_cde,
-                cde.classe as classe
-            FROM 
-                titulo
-                left join autor     on titulo.id_autor    = autor.id_autor
-                left join espirito  on titulo.id_espirito = espirito.id_espirito
-                left join cde       on titulo.id_cde      = cde.id_cde 
-            WHERE titulo.id_centro = $id_centro ";
+                autor.id_autor, 
+                autor.nome_autor,
+                nome_espirito,
+                cde.cod_cde,
+                cde.clas_cde
+                FROM titulo
+                LEFT JOIN autor 
+                on titulo.id_autor = autor.id_autor
+                LEFT JOIN espirito  
+                on titulo.id_espirito = espirito.id_espirito
+                LEFT JOIN cde 
+                on titulo.id_cde = cde.id_cde 
+                WHERE titulo.id_centro = $id_centro ";
         if (strlen($pesq) > 0) {
             $sql = $sql .  
-            "AND ( 
-            titulo.nome_titulo       like '%".$pesq."%'
-            OR  autor.nome      like '%".$pesq."%'
-            OR  espirito.nome   like '%".$pesq."%' 
-            OR  cde.classe      like '%".$pesq."%')";
+                "AND ( 
+                nome_titulo         like '%".$pesq."%'
+                OR  nome_autor      like '%".$pesq."%'
+                OR  nome_espirito   like '%".$pesq."%' 
+                OR  clas_cde        like '%".$pesq."%')";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -44,20 +46,21 @@ Class Titulo {
     }
 
     function getCount($id_centro, $pesq) {
-        $sql = "select count(*)
-            FROM 
-                titulo
-                left join autor    on titulo.id_autor    = autor.id_autor
-                left join espirito on titulo.id_espirito = espirito.id_espirito 
-                left join cde      on titulo.id_cde      = cde.id_cde 
-            WHERE titulo.id_centro = $id_centro ";
+        $sql = "SELECT COUNT(*)
+                FROM titulo
+                LEFT JOIN autor 
+                on titulo.id_autor = autor.id_autor
+                LEFT JOIN espirito 
+                on titulo.id_espirito = espirito.id_espirito 
+                LEFT JOIN cde on titulo.id_cde = cde.id_cde 
+                WHERE titulo.id_centro = $id_centro ";
         if (strlen($pesq) > 0) {
             $sql = $sql . 
-            "AND (
-            titulo.nome_titulo       like '%".$pesq."%'
-            OR  autor.nome      like '%".$pesq."%'
-            OR  espirito.nome   like '%".$pesq."%' 
-            OR  cde.classe      like '%".$pesq."%')";
+                "AND (
+                nome_titulo         like '%".$pesq."%'
+                OR  nome_autor      like '%".$pesq."%'
+                OR  nome_espirito   like '%".$pesq."%' 
+                OR  clas_cde        like '%".$pesq."%')";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -67,28 +70,33 @@ Class Titulo {
     }
     
     function selectId($id_centro, $id_titulo){
-        $sql = "
-        SELECT 
-            titulo.id_titulo, titulo.nome_titulo, titulo.sigla, 
-            titulo.id_autor, titulo.id_espirito, titulo.id_cde, 
-            titulo.nro_volume, titulo.resenha,
-            autor.id_autor, autor.nome as autor,
-            espirito.nome as espirito,
-            cde.cod_cde as cod_cde,
-            cde.classe as classe
-        FROM 
-            titulo
-            left join autor     on titulo.id_autor    = autor.id_autor
-            left join espirito  on titulo.id_espirito = espirito.id_espirito
-            left join cde       on titulo.id_cde      = cde.id_cde 
-        WHERE titulo.id_centro = $id_centro AND id_titulo = $id_titulo;";
-
+        $sql = "SELECT titulo.id_titulo, 
+                titulo.nome_titulo, titulo.sigla, 
+                titulo.id_autor, titulo.id_espirito, 
+                titulo.id_cde, 
+                titulo.nro_volume, titulo.resenha,
+                autor.id_autor, 
+                nome_autor,
+                nome_espirito,
+                cde.cod_cde as cod_cde,
+                clas_cde
+                FROM titulo
+                LEFT JOIN autor     
+                on titulo.id_autor = autor.id_autor
+                LEFT JOIN espirito  
+                on titulo.id_espirito = espirito.id_espirito
+                LEFT JOIN cde 
+                on titulo.id_cde = cde.id_cde 
+                WHERE titulo.id_centro = $id_centro 
+                AND id_titulo = $id_titulo;";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
 
     function getResenha($id_centro, $id_titulo) {
-        $sql = "select resenha from titulo where id_centro = $id_centro and id_titulo = $id_titulo;";
+        $sql = "SELECT resenha FROM titulo 
+                WHERE id_centro = $id_centro 
+                AND id_titulo = $id_titulo;";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
@@ -96,75 +104,106 @@ Class Titulo {
     function existe($id_centro, $id_titulo, $nome_titulo) {
         if (strlen($id_titulo) == 0) {$id_titulo = 0;}
         $sql = "SELECT COUNT(ALL) FROM titulo 
-            WHERE id_centro = $id_centro 
-            AND nome_titulo = '$nome_titulo' 
-            AND id_titulo <> $id_titulo;";
+                WHERE id_centro = $id_centro 
+                AND nome_titulo = '$nome_titulo' 
+                AND id_titulo <> $id_titulo;";
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         return $reg[0];
     }
 
-    function insert($id_centro, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha) {
-        $sql = "INSERT INTO titulo 
-        (id_centro, id_titulo, nome_titulo, sigla, 
-        id_autor, id_espirito, id_cde, nro_volume, resenha) 
-        VALUES ($id_centro, NULL, '$nome_titulo', '$sigla', 
-        $id_autor, $id_espirito, $id_cde, '$nro_volume', '$resenha');";
-        return $this->$pdo->query($sql); // PDO
+    function insert(
+        $id_centro, $nome_titulo, $sigla, $id_autor, 
+        $id_espirito, $id_cde, $nro_volume, $resenha) {
+        $sql = "INSERT INTO titulo (
+                id_centro, id_titulo, nome_titulo, sigla, 
+                id_autor, id_espirito, id_cde, nro_volume, 
+                resenha) 
+                VALUES ($id_centro, NULL, '$nome_titulo', 
+                '$sigla', $id_autor, $id_espirito, 
+                $id_cde, '$nro_volume', '$resenha');";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
-    function update($id_centro, $id_titulo, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha) {
+    function update($id_centro, $id_titulo, $nome_titulo,
+        $sigla, $id_autor, $id_espirito, $id_cde, 
+        $nro_volume, $resenha) {
         $sql = "UPDATE titulo SET 
-            nome_titulo = '$nome_titulo', 
-            sigla = '$sigla', 
-            id_autor = '$id_autor',
-            id_espirito = '$id_espirito', 
-            id_cde = '$id_cde',
-            nro_volume = '$nro_volume', 
-            resenha = '$resenha' 
-            WHERE id_centro = $id_centro 
-            AND id_titulo = $id_titulo;";
-        return $this->$pdo->query($sql); // PDO
+                nome_titulo = '$nome_titulo', 
+                sigla = '$sigla', 
+                id_autor = '$id_autor',
+                id_espirito = '$id_espirito', 
+                id_cde = '$id_cde',
+                nro_volume = '$nro_volume', 
+                resenha = '$resenha' 
+                WHERE id_centro = $id_centro 
+                AND id_titulo = $id_titulo;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function delete($id_centro, $id_titulo) {
-        $sql = "DELETE FROM titulo WHERE id_centro = $id_centro AND id_titulo = $id_titulo;";
-        return $this->$pdo->query($sql); // PDO
+        $sql = "DELETE FROM titulo 
+                WHERE id_centro = $id_centro 
+                AND id_titulo = $id_titulo;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function valida() {
-        global $action, $id_centro, $id_titulo, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha, $autor, $espirito, $cod_cde;
+        global $action, $id_centro, $id_titulo, 
+        $nome_titulo, $sigla, $id_autor, $id_espirito, 
+        $id_cde, $nro_volume, $resenha, 
+        $nome_autor, $nome_espirito, 
+        $cod_cde;
         $msg = "";
 
         if (strlen($nome_titulo) == 0) {
-            $msg = $msg . "<p class=texred>* Título deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * Título deve ser preenchido</p>";
         }
         if (strlen($sigla) == 0) {
-            $msg = $msg . "<p class=texred>* Sigla deve ser preenchida</p>";
+            $msg = $msg . "<p class=texred>
+            * Sigla deve ser preenchida</p>";
         }
         if (strlen($sigla) != 2) {
-            $msg = $msg . "<p class=texred>* Sigla deve conter dois caracteres</p>"; 
+            $msg = $msg . "<p class=texred>
+            * Sigla deve conter dois caracteres</p>"; 
         }
         if (strlen($sigla) > 1) {
             if (($sigla[0] < "a" || $sigla[0] > "z") 
             ||  ($sigla[1] < "a" || $sigla[1] > "z")) {
-                $msg = $msg . "<p class=texred>* Sigla deve conter letras minúsculas</p>"; 
+                $msg = $msg . "<p class=texred>
+                * Sigla deve conter letras minúsculas</p>"; 
             }
         }
-        if (strlen($autor) == 0) {
-            $msg = $msg . "<p class=texred>* Autor deve ser selecionado</p>";
+        if (strlen($nome_autor) == 0) {
+            $msg = $msg . "<p class=texred>
+            * Autor deve ser selecionado</p>";
         }
         if ($id_espirito == 0) {    // nome pode ser branco
-            $msg = $msg . "<p class=texred>* Espírito deve ser selecionado</p>";
+            $msg = $msg . "<p class=texred>
+            * Espírito deve ser selecionado</p>";
         }
         if (strlen($cod_cde) == 0) {
-            $msg = $msg . "<p class=texred>* CDE deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * CDE deve ser preenchido</p>";
         }
         if (strlen($nro_volume) == 0) {
-            $msg = $msg . "<p class=texred>* Nro.Volume deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * Nro.Volume deve ser preenchido</p>";
         }
-        if ($this->existe($id_centro, $id_titulo, $nome_titulo) > 0) {
-            $msg = $msg . "<p class=texred>* Título já existe</p>"; 
+        if ($this->existe($id_centro, $id_titulo, 
+            $nome_titulo) > 0) {
+            $msg = $msg . "<p class=texred>
+            * Título já existe</p>"; 
         }
         return $msg;                
     }
@@ -177,7 +216,9 @@ Class Titulo {
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         if (($reg[0]) > 0) {
-            $msg = "<p class=texred>* Título não pode ser excluído,<br>&nbsp;&nbsp;há Exemplar(es) associado(s)</p>";
+            $msg = "<p class=texred>
+            * Título não pode ser excluído,
+            <br>&nbsp;&nbsp;há Exemplar(es) associado(s)</p>";
         }
         return $msg;
     }

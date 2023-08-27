@@ -4,7 +4,6 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.titulo.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController("titulo");
     $id_centro  = Arch::session("id_centro");
@@ -18,8 +17,8 @@ Arch::initController("titulo");
     $nro_volume = Arch::requestOrCookie("nro_volume");
     $resenha    = Arch::requestOrCookie("resenha");
 
-    $autor      = Arch::requestOrCookie("autor");
-    $espirito   = Arch::requestOrCookie("espirito");
+    $nome_autor = Arch::requestOrCookie("nome_autor");
+    $nome_espirito = Arch::requestOrCookie("nome_espirito");
     $cod_cde    = Arch::requestOrCookie("cod_cde");
 
     $msg = "";
@@ -40,9 +39,9 @@ Arch::initController("titulo");
     if ($action == 'grava') {
         $msg = $titulo->valida();
         if (strlen($msg) == 0) {        // sem erros
-            $message = $titulo->insert($id_centro, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha);
-            if ($message->code < 0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
+            $err = $titulo->insert($id_centro, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>Problemas: $err ";
             }else{
                 $msg="<p class=texgreen>* Título criado</p>";
                 $audit->report("Cria $id_centro, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha");

@@ -1,56 +1,65 @@
-<?php
+<?php                   // publicado.cria.php
+// criado por GeraCria em 14-08-2023 16:55:04
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.publicado.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("publicado");
-    $action         = Arch::get("action");
-    $id_publicado   = Arch::requestOrCookie("id_publicado");
-    $cod_cde        = Arch::requestOrCookie("cod_cde");
-    $nome_titulo    = Arch::requestOrCookie("nome_titulo");
+Arch::initController("publicado"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $cod_cde = Arch::requestOrCookie("cod_cde"); 
+    $nome_titulo = Arch::requestOrCookie("nome_titulo"); 
 
-    $msg = "";
+    $msg = ""; 
 
-    $publicado = new Publicado();
-    $audit = new Auditoria();
-        
-    if ($action == 'grava') {
-        $msg = $publicado->valida($id_publicado, $cod_cde, $nome_titulo);
-        if ( strlen($msg)==0) {
-            $message = $publicado->insert($cod_cde, $nome_titulo);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Publicado criado</p>";
-                $audit->report("Cria $cde, $titulo");
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <form method='get'>
-        <p class=appTitle2>Publicado pela FEB</p>
+// instanciação de classes 
+    $publicado = new Publicado(); 
+    $audit = new Auditoria(); 
 
-        <p class=labelx>CDE</p>
-        <input type='text' name='cod_cde' value='<?php echo $cod_cde?>' class='inputx'/>
+    if ($action == 'grava') { 
+        $msg = $publicado->valida( 
+// colunas a validar 
+            $id_publicado, 
+            $cod_cde, 
+            $nome_titulo); 
+        if (strlen($msg) == 0) { 
+            $err = $publicado->insert( 
+                $id_publicado, 
+                $cod_cde, 
+                $nome_titulo); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Publicado criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_publicado, $cod_cde, $nome_titulo"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-        <p class=labelx>Título</p>
-        <input type='text' name='nome_titulo' value='<?php echo $nome_titulo?>'  class='inputx'/>       
+Arch::initView(TRUE); 
+include "./publicado.form.php"; 
 
-        <br><?php echo $msg ?><br>  <!-- mensagens -->
-        <?php
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_publicado' value='<?php echo $id_publicado?>'/>
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_publicado'"; 
+    echo "value='$id_publicado'/>"; 
 
-        <button type='submit' class='butbase' formaction='publicado.lista.php'>Volta</button>
-    </form>
+// botão volta 
+    botaoVolta("publicado.lista.php"); 
+    echo "</form>"; 
 
-<?php Arch::endView(); 
-?>
+Arch::endView(); 
+?> 

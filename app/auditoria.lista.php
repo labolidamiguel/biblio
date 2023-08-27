@@ -1,4 +1,4 @@
-<?php
+<?php                           // auditoria.lista.php
 include "../common/arch.php";
 include "../classes/class.app.php";
 include "../classes/class.auditoria.php";
@@ -6,7 +6,7 @@ include "../common/funcoes.php";
 
 Arch::initController("auditoria");
     $id_centro  = Arch::session("id_centro");
-    $pesq       = Arch::requestOrCookie("pesq");
+    $pesq       = Arch::get("pesq");
     Arch::deleteCookie("flag_lido");
     
     $auditoria = new Auditoria();
@@ -15,8 +15,8 @@ Arch::initController("auditoria");
     $rs = $auditoria->select($id_centro, $pesq);
 
 Arch::initView(TRUE);
-    $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    $space5 = str_repeat("&nbsp;", 5); 
+    $space10 = str_repeat("&nbsp;", 10); 
 
     echo "<style>";
     echo ".tableFixHead {";
@@ -50,7 +50,9 @@ Arch::initView(TRUE);
     echo "<div>";
     botaoPesquisa($pesq);
     echo "$space10 Exclui&nbsp;";
-    echo "<a href='auditoria.exclui.php?id_autor=$id_autor&nome=$nome&iniciais=$iniciais'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
+    echo "<a href='auditoria.exclui.php?id_autor=$id_autor";
+    echo "&nome=$nome&iniciais=$iniciais'>";
+    echo "<img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
     echo "</div>";
     echo "</form>";
 
@@ -72,13 +74,15 @@ Arch::initView(TRUE);
         $data       = $reg["data"];
         $hora       = $reg["hora"];
         $mensagem   = $reg["mensagem"];
-        $nome       = $reg["nome"];
+        $nome_usuario = $reg["nome_usuario"];
         echo "<td>$data</td>";
-        echo "<td>$nome</td>";
+        echo "<td>$nome_usuario</td>";
         echo "<td>$codigo_app</td>";
         $aux = substr($mensagem,0,5);
         echo "<td>$aux</td>";
-        echo "<td><a href='auditoria.detalhe.php?nome=$nome&app=$codigo_app&mensagem=$mensagem'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='auditoria.detalhe.php?";
+        echo "nome_usuario=$nome_usuario";
+        echo "&app=$codigo_app&mensagem=$mensagem'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
         echo "</tr>";
     }
     echo "</table>";

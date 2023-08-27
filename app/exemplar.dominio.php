@@ -15,7 +15,8 @@ Arch::initController("lista");          // antes exemplar
     $emprestimo = new Emprestimo();
 
     if (strlen($id_titulo) == 0) {
-        $msg = "<p class=texred>* Deve antes escolher o Título</p>";
+        $msg = "<p class=texred>
+        * Deve antes escolher o Título</p>";
         $target = "emprestimo.cria.php?msg=$msg";
     	header("Location: $target"); 
     }
@@ -41,9 +42,11 @@ Arch::initView(TRUE);
     echo "</thead>";
 
     while($reg = $rs->fetch()) {        // PDO
-        $emp = $emprestimo->emprestado($id_centro, $reg["id_exemplar"]);
+    $id_exemplar    = $reg["id_exemplar"];
+    $nro_exemplar   = $reg["nro_exemplar"];
+        $emp = $emprestimo->emprestado($id_centro, $id_exemplar);
         $situacao = ($emp == 0) ? "" : "emprestado";
-        echo "<tr onclick=window.location.href='".$callback."?id_exemplar=". $reg["id_exemplar"] . "&nro_exemplar=" . $reg["nro_exemplar"] . "&situacao=" .$reg["situacao"] . "&msg='></a>";
+        echo "<tr onclick=window.location.href='$callback?id_exemplar=$id_exemplar&nro_exemplar=$nro_exemplar&situacao=$situacao&msg='></a>";
         echo "<td>" . $reg["id_exemplar"] . "</td>";
         echo "<td>" . $reg["editora"]  . "</td>";
         echo "<td>" . $reg["tradutor"] . "</td>";

@@ -1,0 +1,37 @@
+.
+<b> SSL TLS Protocolo httpS </b> - valido em producao. Logon do form encriptado! 
+<a href="https://labolida.com/miguel/biblio/">https://labolida.com/miguel/biblio/</a>
+
+LOG      http://127.0.0.1:88/miguel/biblio/log/log.html
+LOG      http://labolida.com/miguel/biblio/log/log.html
+BIBLIO   http://127.0.0.1:88/miguel/biblio/
+BIBLIO   http://labolida.com/miguel/biblio/
+
+
+SQL  PhpLiteAdminLatin  http://127.0.0.1:88/miguel/biblio/DATABASE/phpliteadminLatin.php
+SQL  Manager            http://127.0.0.1:88/miguel/biblio/DATABASE/sqlmanager.php
+
+SQL  PhpLiteAdminLatin  http://labolida.com/miguel/biblio/DATABASE/phpliteadminLatin.php
+SQL  Manager            http://labolida.com/miguel/biblio/DATABASE/sqlmanager.php
+
+
+CHAT http://127.0.0.1:88/miguel/biblio/DATABASE/chat.php
+CHAT http://labolida.com/miguel/biblio/DATABASE/chat.php
+
+
+
+GIT_HUB      https://github.com/labolida/BiblioPHP/commits/master
+
+PHP MANUAL   https://www.php.net/manual/en/
+
+
+
+
+
+
+
+
+
+
+
+                                                              

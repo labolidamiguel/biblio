@@ -1,53 +1,81 @@
-<?php
+<?php                   // centro.cria.php
+// criado por GeraCria em 22-08-2023 09:30:01
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.centro.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("centro");
+Arch::initController("centro"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $nome_centro = Arch::requestOrCookie("nome_centro"); 
+    $sigla_centro = Arch::requestOrCookie("sigla_centro"); 
+    $telefone = Arch::requestOrCookie("telefone"); 
+    $endereco = Arch::requestOrCookie("endereco"); 
+    $cidade = Arch::requestOrCookie("cidade"); 
+    $estado = Arch::requestOrCookie("estado"); 
+    $cep = Arch::requestOrCookie("cep"); 
 
-    $id_centro  = Arch::session("id_centro");
-    $action     = Arch::get("action");
-    $id_centro  = Arch::requestOrCookie("id_centro");
-    $nome       = Arch::requestOrCookie("nome");
-    $sigla      = Arch::requestOrCookie("sigla");
-    $telefone   = Arch::requestOrCookie("telefone");
-    $endereco   = Arch::requestOrCookie("endereco");
-    $cidade     = Arch::requestOrCookie("cidade");
-    $estado     = Arch::requestOrCookie("estado");
-    $cep        = Arch::requestOrCookie("cep");
+    $msg = ""; 
 
-    $msg = "";
-    $Centro = new Centro();
-        
-    if ($action == 'grava') {
-        $msg = $Centro->valida($id_centro, $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep);
+// instancia classe(s) 
+    $centro = new Centro(); 
+    $audit = new Auditoria(); 
 
-        if ( strlen($msg)==0) {
-            $audit = new Auditoria();
-            $message = $Centro->insert($nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Centro criado</p>";
-                $audit->report("Cria $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep");
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-include "./centro.form.php";
-        
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_centro' value='<?php echo $id_centro?>'/>
+    if ($action == 'grava') { 
+        $msg = $centro->valida( 
+// colunas a validar 
+            $id_centro, 
+            $nome_centro, 
+            $sigla_centro, 
+            $telefone, 
+            $endereco, 
+            $cidade, 
+            $estado, 
+            $cep); 
+        if (strlen($msg) == 0) { 
+// cria nova instância 
+            $err = $centro->insert( 
+                $id_centro, 
+                $nome_centro, 
+                $sigla_centro, 
+                $telefone, 
+                $endereco, 
+                $cidade, 
+                $estado, 
+                $cep); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Centro criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_centro, $nome_centro, $sigla_centro, $telefone, $endereco, $cidade, $estado, $cep"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-        <button type='submit' class='butbase' formaction='centro.lista.php'>Volta</button>
-    </form>
+Arch::initView(TRUE); 
+include "./centro.form.php"; 
 
-<?php Arch::endView(); 
-?>
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_centro'"; 
+    echo "value='$id_centro'/>"; 
+
+// botão volta 
+    botaoVolta("centro.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraCria 22-08-2023 09:30:01</p>"; 
+Arch::endView(); 
+?> 

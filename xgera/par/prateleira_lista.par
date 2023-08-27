@@ -1,0 +1,6 @@
+e prateleira  Prateleira 
+r id_centro Id
+r id_prateleira Id
+x cod_prateleira Cod_prateleira
+f cde_inicial Cde_inicial  cde
+f cde_final Cde_final   cde

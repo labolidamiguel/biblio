@@ -16,21 +16,22 @@ Arch::initController("devolucao");      // DEVOLUÇÃO
 
     $emprestimo = new Emprestimo();
     $prateleira = new Prateleira();
-    $auditoria = new Auditoria();
+//    $auditoria = new Auditoria();
 
-    $rs = $emprestimo->getEmprestimo($id_centro, $id_emprestimo); 
+    $rs = $emprestimo->getEmprestimo(
+            $id_centro, $id_emprestimo); 
     $reg = $rs->fetch();            // PDO
-    $leitor         = $reg["leitor"];  
+    $nome_leitor    = $reg["nome_leitor"];  
     $nome_titulo    = $reg["nome_titulo"];  
     $emprestado     = $reg["emprestado"];
 
     if ($action == 'ok') {
-        $ret = $emprestimo->update($id_centro, $id_emprestimo);
-        if (strlen($ret) > 0) {
-            $msg="<p class=texred>Problemas</p>";
+        $err = $emprestimo->update($id_centro, $id_emprestimo);
+        if (strlen($err) > 0) {
+            $msg="<p class=texred>Problemas $err</p>";
         }else{
             $msg="<p class=texgreen>* Devolução realizada</p>";
-            $auditoria->report("Altera $id_centro, $id_emprestimo");
+//            $auditoria->report("Altera $id_centro, $id_emprestimo");
         }
         Arch::deleteAllCookies();
     }
@@ -42,7 +43,7 @@ Arch::initView(TRUE);
         echo "<p>Verifique se os dados são corretos</p>";
         echo "<table class='tableraw'>";
         echo "<tr>";
-        echo "<td>Nome do Leitor</td><td>".$reg["leitor"]."</td>";
+        echo "<td>Nome do Leitor</td><td>".$reg["nome_leitor"]."</td>";
         echo "</tr><tr>";
         echo "<td>T&iacute;tulo do Livro</td><td>".$reg["nome_titulo"]."</td>";
         echo "</tr><tr>";
@@ -50,7 +51,7 @@ Arch::initView(TRUE);
         echo "</tr><tr>";
         echo "<td>CDE</td><td>".$reg["cod_cde"]."</td>";
         echo "</tr><tr>";
-        echo "<td>Classe CDE</td><td>".$reg["classe"]."</td>";
+        echo "<td>Classe CDE</td><td>".$reg["clas_cde"]."</td>";
         echo "</tr><tr>";
         echo "<td>Nro do Exemplar</td><td>".$reg["nro_exemplar"]."</td>";
         echo "</tr><tr>";

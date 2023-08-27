@@ -4,7 +4,6 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.titulo.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController("titulo");
     $id_centro  = Arch::session("id_centro");
@@ -20,9 +19,9 @@ Arch::initController("titulo");
     $msg = $titulo->integridade($id_centro, $id_titulo);
     if (strlen($msg) == 0) {
         if ($action == 'confirma') {
-            $message=$titulo->delete($id_centro, $id_titulo);
-            if ($message->code < 0) {
-                $msg="<p class=texred>* Erro na exclusão</p>" . $message->description;
+            $err = $titulo->delete($id_centro, $id_titulo);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>* Erro na exclusão: $err</p>";
             }else{
                 $msg="<p class=texgreen>* Título excluido</p>";
                 $audit->report("Exclui $id_centro, $id_titulo, $nome_titulo, $autor");

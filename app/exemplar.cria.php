@@ -4,11 +4,8 @@
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
-include "../classes/class.prateleira.php";
 include "../classes/class.exemplar.php";
-include "../classes/class.titulo.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController("titulo");         // exemplar App nao existe
     $id_centro      = Arch::session("id_centro");
@@ -22,21 +19,14 @@ Arch::initController("titulo");         // exemplar App nao existe
     $data_entrada   = Arch::requestOrCookie("data_entrada");
     $nro_exemplar   = Arch::requestOrCookie("nro_exemplar");
     $nome_titulo    = Arch::requestOrCookie("nome_titulo");
-    $tradutor       = Arch::requestOrCookie("tradutor");
-    $editora        = Arch::requestOrCookie("editora");
+    $nome_tradutor  = Arch::requestOrCookie("nome_tradutor");
+    $nome_editora   = Arch::requestOrCookie("nome_editora");
 
     $msg = "";
     $esta = "";
 
     $exemplar = new Exemplar();
-    $prateleira = new Prateleira();
-    $titulo = new Titulo();
     $audit = new Auditoria();
-
-    $rs = $titulo->selectId($id_centro, $id_titulo);
-    while($reg = $rs->fetch()){         // PDO
-        $esta = $prateleira->getPrateleira($id_centro, $reg["cde"]);
-    }
 
     if ($action == 't') {               // dominio tradutor
     	header('Location: tradutor.dominio.php?callback=exemplar.cria.php&pesq=');
@@ -46,15 +36,29 @@ Arch::initController("titulo");         // exemplar App nao existe
     }    
 
     if ($action == 'grava') {
-        $msg = $exemplar->valida($id_centro, $id_titulo, $id_exemplar, $id_tradutor, $tradutor, $editora, $data_entrada, $nro_exemplar);
+        $msg = $exemplar->valida(
+            $id_centro,         // data record
+            $id_exemplar, 
+            $id_titulo, 
+            $id_tradutor, 
+            $id_editora, 
+            $nro_edicao,
+            $ano_publicacao,
+            $data_entrada,
+            $nro_exemplar,
+            $nome_tradutor,     // dominio
+            $nome_editora);     // dominio
         if (strlen($msg) == 0) {        // sem erros
-            $message = $exemplar->insert($id_centro, $id_titulo, $id_tradutor, $id_editora, $nro_edicao, $ano_publicacao, $data_entrada, $nro_exemplar);
-            if ($message->code < 0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
+            $err = $exemplar->insert(
+                $id_centro, $id_exemplar, $id_titulo,
+                $id_tradutor, $id_editora, $nro_edicao, 
+                $ano_publicacao, $data_entrada, $nro_exemplar);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>Problemas: $err</p>";
             }else{
-                $msg="<p class=texgreen>* Exemplar criado</p>";
-                $msg=$msg."<p class=texgreen>* Prateleira(s): $esta</p>";
-                $audit->report("Cria $id_centro, $id_titulo, $id_tradutor, $id_editora, $nro_edicao, $ano_publicacao, $data_entrada, $nro_exemplar, $nome_titulo, $tradutor, $editora" );
+                $msg="<p class=texgreen>
+                * Exemplar criado</p>";
+                $audit->report("Cria $id_centro, $id_titulo, $id_tradutor, $id_editora, $nro_edicao, $ano_publicacao, $data_entrada, $nro_exemplar, $nome_titulo, $nome_tradutor, $nome_editora" );
             }
             Arch::deleteAllCookies();
         }

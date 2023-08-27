@@ -1,0 +1,8 @@
+e usuario  Usuario 
+r id_centro Id_centro
+r id_usuario Id_usuario
+x nome_usuario Nome
+s perfis_usuario Perfis 1____Básico 13_Auxiliar 135_Bibliotecário 1357_Administrador
+p senha Senha
+x telefone Telefone
+x email Email

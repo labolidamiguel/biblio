@@ -1,0 +1,10 @@
+e exemplar  Exemplar 
+r id_centro Id_centro
+r id_exemplar Id_exemplar
+r id_titulo Id_titulo
+r id_tradutor Id_tradutor
+r id_editora Id_editora
+x nro_edicao Nro_edicao
+x ano_publicacao Ano_publicacao
+x data_entrada Data_entrada
+x nro_exemplar Nro_exemplar

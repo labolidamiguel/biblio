@@ -1,0 +1,90 @@
+dia?type=11&titl=menu&indx=0&hdr=&desc=&matrix=0&rows=2&cols=1&xvet=102&yvet=5 98&maxatrpub=32&maxatrpro=32&maxatrpri=32&maxmetpub=32&maxmetpro=32&maxmetpri=32&fpmeth=0&fptypcont=0&fptyproj=0&fphspf=10&fplocpf=33&fpenvir=4&fprisk=0
+box?type=7&uid=5EC96CA903A2&left=30&top=12&right=34&bottom=16&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC96D090321&left=79&top=29&right=83&bottom=33&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC96E87035E&left=79&top=5&right=83&bottom=9&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC96FC402BE&left=68&top=61&right=72&bottom=65&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC96FC90304&left=42&top=61&right=46&bottom=65&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC96FF203D8&left=79&top=79&right=83&bottom=83&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC9715100D9&left=79&top=105&right=83&bottom=109&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5EC9715C0057&left=68&top=87&right=72&bottom=91&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5ECCF84002C1&left=30&top=87&right=34&bottom=91&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5ECFD8CC0239&left=79&top=23&right=83&bottom=27&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5ECFDB6B00C8&left=79&top=73&right=83&bottom=77&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=7&uid=5ECFDC2F0183&left=79&top=99&right=83&bottom=103&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECFE04300F2&left=7&top=2&right=17&bottom=8&text=biblio crud:20200530&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE59830219&left=44&top=67&right=55&bottom=72&text=botao altera&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE56FA02AC&left=7&top=66&right=19&bottom=76&text=botao altera:action=altera:step=inicio:id_xxxx=nnn&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECFD8540295&left=44&top=23&right=57&bottom=28&text=botao cancela&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECFDBFD03A8&left=44&top=99&right=57&bottom=104&text=botao cancela&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECFDA020264&left=44&top=73&right=57&bottom=78&text=botao cancela&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE5AA0001D&left=44&top=29&right=57&bottom=34&text=botao confirma&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE5BE402B0&left=44&top=105&right=57&bottom=110&text=botao confirma&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE59E40022&left=44&top=79&right=57&bottom=84&text=botao confirma&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE5A9C0033&left=44&top=17&right=54&bottom=22&text=botao cria&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE567C01BD&left=7&top=23&right=18&bottom=31&text=botao cria:action=cria:step=inicio&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE5E020106&left=25&top=53&right=38&bottom=61&text=botao dominio:callback=:xxxx.altera&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE5DFD00EE&left=25&top=37&right=38&bottom=45&text=botao dominio:callback=:xxxx.cria&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE5BE001DC&left=44&top=93&right=55&bottom=98&text=botao exclui&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5ECE579203E6&left=7&top=97&right=19&bottom=107&text=botao exclui:action=exclui:step=inicio:id_xxxx=nnn&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC971FC03BD&left=7&top=11&right=19&bottom=17&text=menu:action=clean&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96D650100&left=25&top=66&right=38&bottom=76&text=xxxx.altera:_SEP_:leitura:form populado&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96A8101B7&left=26&top=23&right=36&bottom=31&text=xxxx.cria:_SEP_:form vazio&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96DD202DF&left=25&top=97&right=38&bottom=107&text=xxxx.exclui:_SEP_:leitura:form populado&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96E410181&left=27&top=2&right=37&bottom=12&text=xxxx.lista:_SEP_:lista:paginacao&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=19&uid=5ECE4E75011F&left=64&top=38&right=79&bottom=56&text=xxxx.lista:xxxx.cria:xxxx.altera:xxxx.exclui:xxxx.dominio:xxxx.valida:xxxx.persiste:classe.xxxx&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC9714100C5&left=64&top=103&right=76&bottom=111&text=xxxx.persiste:_SEP_:delete&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96CF601B9&left=62&top=27&right=74&bottom=35&text=xxxx.persiste:_SEP_:insert&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96F6B0265&left=64&top=77&right=76&bottom=85&text=xxxx.persiste:_SEP_:update&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96EEC02D3&left=64&top=65&right=76&bottom=73&text=xxxx.valida:_SEP_:valida(altera)&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC96BD001E6&left=64&top=10&right=75&bottom=18&text=xxxx.valida:_SEP_:valida(cria)&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC970C80179&left=64&top=91&right=76&bottom=99&text=xxxx.valida:_SEP_:valida(exclui)&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5EC98E920276&left=49&top=44&right=61&bottom=54&text=yyyy.dominio:_SEP_:lista:paginacao&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+lin?type=0&styl=0&mid=0&uid1=5EC96CF601B9&uid2=5EC96D090321&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5EC96E87035E&uid2=5EC96E410181&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96FC90304&uid2=5EC96FC402BE&car1=&car2=&text=mensagem de erro (step=valida):ou (step=ok)
+lin?type=0&styl=0&mid=0&uid1=5EC96F6B0265&uid2=5EC96FF203D8&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC9714100C5&uid2=5EC9715100D9&car1=&car2=&text=
+lin?type=1&styl=0&mid=4716700&uid1=5EC971FC03BD&uid2=5EC96E410181&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5EC98E920276&uid2=5EC96A8101B7&car1=&car2=&text=id_yyyy=mm
+lin?type=1&styl=0&mid=0&uid1=5EC98E920276&uid2=5EC96D650100&car1=&car2=&text=id_yyyy=mm
+lin?type=1&styl=0&mid=0&uid1=5EC96FC90304&uid2=5EC96D650100&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5EC96CA903A2&uid2=5EC96A8101B7&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96EEC02D3&uid2=5EC96FC402BE&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC970C80179&uid2=5EC9715C0057&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECCF84002C1&uid2=5EC96DD202DF&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECCF84002C1&uid2=5EC9715C0057&car1=&car2=&text=mensagem de erro (step=valida):ou (step=ok)
+lin?type=0&styl=0&mid=0&uid1=5EC96E410181&uid2=5ECE567C01BD&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE567C01BD&uid2=5EC96A8101B7&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE56FA02AC&uid2=5EC96D650100&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECE567C01BD&uid2=5ECE56FA02AC&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE579203E6&uid2=5EC96DD202DF&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECE56FA02AC&uid2=5ECE579203E6&car1=&car2=&text=
+lin?type=1&styl=0&mid=35537364&uid1=5ECE59830219&uid2=5EC96EEC02D3&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96D650100&uid2=5ECE59830219&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96D650100&uid2=5ECE59E40022&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE59E40022&uid2=5EC96F6B0265&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96A8101B7&uid2=5ECE5A9C0033&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96A8101B7&uid2=5ECE5AA0001D&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE5A9C0033&uid2=5EC96BD001E6&car1=&car2=&text=
+lin?type=1&styl=0&mid=35537332&uid1=5ECE5AA0001D&uid2=5EC96CF601B9&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96DD202DF&uid2=5ECE5BE001DC&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96DD202DF&uid2=5ECE5BE402B0&car1=&car2=&text=
+lin?type=1&styl=0&mid=35537356&uid1=5ECE5BE001DC&uid2=5EC970C80179&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE5BE402B0&uid2=5EC9714100C5&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96A8101B7&uid2=5ECE5DFD00EE&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96D650100&uid2=5ECE5E020106&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE5DFD00EE&uid2=5EC98E920276&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5ECE5E020106&uid2=5EC98E920276&car1=&car2=&text=
+lin?type=0&styl=0&mid=8929684&uid1=5EC96CA903A2&uid2=5EC96BD001E6&car1=&car2=&text=mensagem de erro (step=valida):ou (step=ok)
+lin?type=0&styl=0&mid=8929668&uid1=5EC96A8101B7&uid2=5ECFD8540295&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFD8540295&uid2=5ECFD8CC0239&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFD8CC0239&uid2=5EC96E87035E&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFD8CC0239&uid2=5EC96D090321&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96D650100&uid2=5ECFDA020264&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFDA020264&uid2=5ECFDB6B00C8&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFDB6B00C8&uid2=5EC96D090321&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFDB6B00C8&uid2=5EC96FF203D8&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96DD202DF&uid2=5ECFDBFD03A8&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFDBFD03A8&uid2=5ECFDC2F0183&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5EC96FF203D8&uid2=5ECFDC2F0183&car1=&car2=&text=
+lin?type=0&styl=0&mid=0&uid1=5ECFDC2F0183&uid2=5EC9715100D9&car1=&car2=&text=

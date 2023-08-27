@@ -1,65 +1,101 @@
-<?php
+<?php                   // centro.altera.php
+// criado por GeraAltera em 22-08-2023 09:30:00
 include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.centro.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("centro");
-    $action     = Arch::get("action");
-    $flag_lido  = Arch::requestOrCookie("flag_lido");
-    $id_centro  = Arch::requestOrCookie("id_centro");
-    $nome       = Arch::requestOrCookie("nome");
-    $sigla      = Arch::requestOrCookie("sigla");
-    $telefone   = Arch::requestOrCookie("telefone");
-    $endereco   = Arch::requestOrCookie("endereco");
-    $cidade     = Arch::requestOrCookie("cidade");
-    $estado     = Arch::requestOrCookie("estado");
-    $cep        = Arch::requestOrCookie("cep");
+Arch::initController("centro"); 
+    $operacao = "altera"; 
+    $id_centro = Arch::session("id_centro"); 
+    $id_centro = Arch::get("id_centro"); 
+    $action    = Arch::get("action"); 
+    $flag_lido = Arch::get("flag_lido"); 
+// mantém dados em cookies 
+    $nome_centro = Arch::requestOrCookie("nome_centro"); 
+    $sigla_centro = Arch::requestOrCookie("sigla_centro"); 
+    $telefone = Arch::requestOrCookie("telefone"); 
+    $endereco = Arch::requestOrCookie("endereco"); 
+    $cidade = Arch::requestOrCookie("cidade"); 
+    $estado = Arch::requestOrCookie("estado"); 
+    $cep = Arch::requestOrCookie("cep"); 
 
-    $msg = "";
-    $Centro = new Centro();
-    
-    if (strlen($flag_lido) == 0) {           // 1a vez Select from dB
-        setcookie("flag_lido", "ja lido");
-        $rs  = $Centro->selectId($id_centro); 
-//        $reg = $rs->fetchArray();
-        $reg = $rs->fetch();            // PDO
-        $nome       = $reg["nome"];
-        $sigla      = $reg["sigla"];
-        $telefone   = $reg["telefone"];
-        $endereco   = $reg["endereco"];
-        $cidade     = $reg["cidade"];
-        $estado     = $reg["estado"];
-        $cep        = $reg["cep"];
-    }
+    $msg = ""; 
 
-    if ($action == 'grava') {
-        $msg = $Centro->valida($id_centro, $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep);
-        if (strlen($msg) == 0) {
-            $audit = new Auditoria();
-            $message = $Centro->update($id_centro, $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Centro alterado</p>";
-                $audit->report("Altera $id_centro, $nome, $sigla, $telefone, $endereco, $cidade, $estado, $cep");
-            }
-        Arch::deleteAllCookies();
-        }
-    }
-    
-Arch::initView(TRUE);
-include "./centro.form.php";
+// instancia classe(s) 
+    $centro = new Centro(); 
+    $audit = new Auditoria(); 
 
-        if (! strpos($msg, "alterado")) {  // omite botao altera
-            echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
-        }
-        ?>
-        <input type='hidden' name='id_centro' value='<?php echo $id_centro?>'/>
-        <button type='submit' class='butbase' formaction='centro.lista.php'>Volta</button>
-    </form>
-<?php 
+// na primeira vez carrega do DB 
+    if (strlen($flag_lido) == 0) { 
+        $rs = $centro->selectId($id_centro, $id_centro); 
+        $reg = $rs->fetch(); 
+// obtém valores das colunas 
+        $id_centro = $reg["id_centro"]; 
+        $nome_centro = $reg["nome_centro"]; 
+        $sigla_centro = $reg["sigla_centro"]; 
+        $telefone = $reg["telefone"]; 
+        $endereco = $reg["endereco"]; 
+        $cidade = $reg["cidade"]; 
+        $estado = $reg["estado"]; 
+        $cep = $reg["cep"]; 
+    } 
+// validação 
+    if ($action == "altera") { 
+        $msg = $centro->valida( 
+// colunas a validar 
+            $id_centro, 
+            $nome_centro, 
+            $sigla_centro, 
+            $telefone, 
+            $endereco, 
+            $cidade, 
+            $estado, 
+            $cep); 
+
+        if (strlen($msg) == 0) { 
+            $err = $centro->update( 
+// colunas a atualizar 
+                $id_centro, 
+                $nome_centro, 
+                $sigla_centro, 
+                $telefone, 
+                $endereco, 
+                $cidade, 
+                $estado, 
+                $cep); 
+
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Centro alterado</p>"; 
+//                $audit->report( 
+//                "Cria $id_centro, $id_centro, $nome_centro, $sigla_centro, $telefone, $endereco, $cidade, $estado, $cep"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
+
+Arch::initView(TRUE); 
+include "./centro.form.php"; 
+
+// botão altera - omite se já foi alterado 
+    if (! strpos($msg, "alterado")) { 
+        echo "<button type='submit' name='action' "; 
+        echo "value='altera' class='butbase'> 
+        Altera</button>"; 
+    } 
+    echo "<input type='hidden' name='id_centro'"; 
+    echo "value='$id_centro'/>"; 
+    echo "<input type='hidden' name='flag_lido'"; 
+    echo "value='lido'/>"; 
+
+// botão volta 
+    botaoVolta("centro.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraAltera 22-08-2023 09:30:00</p>"; 
 Arch::endView(); 
-?>
+?> 

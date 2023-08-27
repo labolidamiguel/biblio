@@ -1,58 +1,65 @@
-<?php
-include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+<?php                   // autor.dominio.php 
+// criado por GeraDominio em 20-08-2023 14:57:47
+include "../common/arch.php"; 
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.autor.php";
 
-Arch::initController("autor");
-    $id_centro  = Arch::session("id_centro");
-    $action     = Arch::requestOrCookie("action");
-    $step       = Arch::requestOrCookie("step");
-    $pesq       = Arch::requestOrCookie("pesq");
-    $callback   = Arch::requestOrCookie("callback");
+Arch::initController("lista"); 
+    $id_centro  = Arch::session("id_centro"); 
+    $pesq       = Arch::get("pesq"); 
+    $callback   = Arch::get("callback"); 
+// instancia classe(s) 
+    $autor = new Autor(); 
+    $count = $autor->getCount($id_centro, $pesq); 
+// obtem registros 
+    $rs = $autor->select($id_centro, $pesq); 
 
-    $autor = new Autor();
-
-    $count = $autor->getCount($id_centro, $pesq);
-    $rs = $autor->select($id_centro, $pesq);
-    
-Arch::initView(TRUE);
-    $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-
-    echo "<p class=appTitle2>Autor</p>";
-    echo "<form><div>";
-
-    echo "<input type='hidden' name='callback' value=" . $callback . " id='callback' class='callback'>";
-    echo "<input type='hidden' name='action' value=" . $action . " id='action' class='action'>";
-    echo "<input type='hidden' name='step' value=" . $step . " id='step' class='step'>";
-
-    echo "<input type='text' value='" . $pesq . "' name='pesq' id='pesq' class='inputh'>";
-    echo "<a href='?pesq='><img src='../layout/img/limp.ico' width='22' height='22' class='butimg'></a>";
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "<input type='image' src='../layout/img/pesq.ico' alt='Submit' width='22' height='22' class='butimg'>";
-    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    echo "</div></form>";
-
-    echo "<div class='tableFixHead'>";  // header fixo
-    echo "<table>";
-    echo "<thead>";
-    echo "<tr class=\"blue\">";
-    echo "<th align='left'>Nome</th>";
-    echo "<th align='left'>Iniciais</th>";
-    echo "</tr>";
-    echo "</thead>";
-    while( $reg = $rs->fetch() ){       // PDO
-        $nome = urlencode($reg["nome"]);
-        $iniciais = substr($reg["iniciais"],0,2);
-        echo "<tr onclick=window.location.href='$callback?id_autor=" . $reg["id_autor"] . "&autor=$nome'></a>";
-        echo "<td>" . $reg["nome"] . "</td>";
-        echo "<td> $iniciais </td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-    echo "</form>";
-    echo "</div>";//NOPAG
-    echo "$space10 ($count itens)";//NOPAG
-    Arch::endView();
-?>
+Arch::initView(TRUE); 
+    $space5     = str_repeat("&nbsp", 5); 
+    $space10    = str_repeat("&nbsp", 10); 
+    echo "<p class=appTitle2>Autor</p>"; 
+    echo "<form>"; 
+    echo "<div>"; 
+// texto, botão apaga e botão pesquisa 
+    botaoPesquisa($pesq); 
+    echo "</div>"; 
+    echo "</form>"; 
+// monta lista na tabela html 
+    echo "<div class='tableFixHead'>"; 
+    echo "<table>"; 
+    echo "<thead>"; 
+    echo "<tr class='blue'>"; 
+// titulos colunas 
+    echo "<th align='left'>Id</th>"; 
+    echo "<th align='left'>Nome</th>"; 
+    echo "<th align='left'>Inic</th>"; 
+    echo "</tr>"; 
+    echo "</thead>"; 
+// para cada linha 
+    while ($reg = $rs->fetch() ){ 
+        $id_autor = $reg["id_autor"]; 
+        $nome_autor = $reg["nome_autor"]; 
+        $nome_autor_url = urlencode($nome_autor); 
+        $iniciais = $reg["iniciais"]; 
+        $iniciais_url = urlencode($iniciais); 
+// evento on click 
+        echo "<tr onclick"; 
+        echo "=window.location.href"; 
+        echo "='$callback"; 
+        echo "?id_autor=$id_autor"; 
+        echo "&nome_autor=$nome_autor_url"; 
+        echo "&iniciais=$iniciais_url"; 
+        echo "&flag_lido=lido'></a>"; 
+// colunas a exibir 
+        echo "<td>$id_autor</td>"; 
+        echo "<td>$nome_autor</td>"; 
+        echo "<td>$iniciais</td>"; 
+        echo "</tr>"; 
+    } 
+    echo "</table>"; 
+    echo "</div>"; 
+    echo "$space10 ($count itens)"; 
+    echo "<p style='font-size:70%;'>GeraDominio 20-08-2023 14:57:47</p>"; 
+Arch::endView(); 
+?> 

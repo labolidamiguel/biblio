@@ -1,0 +1,5 @@
+autor 
+0|id_centro|integer|1||0
+1|id_autor|integer|0||1
+2|nome_autor|text|0||0
+3|iniciais|text|0||0

@@ -1,0 +1,4 @@
+editora 
+0|id_centro|integer|1||0
+1|id_editora|integer|0||1
+2|nome_editora|text|0||0

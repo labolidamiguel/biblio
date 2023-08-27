@@ -4,7 +4,6 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.prateleira.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController("prateleira");
     $id_centro      = Arch::session("id_centro");
@@ -21,13 +20,18 @@ Arch::initController("prateleira");
     $audit = new Auditoria();
         
     if ($action == 'grava') {
-        $msg = $prateleira->valida($id_centro, $id_prateleira, $cod_prateleira, $cde_inicial, $cde_final);
+        $msg = $prateleira->valida($id_centro, 
+            $id_prateleira, $cod_prateleira, 
+            $cde_inicial, $cde_final);
         if (strlen($msg) == 0) {
-            $message = $prateleira->insert($id_centro, $cod_prateleira, $cde_inicial, $cde_final);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
+            $err = $prateleira->insert($id_centro,
+                $id_prateleira, $cod_prateleira, 
+                $cde_inicial, $cde_final);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>Problemas ".$err."</p>";
             }else{
-                $msg="<p class=texgreen>* Prateleira criada</p>";
+                $msg="<p class=texgreen>
+                * Prateleira criada</p>";
                 $audit->report("Cria $id_centro, $cod_prateleira, $cde_inicial, $cde_final");
             }
         }

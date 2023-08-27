@@ -1,7 +1,7 @@
 <?php
-/**************************************************************
+/******************************************************
 ARCH - ARCHTECTURE
-***************************************************************/
+*******************************************************/
 
 session_start();
     error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
@@ -9,17 +9,18 @@ session_start();
 class Arch {
 
     static function versao() {          // versao do sistema
-        return "1.03";
+        return "1.04";
     }
 
-    /***********************************************************
+    /********************************************************
     initWebApp : Inicializa a WebPageApplication
-    PARAM      : Titulo da pagina - onde via query.sql obtemos o application_perfil
+    PARAM      : Titulo da pagina - onde via query.sql 
+    obtemos o application_perfis
     VALIDATIONS:
         user_session ok
-        user_perfil match application_perfil
-    ************************************************************/
-    static function initController( $codigo="" ) {
+        user_perfis match application_perfis
+    *********************************************************/
+    static function initController($codigo = "") {
 
         $_SESSION["codigo_app"] = $codigo; // miguel 20200626
 
@@ -35,30 +36,38 @@ class Arch {
 
         $cookie = ""; 
         if (isset($_SERVER["HTTP_COOKIE"]))
-            {$cookie =$_SERVER["HTTP_COOKIE"];}
-        self::logg(" [COOKIEs]:" . $cookie);
+            {$cookie = $_SERVER["HTTP_COOKIE"];}
+        self::logg(" [COOKIEs]: " . $cookie);
 
 
         $arrkey = array_keys($_SESSION);
-        if ( sizeof($arrkey)>4 ){ self::logg("Atencao:Existem mais de 4 variaveis de sessao!","1"); }
-        for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
+        if ( sizeof($arrkey) > 4 ) { 
+            self::logg(
+            "Atencao: + de 4 variaveis de sessao!","1"); 
+        }
+        for ($i=0; $i < sizeof($arrkey); $i++) {
             $key = $arrkey[$i];
-            if (isset($_SESSION[$key]) && ! is_array($_SESSION[$key]) ) {
-                self::logg("  [SESSION] ". $key . ": " . $_SESSION[$key]);
+            if (isset($_SESSION[$key]) 
+            && ! is_array($_SESSION[$key]) ) {
+                self::logg("  [SESSION] ". $key . ": " . 
+                $_SESSION[$key]);
             }
         }
         $arrkey = array_keys($_COOKIE);
         for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
             $key = $arrkey[$i];
-            if (isset($_COOKIE[$key]) && ! is_array($_COOKIE[$key]) ) {
-                self::logg("  [COOKIE] ". $key . ": " . $_COOKIE[$key]);
+            if (isset($_COOKIE[$key]) 
+            && ! is_array($_COOKIE[$key]) ) {
+                self::logg("  [COOKIE] ". $key . ": " . 
+                $_COOKIE[$key]);
             }
         }
         $buff="";// temp buffer Server variables
         $arrkey = array_keys($_SERVER);
-        for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
+        for ($i = 0; $i < sizeof($arrkey); $i++) {
             $key = $arrkey[$i];
-            if (isset($_SERVER[$key])  &&  !is_array($_SERVER[$key]) ) {
+            if (isset($_SERVER[$key])  
+            &&  !is_array($_SERVER[$key]) ) {
                 $buff=$buff." ".$key.":".$_SERVER[$key];
             }
         }
@@ -67,51 +76,57 @@ class Arch {
         $arrkey = array_keys($_GET);
         for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
             $key = $arrkey[$i];
-            if (isset($_GET[$key])  &&  !is_array($_GET[$key])  ) {
-                self::logg("  [GET] ". $key . ": " . $_GET[$key]);
+            if (isset($_GET[$key])  
+            &&  !is_array($_GET[$key])  ) {
+                self::logg("  [GET] ". $key . ": " . 
+                $_GET[$key]);
             }
         }
         $arrkey = array_keys($_POST);
-        for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
+        for ($i = 0; $i < sizeof($arrkey); $i++) {
             $key = $arrkey[$i];
-            if (isset($_POST[$key])  &&  !is_array($_POST[$key]) ) {
-                self::logg("  [POST] ". $key . ": " . $_POST[$key]);
+            if (isset($_POST[$key])  
+            &&  !is_array($_POST[$key]) ) {
+                self::logg("  [POST] ". $key . ": " . 
+                $_POST[$key]);
             }
         }
         $arrkey = array_keys($_REQUEST);
-        for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
+        for ($i = 0; $i < sizeof($arrkey); $i++) {
             $key = $arrkey[$i];
-            if (isset($_REQUEST[$key]) && ! is_array($_REQUEST[$key]) ) {
-                self::logg("  [REQUEST]:". $key . ": " . $_REQUEST[$key]);
+            if (isset($_REQUEST[$key]) 
+            && ! is_array($_REQUEST[$key]) ) {
+                self::logg("  [REQUEST]:". $key . ": " . 
+                $_REQUEST[$key]);
                 self::SqlInjection($_REQUEST[$key]);
             }
         }
 
-        if ( strlen($codigo)>0 ) {                          // SECURE VALIDATION FOR WEB-APP UNDER LOGON
-
-            if ( isset($_SESSION["nome"])==0 ) {            // VALIDA IF LOGADO
+        if ( strlen($codigo) > 0 ) { // se app e logado
+            if (isset($_SESSION["nome_usuario"]) == 0) {
                 header("Location: login.web.php");
             }
 
             // BACALHAU NOJENTO PRA BURLAR A SEGURANCA DO CODIGO DA APLICACAO strlen($codigo)>1
-            if ( strlen($codigo)>1 ) {
-                $perfil_app="";
+            if (strlen($codigo) > 1) {
+                $perfis_app="";
                 $result="";
 
                 $app = new App();                                // VALIDANDO O PERFIL : USUARIO X WEB-APP
                 $rs = $app->select_codigo($codigo);              // SQL SELECT APP_PERFIL FROM APP WHERE TITULO
                 while($reg = $rs->fetch()){ // PDO
 // Somente deveria existir 1 um registro
-                    $perfil_app = $reg["perfil"];                // Perfil da APPlicacao
+                    $perfil_app = $reg["perfil_app"];                // Perfil da APPlicacao
                 }
 
-                if ( isset($_SESSION['perfis']) && isset($perfil_app)) {
-                    $result = strpos( $_SESSION["perfis"] , $perfil_app ) ;
+                if ( isset($_SESSION['perfis_usuario']) 
+                && isset($perfil_app)) {
+                    $result = strpos($_SESSION["perfis_usuario"], $perfil_app) ;
                 }
 
-                if ( strlen($result)<=0) {
+                if (strlen($result) <= 0) {
                     echo "<h2>Perfil não autorizado</h2> Desculpe, você não têm acesso a esta funcionalidade.";
-                    self::logg("Profile denied! Actual is " . $_SESSION["perfis"] . " required is " . $param );
+                    self::logg("Profile denied! Actual is " . $_SESSION["perfis_usuario"] . " required is " . $param );
                     exit();
                 }
             }
@@ -126,10 +141,8 @@ class Arch {
         admin=false // usado para a web        publica [OPEN]
         admin=true  // usado para a web-admin  privada [SECURED]
     *********************************************************/
-    static function initView( $admin=FALSE , $hide=FALSE) {
-
+    static function initView($admin = FALSE, $hide = FALSE) {
         self::logg("[ARCH.initView]");
-
         // HEAD para NAO Cachear. Isto deve ser usado em desenvolvimento.
         header("Cache-Control: no-cache, must-revalidate"); //HTTP 1.1
         header("Pragma: no-cache"); //HTTP 1.0
@@ -139,7 +152,7 @@ class Arch {
         header('Content-Type: text/html; charset=iso-8859-1'); // LATIN charset
 
         # Incluir HTML.content.head+body
-        if ($hide==false) {
+        if ($hide == false) {
             if ($admin) {
                 include "../layout/inc.layout.head.admin.php";
             }else{
@@ -236,8 +249,9 @@ class Arch {
         $arrkey = array_keys($_COOKIE);
         for ( $i=0 ; $i<sizeof($arrkey) ; $i++ ) {
             $key = $arrkey[$i]; // each key
-            if ( isset($_COOKIE[$key]) && $key!=$PHP_SESSION_COOKIE ) { // Nao destroi indexSession!!!
-                setcookie($key, "" ,time() - 3600);
+            if ( isset($_COOKIE[$key]) 
+            && $key!=$PHP_SESSION_COOKIE ) { // Nao destroi indexSession!!!
+                setcookie($key, "", time() - 3600);
             }
         }
     }

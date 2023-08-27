@@ -13,9 +13,11 @@ class Autor {
     }
 
     function select($id_centro, $pesq){
-        $sql = "SELECT * FROM autor WHERE id_centro = '$id_centro' ";
+        $sql = "SELECT * FROM autor 
+                WHERE id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "AND nome LIKE '%".$pesq."%' ";
+            $sql = $sql . 
+                "AND nome_autor LIKE '%$pesq%' ";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -23,9 +25,11 @@ class Autor {
     }
 
     function getCount($id_centro, $pesq) {
-        $sql = "SELECT count(*) FROM autor WHERE id_centro = '$id_centro' ";
+        $sql = "SELECT count(*) FROM autor 
+                WHERE id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "AND nome LIKE '%".$pesq."%' ";
+            $sql = $sql . 
+                "AND nome_autor LIKE '%$pesq%' ";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -35,67 +39,94 @@ class Autor {
     }
 
     function selectId($id_centro, $id_autor){
-        $sql = "SELECT * FROM autor WHERE id_centro = $id_centro AND id_autor = $id_autor;";
+        $sql = "SELECT * FROM autor 
+                WHERE id_centro = $id_centro 
+                AND id_autor = $id_autor;";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
     
-    function existe($id_centro, $id_autor, $nome) {
-        if (strlen($id_autor) == 0) {$id_autor = 0;}
-        $sql = "SELECT COUNT(ALL) FROM autor WHERE id_centro = $id_centro AND nome = '$nome' AND id_autor <> $id_autor;";
+    function existe($id_centro, $id_autor, $nome_autor) {
+        $sql = "SELECT COUNT(ALL) 
+                FROM autor 
+                WHERE id_centro = $id_centro 
+                AND nome_autor = '$nome_autor'";
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
+        if ((strlen($id_autor) > 0) // se altera deve
+        and ($reg[0] == 1))         // existir apenas 1 item
+            return 0;
         return $reg[0];
     }
 
-    function valida_altera($id_centro, $id_autor, $nome, $iniciais) {
+    function valida($id_centro, $id_autor, $nome_autor, $iniciais) {
         $msg = "";
-        if (strlen($nome) == 0) {
-            $msg = $msg . "<p class=texred>* Nome deve ser preenchido</p>";
+        if (strlen($nome_autor) == 0) {
+            $msg = $msg . "<p class=texred>
+            * Nome deve ser preenchido</p>";
+        }
+        if (self::existe(
+            $id_centro, $id_autor, $nome_autor) > 0) {
+            $msg = $msg . "<p class=texred>
+            * Nome já existe</p>"; 
         }
         if (strlen($iniciais) == 0) {
-            $msg = $msg . "<p class=texred>* Iniciais deve ser preenchidas</p>";
+            $msg = $msg . "<p class=texred>
+            * Iniciais deve ser preenchidas</p>";
         }
         if (strlen($iniciais) != 2) {
-            $msg = $msg . "<p class=texred>* Iniciais devem conter dois caracteres</p>"; 
+            $msg = $msg . "<p class=texred>
+            * Iniciais devem conter dois caracteres</p>"; 
         }
         if (strlen($iniciais) > 0) {
             if (($iniciais[0] < "A" || $iniciais[0] > "Z") 
             ||  ($iniciais[1] < "A" || $iniciais[1] > "Z")) {
-                $msg = $msg . "<p class=texred>* Iniciais devem conter letras maiúsculas</p>"; 
+                $msg = $msg . "<p class=texred>
+                * Iniciais devem ser letras maiúsculas</p>"; 
             }
         }
         return $msg;
     }
 
-    function valida_cria($id_centro, $id_autor, $nome, $iniciais) {
-        $msg = self::valida_altera($id_centro, $id_autor, $nome, $iniciais);
-        if (self::existe($id_centro, $id_autor, $nome) > 0) {
-            $msg = $msg . "<p class=texred>* Nome já existe</p>"; 
-        }
-        return $msg;
+    function insert($id_centro, $id_autor, $nome_autor, $iniciais) {
+        $sql = "INSERT INTO autor (
+                id_centro, id_autor, nome_autor, iniciais) 
+                VALUES (
+                '$id_centro', NULL, 
+                '$nome_autor', '$iniciais');";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
-    function insert($id_centro, $nome, $iniciais) {
-        $sql = "INSERT INTO autor (id_centro, id_autor, nome, iniciais) VALUES ('$id_centro', NULL, '$nome', '$iniciais');";
-        return $this->$pdo->query($sql); // PDO
-    }
-
-    function update($id_centro, $id_autor, $nome, $iniciais){
-        $sql = "UPDATE autor SET nome = '$nome', iniciais = '$iniciais' WHERE id_centro = $id_centro AND id_autor = $id_autor;";
-        return $this->$pdo->query($sql); // PDO
+    function update($id_centro, $id_autor, $nome_autor, $iniciais){
+        $sql = "UPDATE autor SET 
+                nome_autor = '$nome_autor', 
+                iniciais = '$iniciais' 
+                WHERE id_centro = $id_centro 
+                AND id_autor = $id_autor;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
     
     function delete($id_centro, $id_autor){
-        $sql = "DELETE FROM autor WHERE id_centro = $id_centro AND id_autor = $id_autor;";
-        return $this->$pdo->query($sql); // PDO
+        $sql = "DELETE FROM autor 
+                WHERE id_centro = $id_centro 
+                AND id_autor = $id_autor;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
     
     function integridade($id_centro, $id_autor) {
         $msg = "";
         $sql = "SELECT COUNT(*) FROM titulo 
-        WHERE titulo.id_centro = $id_centro 
-        AND titulo.id_autor = $id_autor;";
+                WHERE titulo.id_centro = $id_centro 
+                AND titulo.id_autor = $id_autor;";
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         if (($reg[0]) > 0) {

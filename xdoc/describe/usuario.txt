@@ -1,0 +1,8 @@
+usuario 
+0|id_centro|integer|1||0
+1|id_usuario|integer|0||1
+2|nome_usuario|text|0||0
+3|perfis_usuario|text|0||0
+4|senha|text|0||0
+5|telefone|TEXT|0||0
+6|email|TEXT|0||0

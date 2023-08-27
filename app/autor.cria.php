@@ -1,57 +1,69 @@
-<?php
+<?php                   // autor.cria.php
+// criado por GeraCria em 19-08-2023 11:21:53
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.autor.php";
 include "../classes/class.auditoria.php";
 
-Arch::initController("autor");
+Arch::initController("autor"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $id_autor = Arch::requestOrCookie("id_autor"); 
+    $nome_autor = Arch::requestOrCookie("nome_autor"); 
+    $iniciais = Arch::requestOrCookie("iniciais"); 
 
-    $id_centro      = Arch::session("id_centro");
-    $action         = Arch::get("action");
-    $id_autor       = Arch::requestOrCookie("id_autor");
-    $nome           = Arch::requestOrCookie("nome");
-    $iniciais       = Arch::requestOrCookie("iniciais");
-    $callback       = Arch::requestOrCookie("callback");
+    $msg = ""; 
 
-    $msg = "";
-    $autor = new Autor();
-    $auditoria = new Auditoria();
-        
-    if ($action == 'grava') {
-        $msg = $autor->valida_cria($id_centro, $id_autor, $nome, $iniciais);
-        if (strlen($msg) == 0) {
-            $message = $autor->insert($id_centro, $nome, $iniciais);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Autor criado</p>";
-                $auditoria->report("Cria $id_centro, $nome, $iniciais");
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-    echo "<p class=appTitle2>Autor</p>";
-    echo "<form method='get'>";
+// instancia classe(s) 
+    $autor = new Autor(); 
+    $audit = new Auditoria(); 
 
-    echo "<p class=labelx>Nome</p>";
-    echo "<input type='text' name='nome' value='$nome' class='inputx'/>";
+    if ($action == 'grava') { 
+        $msg = $autor->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_autor, 
+            $nome_autor, 
+            $iniciais); 
+        if (strlen($msg) == 0) { 
+// cria nova instância 
+            $err = $autor->insert( 
+                $id_centro, 
+                $id_autor, 
+                $nome_autor, 
+                $iniciais); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Autor criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_centro, $id_autor, $nome_autor, $iniciais"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-    echo "<p class=labelx>Iniciais</p>";
-    echo "<input type='text' name='iniciais' value='$iniciais' class='inputx'/>";
+Arch::initView(TRUE); 
+include "./autor.form.php"; 
 
-    echo "<br>";
-    echo "<b>" . $msg . "</b><br>";     // mensagens
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_autor'"; 
+    echo "value='$id_autor'/>"; 
 
-    if (! strpos($msg, "criado")) {     // omite botao cria
-        echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-    }
-    echo "<input type='hidden' name='id_autor' value='" . $id_autor . "'/>";
-
-    echo "<button type='submit' class='butbase' ";
-    echo "formaction='$callback'>Volta</button>";
-    echo "</form>";
-
+// botão volta 
+    botaoVolta("autor.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraCria 19-08-2023 11:21:53</p>"; 
 Arch::endView(); 
-?>
+?> 

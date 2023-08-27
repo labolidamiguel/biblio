@@ -1,64 +1,80 @@
-<?php
+<?php                   // tradutor.altera.php
+// criado por GeraAltera em 20-08-2023 16:25:31
 include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.tradutor.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("tradutor");
+Arch::initController("tradutor"); 
+    $operacao = "altera"; 
+    $id_centro = Arch::session("id_centro"); 
+    $id_tradutor = Arch::get("id_tradutor"); 
+    $action    = Arch::get("action"); 
+    $flag_lido = Arch::get("flag_lido"); 
+// mantém dados em cookies 
+    $nome_tradutor = Arch::requestOrCookie("nome_tradutor"); 
 
-    $id_centro      = Arch::session("id_centro");
-    $action         = Arch::get("action");
-    $flag_lido      = Arch::requestOrCookie("flag_lido");
-    $id_tradutor    = Arch::requestOrCookie("id_tradutor");
-    $nome           = Arch::requestOrCookie("nome");
+    $msg = ""; 
 
-    $msg = "";
-    $Tradutor = new Tradutor();
-    
-    if (strlen($flag_lido) == 0) {           // 1a vez Select from dB
-        setcookie("flag_lido", "ja lido");
-        $rs = $Tradutor->selectId($id_centro , $id_tradutor); 
-//        $reg = $rs->fetchArray();
-        $reg = $rs->fetch();            // PDO
-        $nome       = $reg["nome"];  
-    }
+// instancia classe(s) 
+    $tradutor = new Tradutor(); 
+    $audit = new Auditoria(); 
 
-    if ($action == 'grava') {
-        $msg = $Tradutor->valida($id_centro, $id_tradutor, $nome);
-        if (strlen($msg) == 0) {
-            $audit = new Auditoria();
-            $message = $Tradutor->update($id_centro, $id_tradutor, $nome);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Tradutor alterado</p>";
-                $audit->report("Altera $id_centro, $id_tradutor, $nome");
-            }
+// na primeira vez carrega do DB 
+    if (strlen($flag_lido) == 0) { 
+        $rs = $tradutor->selectId($id_centro, $id_tradutor); 
+        $reg = $rs->fetch(); 
+// obtém valores das colunas 
+        $id_centro = $reg["id_centro"]; 
+        $id_tradutor = $reg["id_tradutor"]; 
+        $nome_tradutor = $reg["nome_tradutor"]; 
+    } 
+// validação 
+    if ($action == "altera") { 
+        $msg = $tradutor->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_tradutor, 
+            $nome_tradutor); 
 
-        Arch::deleteAllCookies();
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <p class=appTitle2>Tradutor</p>
+        if (strlen($msg) == 0) { 
+            $err = $tradutor->update( 
+// colunas a atualizar 
+                $id_centro, 
+                $id_tradutor, 
+                $nome_tradutor); 
 
-    <form method='get'>
-        <p class=labelx>Nome</p>
-        <input type='text' name='nome' value='<?php echo $nome?>' class='inputx'/>
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Tradutor alterado</p>"; 
+//                $audit->report( 
+//                "Cria $id_centro, $id_centro, $id_tradutor, $nome_tradutor"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-        <br><?php echo $msg ?><br>  <!-- mensagem -->
+Arch::initView(TRUE); 
+include "./tradutor.form.php"; 
 
-        <?php 
-        if (! strpos($msg, "alterado")) {  // omite botao altera
-            echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
-        }
-        ?>
-        <input type='hidden' name='id_tradutor' value='<?php echo $id_tradutor?>'/>
-        <button type='submit' class='butbase' formaction='tradutor.lista.php'>Volta</button>
-    </form>
-<?php 
+// botão altera - omite se já foi alterado 
+    if (! strpos($msg, "alterado")) { 
+        echo "<button type='submit' name='action' "; 
+        echo "value='altera' class='butbase'> 
+        Altera</button>"; 
+    } 
+    echo "<input type='hidden' name='id_tradutor'"; 
+    echo "value='$id_tradutor'/>"; 
+    echo "<input type='hidden' name='flag_lido'"; 
+    echo "value='lido'/>"; 
+
+// botão volta 
+    botaoVolta("tradutor.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraAltera 20-08-2023 16:25:31</p>"; 
 Arch::endView(); 
-?>
+?> 

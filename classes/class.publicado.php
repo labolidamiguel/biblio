@@ -12,19 +12,20 @@ class Publicado {
         or die(__CLASS__ . " Erro conexão dB"); // PDO
     }
 
-    function select($id_centro, $pesq){
-        $sql = "
-        SELECT 
-            id_publicado, 
-            publicado.cod_cde, 
-            cde.id_cde,
-            nome_titulo
-        FROM publicado 
-        left join cde on publicado.cod_cde = cde.cod_cde
-        WHERE cde.id_centro = 1 "; // REFERENCIA É CECX
+    function select($pesq){
+        $sql = "SELECT 
+                id_publicado, 
+                publicado.cod_cde, 
+                cde.id_cde,
+                nome_titulo
+                FROM publicado 
+                LEFT JOIN cde 
+                ON publicado.cod_cde = cde.cod_cde
+                WHERE cde.id_centro = 1 "; // REFEREN. CECX
         if (strlen($pesq) > 0) {
-            $sql = $sql . " AND (publicado.cod_cde LIKE '%$pesq%' 
-            OR nome_titulo LIKE '%$pesq%') ";
+            $sql = $sql . 
+                "AND (publicado.cod_cde LIKE '%$pesq%' 
+                OR nome_titulo LIKE '%$pesq%') ";
         }
         $sql = $sql . "ORDER BY publicado.cod_cde;";
 
@@ -32,11 +33,12 @@ class Publicado {
         return $rs;
     }
 
-    function getCount($id_centro, $pesq) {
+    function getCount($pesq) {
         $sql = "SELECT count(*) 
-        FROM publicado ";
+                FROM publicado ";
         if (strlen($pesq) > 0) {
-            $sql = $sql . "WHERE (publicado.cod_cde LIKE '%$pesq%'
+            $sql = $sql . "WHERE (publicado.cod_cde 
+            LIKE '%$pesq%'
             OR nome_titulo LIKE '%$pesq%');";
         }
         $sql = $sql . ";";
@@ -47,7 +49,8 @@ class Publicado {
     }
 
     function selectId($id_publicado){
-        $sql = "SELECT * FROM publicado WHERE id_publicado = $id_publicado;";
+        $sql = "SELECT * FROM publicado 
+                WHERE id_publicado = $id_publicado;";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
@@ -55,10 +58,12 @@ class Publicado {
     function valida($id_publicado, $cod_cde, $nome_titulo) {
         $msg = "";
         if (strlen($cod_cde) == 0) {
-            $msg = $msg . "<p class=texred>* CDE deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * CDE deve ser preenchido</p>";
         }
         if (strlen($nome_titulo) == 0) {
-            $msg = $msg . "<p class=texred>* T&iacute;tulo deve ser preenchido</p>";
+            $msg = $msg . "<p class=texred>
+            * T&iacute;tulo deve ser preenchido</p>";
         }
         if (strlen($cod_cde) > 7
         &&  is_numeric($cod_cde[0]) 
@@ -70,34 +75,54 @@ class Publicado {
         &&  is_numeric($cod_cde[6])
         &&  is_numeric($cod_cde[7])) {      // correct
         }else{
-            $msg = $msg . "<p class=texred>* CDE inválido. Deve ser formado como nn.nn.nn</p>"; 
+            $msg = $msg . "<p class=texred>
+            * CDE inválido. Deve ser formado como nn.nn.nn</p>"; 
         }
         if (self::existe($id_publicado, $titulo) > 0) {
-            $msg = $msg . "<p class=texred>* Título já existe</p>"; 
+            $msg = $msg . "<p class=texred>
+            * Título já existe</p>"; 
         } 
         return $msg;               
     }
 
     function existe($id_publicado, $nome_titulo) {
-        $sql = "SELECT COUNT(ALL) FROM publicado WHERE nome_titulo = '$nome_titulo' AND id_publicado <> '$id_publicado';";
+        $sql = "SELECT COUNT(ALL) 
+                FROM publicado 
+                WHERE nome_titulo = '$nome_titulo' 
+                AND id_publicado <> '$id_publicado';";
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         return $reg[0];
     }
 
     function insert($cod_cde, $nome_titulo) {
-        $sql = "INSERT INTO publicado (id_publicado, cod_cde, nome_titulo) VALUES (NULL, '$cod_cde', '$nome_titulo');";
-        return $this->$pdo->query($sql); // PDO
+        $sql = "INSERT INTO publicado (id_publicado, 
+                cod_cde, nome_titulo) 
+                VALUES (NULL, '$cod_cde', '$nome_titulo');";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
-    function update($id_publicado, $cod_cde, $nome_titulo){
-        $sql = "UPDATE publicado SET cod_cde = '$cod_cde', nome_titulo = '$nome_titulo' WHERE id_publicado = $id_publicado;";
-        return $this->$pdo->query($sql); // PDO
+    function update($id_publicado, $cod_cde, $nome_titulo) {
+        $sql = "UPDATE publicado SET 
+                cod_cde = '$cod_cde', 
+                nome_titulo = '$nome_titulo' 
+                WHERE id_publicado = $id_publicado;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
     
     function delete($id_publicado){
-        $sql = "DELETE FROM publicado WHERE id_publicado = $id_publicado;";
-        return $this->$pdo->query($sql); // PDO
+        $sql = "DELETE FROM publicado 
+                WHERE id_publicado = $id_publicado;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
     function __destruct() {

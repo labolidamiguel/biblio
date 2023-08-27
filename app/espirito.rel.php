@@ -9,14 +9,14 @@ include "../layout/inc.relatorio.prologo.php";
 
 Arch::initView(TRUE, TRUE);
     $nomeRelatorio = "Cadastro de Espírito"; // TITULO rel.
-    $tamcol=array('60'); // tamanho coluna
-    $titcol=array('Nome');
+    $tamcol = array('2', '60'); // tamanho coluna
+    $titcol = array('Id', 'Nome');
 
-    $sql = 
-    "SELECT 
-        nome
-    FROM espirito
-    WHERE espirito.id_centro = $id_centro;";
+    $sql = "SELECT 
+            id_espirito,
+            nome_espirito
+            FROM espirito
+            WHERE espirito.id_centro = $id_centro;";
 
 include "../layout/inc.relatorio.epilogo.php";
 

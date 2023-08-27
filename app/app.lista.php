@@ -1,64 +1,75 @@
-<?php
-        error_reporting (E_ALL ^ E_NOTICE);
+<?php                   // app.lista.php
+// criado por GeraLista em 21-08-2023 13:55:11
 include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 
-Arch::initController("app");
-    error_reporting (E_ALL ^ E_NOTICE);
-    $pesq       = Arch::requestOrCookie("pesq");
-    $flag_lido  = "";
-    $app = new App();
+Arch::initController("app"); 
+    $id_centro = Arch::session("id_centro"); 
+    $pesq      = Arch::get("pesq"); 
 
-    $count = $app->getCount($pesq);
-    $rs = $app->select_all();
+// instancia classe(s) 
+    $app = new App(); 
+    $count = $app->getCount($pesq); 
+    $rs = $app->select($pesq); 
+    Arch::deleteAllCookies(); 
 
-Arch::initView(TRUE);
-    $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+Arch::initView(TRUE); 
+    $space5 = str_repeat("&nbsp;", 5); 
+    $space10 = str_repeat("&nbsp;", 10); 
 
-    echo "<p class=appTitle2>App</p>";
-    echo "<form>";
-    echo "<div>";
-    echo $space10 . $space10 . $space10;
-    botaoCria("app.cria.php", "app.lista.php");
-    echo "</div>";
-    echo "</form>";
-
-    echo "<div class='tableFixHead'>";  // header fixo
-    echo "<table>";
-    echo "<thead>";
-    echo "<tr>";
-    echo "<th>C&oacute;digo</th>";
-    echo "<th>T&iacute;tulo App</th>";
-    echo "<th>Perf</th>";
-    echo "<th>URL</th>";
-    echo "<th>Ord</th>";
-    echo "<th></th>"; // altera
-    echo "<th></th>"; // exclui
-    echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
-
-    while($reg = $rs->fetch() ){        // PDO
-        $id_app     = $reg["id_app"];
-        $codigo     = $reg["codigo"];
-        $titulo     = $reg["titulo"];
-        $perfil     = $reg["perfil"];
-        $ordem      = $reg["ordem"];
-        echo "<td>$codigo</td>";
-        echo "<td>$titulo</td>";
-        echo "<td>$perfil</td>";
-        echo "<td>" . $reg["url"] . "</td>"; // URL
-        echo "<td>$ordem</td>";
-        echo "<td><a href='app.altera.php?id_app=$id_app&flag_lido='><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
-        echo "<td><a href='app.exclui.php?id_app=$id_app&codigo=$codigo&titulo=$titulo'><img border='0' alt='excl' src='../layout/img/excl.ico' width='20' height='20'></a><br></td>";
-        echo "</tr>";
-    }
-    echo "</body>";
-    echo "</table>";
-    echo "</div>";
-    echo "$space10 ($count itens)";//NOPAG
-
-Arch::endView();
-?>
+    echo "<p class=appTitle2>App</p>"; 
+    echo "<form>"; 
+    echo "<div>"; 
+    botaoPesquisa($pesq); 
+    echo $space10; 
+    botaoCria("app.cria.php", "app.lista.php"); 
+    echo "</div>"; 
+    echo "</form>"; 
+    echo "<div class='tableFixHead'>"; 
+    echo "<table>"; 
+    echo "<thead>"; 
+    echo "<tr class='blue'>"; 
+    echo "<th align='left'>Id</th>"; 
+    echo "<th align='left'>Codigo</th>"; 
+    echo "<th align='left'>Titulo</th>"; 
+    echo "<th align='left'>Perfil</th>"; 
+    echo "<th align='left'>Ordem</th>"; 
+    echo "<th>&nbsp;</th><th>&nbsp;</th>"; 
+    echo "</tr>"; 
+    echo "</thead>"; 
+// fetch colunas da tabela 
+    while($reg = $rs->fetch()) { 
+        $id_app = $reg["id_app"]; 
+        $codigo = $reg["codigo"]; 
+        $titulo = $reg["titulo"]; 
+        $perfil_app = $reg["perfil_app"]; 
+        $ordem = $reg["ordem"]; 
+// colunas tabela html 
+        echo "<td>$id_app</td>"; 
+        echo "<td>$codigo</td>"; 
+        echo "<td>$titulo</td>"; 
+        echo "<td>$perfil_app</td>"; 
+        echo "<td>$ordem</td>"; 
+// botao altera 
+        echo "<td><a href='app.altera.php?"; 
+        echo "id_app=$id_app"; 
+        echo "&callback=app.lista.php'>"; 
+        echo "<img border='0' alt='alt'"; 
+        echo "src='../layout/img/alte.ico'"; 
+        echo "width='20' height='20'></a><br></td>"; 
+// botao exclui 
+        echo "<td><a href='app.exclui.php?"; 
+        echo "id_app=$id_app"; 
+        echo "&callback=app.lista.php'>"; 
+        echo "<img border='0' alt='alt'"; 
+        echo "src='../layout/img/excl.ico'"; 
+        echo "width='20' height='20'></a><br></td>"; 
+        echo "</tr>"; 
+    } 
+    echo "</table>"; 
+    echo "</div>"; 
+    echo "$space10 ($count itens)"; 
+    echo "<p style='font-size:70%;'>GeraLista 21-08-2023 13:55:11</p>"; 
+Arch::endView(); 
+?> 

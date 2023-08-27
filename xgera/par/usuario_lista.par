@@ -1,0 +1,5 @@
+e usuario  Usuario 
+r id_centro Id
+r id_usuario Id
+x nome_usuario Nome
+x perfis_usuario Perfis

@@ -1,58 +1,66 @@
-<?php
+<?php                   // editora.cria.php
+// criado por GeraCria em 20-08-2023 15:26:48
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.editora.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("editora");
+Arch::initController("editora"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $id_editora = Arch::requestOrCookie("id_editora"); 
+    $nome_editora = Arch::requestOrCookie("nome_editora"); 
 
-    $id_centro      = Arch::session("id_centro");
-    $action         = Arch::get("action");
-    $id_editora     = Arch::requestOrCookie("id_editora");
-    $nome           = Arch::requestOrCookie("nome");
+    $msg = ""; 
 
-    $callback       = Arch::requestOrCookie("callback");
+// instancia classe(s) 
+    $editora = new Editora(); 
+    $audit = new Auditoria(); 
 
-    $msg = "";
-    $Editora = new Editora();
-        
-    if ($action == 'grava') {
-        $msg = $Editora->valida($id_centro, $id_editora, $nome);
+    if ($action == 'grava') { 
+        $msg = $editora->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_editora, 
+            $nome_editora); 
+        if (strlen($msg) == 0) { 
+// cria nova instância 
+            $err = $editora->insert( 
+                $id_centro, 
+                $id_editora, 
+                $nome_editora); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Editora criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_centro, $id_editora, $nome_editora"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-        if (strlen($msg) == 0) {
-            $audit = new Auditoria();
-            $message = $Editora->insert($id_centro, $nome);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Editora criado</p>";
-                $audit->report("Cria $id_centro, $nome" );
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <p class=appTitle2>Editora</p>
+Arch::initView(TRUE); 
+include "./editora.form.php"; 
 
-    <form method='get'>
-        <p class=labelx>Nome</p>
-        <input type='text' name='nome' value='<?php echo $nome?>' class='inputx'/>
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_editora'"; 
+    echo "value='$id_editora'/>"; 
 
-        <br>
-        <b><?php echo $msg ?></b> <br>  <!-- mensagens -->
-
-        <?php 
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_editora' value='<?php echo $id_editora?>'/>
-
-        <button type='submit' class='butbase' formaction='<?php echo $callback?>'>Volta</button>
-    </form>
-
-<?php Arch::endView(); 
-?>
+// botão volta 
+    botaoVolta("editora.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraCria 20-08-2023 15:26:48</p>"; 
+Arch::endView(); 
+?> 

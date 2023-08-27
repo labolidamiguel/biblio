@@ -1,79 +1,86 @@
 <?php
 include "../common/arch.php";
 include "../common/funcoes.php";
+include "../classes/class.app.php";
 include "../classes/class.usuario.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController();
-    $nome       = Arch::post("nome");
-    $senha      = Arch::post("senha");
-    $id_usuario = "";
-    $perfis     = "";
-    $message    = "";
+    $nome_usuario   = Arch::post("nome_usuario");
+    $senha          = Arch::post("senha");
+    $id_usuario     = "";
+    $perfis_usuario = "";
+    $msg            = "";
 
-    if (strlen($nome)>1 || strlen($senha)>1) {                       // POST
-        $usuario = new Usuario();                                    // class
-        $senha = hash('sha1', $senha );                              // SHA1-CRYPTOGRAPHY-ALGORITHM
+    if (strlen($nome_usuario) > 1 
+    || strlen($senha) > 1) { // POST
+        $usuario = new Usuario();       // class
+        $senha = hash('sha1', $senha ); // CRYPTOGRAPHY-ALG.
         
-        $rs = $usuario->login( $nome, $senha );                
+        $rs = $usuario->login($nome_usuario, $senha);                
         $count=0;
 
         while($reg = $rs->fetch()){     // PDO
-            $id_usuario = $reg["id_usuario"];
-            $perfis     = $reg["perfis"];    
-            $id_centro  = $reg["id_centro"]; 
-            $siglacentro= $reg["sigla"]; 
+            $id_usuario     = $reg["id_usuario"];
+            $perfis_usuario = $reg["perfis_usuario"];    
+            $id_centro      = $reg["id_centro"]; 
+            $siglacentro    = $reg["sigla"]; 
             $count++;
         }
-        if ($count==0) {
-            $message="Usuario ou senha incorreto!";
+        if ($count == 0) {
+            $msg="Usuario ou senha incorreto!";
         }
-        if ( $count==1){                // security validation
-            $_SESSION["nome"]       = $nome;
-            $_SESSION["perfis"]     = $perfis;
+        if ($count == 1){           // security validation
+            $_SESSION["nome_usuario"]   = $nome_usuario;
+            $_SESSION["perfis_usuario"] = $perfis_usuario;
             $_SESSION["id_centro"]  = $id_centro;
             $_SESSION["siglacentro"]= $siglacentro;
             $_SESSION["id_usuario"] = $id_usuario;
-            Arch::logg("[login.web.php] debug login=ok session.nome=".$nome );
-            Arch::logg("[login.web.php] debug login=ok session.perfis=".$perfis );
-            Arch::logg("[login.web.php] debug login=ok session.id_centro=".$id_centro );
-            Arch::logg("[login.web.php] debug login=ok session.id_usuario=".$id_usuario );
+            Arch::logg(
+            "[login] debug login=ok ".$nome_usuario );
+            Arch::logg(
+            "[login] debug login=ok ".$perfis_usuario );
+            Arch::logg(
+            "[login] debug login=ok ".$id_centro );
+            Arch::logg(
+            "[login] debug login=ok ".$id_usuario );
             $audit = new Auditoria();
             $audit->report("Login");
-            header("Location: main.web.php"); // OK Redirect to the app
-        }
-        if ($count>1) {   // Mais de um registro.
-            $message="Problemas de autenticacao. Contate o administrador. Causa: Duplicidade de usuario.";
-        }
 
+            header("Location: main.web.php"); // Redirect 
+        }
+        if ($count > 1) {   // Mais de um registro
+            $msg="Erro: Duplicidade de usuario";
+        }
     }
 
 Arch::initView();
-    
-?>
-    <div style="justify-content:center; display:flex;">  
-        <!-- padding top right bottom left -->
-        <div style="text-align:left; width:300px; background-color:#EEE; padding:0px 18px 0px 24px; border: 1px solid #ccc; box-shadow: 0px 0px 5px 5px #eee;">
-        <form action="login.web.php" method="POST">
-            <p style='font-size:24px; font-weight: bold;'>Login</p>
+    echo "<div style='justify-content:center; ";
+    echo "display:flex;'>";
 
-            Usuario: <br>
-            <input type="text" name="nome" value="" class="inputx"> 
-            <br><br>
+    echo "<div style='text-align:left; width:300px; ";
+    echo "background-color:#EEE; padding:0px 18px 0px 24px; ";
+    echo "border: 1px solid #ccc;'>";
 
-            Senha: <br>
-            <input type="password" name="senha" value="" class="inputx"> 
-            <br>
+    echo "<form action='login.web.php' method='POST'>";
+    echo "<p style='font-size:24px; font-weight: ";
+    echo "bold;'>Login</p>";
 
-            <center>
-            <b><?php echo $message ?><b> <br>
-            <input type="submit" name="ok" value="OK" class="butbase">
-            </center>
-        </form>
-        </div>
-    </div>
+    echo "Usuario:<br>";
+    echo "<input type='text' name='nome_usuario' ";
+    echo "class='inputx' value='' ><br><br>";
 
-<?php
-    arch::endView(); 
+    echo "Senha:<br>";
+    echo "<input type='password' name='senha' ";
+    echo "class='inputx'  value=''><br>";
+
+    echo "<b>$msg<b><br>";
+    echo "<input type='submit' name='ok' ";
+    echo "class='butbase' value='OK' >";
+
+    echo "</form>";
+    echo "</div>";
+    echo "</div>";
+
+    arch::endView();
 ?>

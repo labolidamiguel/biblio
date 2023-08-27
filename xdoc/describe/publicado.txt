@@ -1,0 +1,4 @@
+publicado 
+0|id_publicado|integer|0||1
+1|cod_cde|text|0||0
+2|nome_titulo|text|0||0

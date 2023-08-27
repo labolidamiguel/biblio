@@ -1,54 +1,60 @@
-<?php
-// tradutor.dominio
-// 20230320 retirada função cria
-include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+<?php                   // tradutor.dominio.php 
+// criado por GeraDominio em 20-08-2023 16:25:31
+include "../common/arch.php"; 
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.tradutor.php";
 
-Arch::initController("lista");
-    $id_centro  = Arch::session("id_centro");
-    $pesq       = Arch::request("pesq");
-    $callback   = Arch::requestOrCookie("callback");
+Arch::initController("lista"); 
+    $id_centro  = Arch::session("id_centro"); 
+    $pesq       = Arch::get("pesq"); 
+    $callback   = Arch::get("callback"); 
+// instancia classe(s) 
+    $tradutor = new Tradutor(); 
+    $count = $tradutor->getCount($id_centro, $pesq); 
+// obtem registros 
+    $rs = $tradutor->select($id_centro, $pesq); 
 
-    $tradutor = new Tradutor();
-    $count = $tradutor->getCount($id_centro, $pesq);
-    $rs = $tradutor->select($id_centro, $pesq);
-    
-Arch::initView(TRUE);
-
-?>
-    <p class=appTitle2>Tradutor</p>
-    <form>
-        <input type="hidden" value="<?php echo $callback ?>" name="callback" id="callback" class="callback">
-        <input type="text" value="<?php echo $pesq ?>" name="pesq" id="pesq" class="inputh">
-        <a href="?pesq="><img src="../layout/img/limp.ico" width="22" height="22" class="butimg"></a> <!-- reset -->
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="image" src="../layout/img/pesq.ico" alt="Submit" width="22" height="22" class="butimg">
-<!--
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cria
-        <a href='tradutor.crud.write.web.php?callback=tradutor.lista.web.php&action=cria&step=inicio'><img class='butimg'; alt='alt' src='../layout/img/cria.ico' style='width: 26px; margin-left:-2px; margin-bottom:1px;'></a>
--->
-    </form>
-
-<?php
-    echo "<div class='tableFixHead'>";  // header fixo
-    echo "<table>";
-    echo "<thead>";
-    echo "<tr class=\"blue\">";
-    echo "<th align='left'>Nome</th>";
-    echo "</tr>";
-    echo "</thead>";
-
-    while( $reg = $rs->fetch()){        // PDO
-        $nome = urlencode($reg["nome"]);
-        echo "<tr onclick=window.location.href='".$callback."?id_tradutor=".$reg["id_tradutor"]."&tradutor=".$nome."'></a>";
-        echo "<td>" . $reg["nome"] . "</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-    echo "</div>";//NOPAG
-    echo "$space10 ($count itens)";//NOPAG
-
-Arch::endView();
-?>
+Arch::initView(TRUE); 
+    $space5     = str_repeat("&nbsp", 5); 
+    $space10    = str_repeat("&nbsp", 10); 
+    echo "<p class=appTitle2>Tradutor</p>"; 
+    echo "<form>"; 
+    echo "<div>"; 
+// texto, botão apaga e botão pesquisa 
+    botaoPesquisa($pesq); 
+    echo "</div>"; 
+    echo "</form>"; 
+// monta lista na tabela html 
+    echo "<div class='tableFixHead'>"; 
+    echo "<table>"; 
+    echo "<thead>"; 
+    echo "<tr class='blue'>"; 
+// titulos colunas 
+    echo "<th align='left'>Id</th>"; 
+    echo "<th align='left'>Nome</th>"; 
+    echo "</tr>"; 
+    echo "</thead>"; 
+// para cada linha 
+    while ($reg = $rs->fetch() ){ 
+        $id_tradutor = $reg["id_tradutor"]; 
+        $nome_tradutor = $reg["nome_tradutor"]; 
+        $nome_tradutor_url = urlencode($nome_tradutor); 
+// evento on click 
+        echo "<tr onclick"; 
+        echo "=window.location.href"; 
+        echo "='$callback"; 
+        echo "?id_tradutor=$id_tradutor"; 
+        echo "&nome_tradutor=$nome_tradutor_url"; 
+        echo "&flag_lido=lido'></a>"; 
+// colunas a exibir 
+        echo "<td>$id_tradutor</td>"; 
+        echo "<td>$nome_tradutor</td>"; 
+        echo "</tr>"; 
+    } 
+    echo "</table>"; 
+    echo "</div>"; 
+    echo "$space10 ($count itens)"; 
+    echo "<p style='font-size:70%;'>GeraDominio 20-08-2023 16:25:31</p>"; 
+Arch::endView(); 
+?> 

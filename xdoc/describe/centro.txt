@@ -1,0 +1,9 @@
+centro 
+0|id_centro|integer|0||1
+1|nome_centro|text|0||0
+2|sigla_centro|text|0||0
+3|telefone|text|0||0
+4|endereco|text|0||0
+5|cidade|text|0||0
+6|estado|text|0||0
+7|cep|text|0||0

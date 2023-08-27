@@ -17,8 +17,8 @@ Arch::initController("lista");  // antes titulo
     $rs = $titulo->select($id_centro, $pesq);
 
 Arch::initView(TRUE);
-    $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    $space5     = str_repeat("&nbsp", 5); 
+    $space10    = str_repeat("&nbsp", 10); 
 
     echo "<p class=appTitle2>T&iacute;tulo</p>";
     echo "<form>";

@@ -1,0 +1,38 @@
+git clone https://github.com/labolida/BiblioPHP.git
+GitHub labolidamiguel mail mala4
+665282
+git clone https://github.com/labolida/BiblioPHP.git
+ ...\git\cmd\gitk.exe                   // programa grafico
+Entregar uma modificacao de arquivos:
+git add .                               // adiciona ao STAGE (no VS Code)
+git add nomedoarq.ext                   OU
+git add ./dir/file
+git commit -m "notas alterações"        // Commitado no proprio PC.
+git push origin master                  // sobe os arquivos
+Se rejeitado atualizar:
+git pull                                // atualiza desde origin master
+git push origin master
+git status                              // ver estado local
+
+git log                                 // ver historico de commit
+local IP
+http://192.168.0.4:88/miguel/dev/biblio/
+http://192.168.0.8:88/miguel/dev/biblio/
+--- mudança de branch ---
+https://github.com/labolida/BiblioPHP
+ComboBox Branch  -->foto:
+Isto fará o switch on-line. (Somente na WEB).
+Para fazer o switch no teu pc, primeiro faz download da rama  e logo use-a!
+Pasos:
+Git pull  -- fará o pull da rama atual.
+git fetch  -- atualizará todo o header do git e trará todas as ramas remotas.
+git branch   -- isto presentará todas as ramas existentes - valide!
+git checkout controler  -- faz checkout da rama controller para trabalhar com ela. Voce poderá fazer "git checkout master"   a qualquer momento
+
+provedor https://hostfast.com/hostso/
+https://www.labolida.com/espirita/biblio/DATABASE/biblio.db
+
+$ git remote add origin <REMOTE_URL>
+# Sets the new remote
+$ git remote -v
+# Verifies the new remote URL

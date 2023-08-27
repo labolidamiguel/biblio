@@ -6,7 +6,7 @@ include "../classes/class.prateleira.php";
 
 Arch::initController("prateleira");
     $id_centro  = Arch::session("id_centro");
-    $pesq       = Arch::requestOrCookie("pesq");
+    $pesq       = Arch::get("pesq");
     Arch::deleteCookie("id_prateleira");
     Arch::deleteCookie("cod_prateleira");
     Arch::deleteCookie("cde_inicial");

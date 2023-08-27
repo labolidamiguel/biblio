@@ -1,6 +1,4 @@
-<?php
-// titulo.lista
-// 20230320 chamada exemplar.lista.php limpa pesq
+<?php                           // titulo.lista.php
 include "../common/arch.php";
 include "../common/funcoes.php";
 include "../classes/class.app.php";
@@ -9,11 +7,11 @@ include "../classes/class.titulo.php";
 Arch::initController("titulo");
     Arch::deleteAllCookies();
     $id_centro  = Arch::session("id_centro");
-    $pesq       = Arch::requestOrCookie("pesq");
+    $pesq       = Arch::get("pesq");
     Arch::deleteCookie("nome_titulo");
     Arch::deleteCookie("sigla");
-    Arch::deleteCookie("autor");
-    Arch::deleteCookie("espirito");
+    Arch::deleteCookie("nome_autor");
+    Arch::deleteCookie("nome_espirito");
 
     $titulo = new Titulo();
 
@@ -50,12 +48,12 @@ Arch::initView(TRUE);
     while($reg = $rs->fetch() ){        // PDO
         $id_titulo      = $reg["id_titulo"];
         $nome_titulo    = $reg["nome_titulo"];
-        $autor          = $reg["autor"];
+        $nome_autor     = $reg["nome_autor"];
         echo "<td>" . $id_titulo . "</td>";
         echo "<td>" . $nome_titulo . "</td>";
-        echo "<td>" . $autor . "</td>";
+        echo "<td>" . $nome_autor . "</td>";
 
-        echo "<td><a href='exemplar.lista.php?id_titulo=$id_titulo&nome_titulo=$nome_titulo&pesq='><img border='0' alt='exem' src='../layout/img/exem.ico' width='20' height='20'></a><br></td>";
+        echo "<td><a href='exemplar.lista.php?id_titulo=$id_titulo&nome_titulo=$nome_titulo'><img border='0' alt='exem' src='../layout/img/exem.ico' width='20' height='20'></a><br></td>";
 
         echo "<td><a href='titulo.altera.php?id_titulo=$id_titulo'><img border='0' alt='alt' src='../layout/img/alte.ico' width='20' height='20'></a><br></td>";
 

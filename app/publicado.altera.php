@@ -1,64 +1,79 @@
-<?php
+<?php                   // publicado.altera.php
+// criado por GeraAltera em 14-08-2023 16:55:04
 include "../common/arch.php";
-include "../common/funcoes.php";
-include "../classes/class.app.php";
+include "../common/funcoes.php"; 
+include "../classes/class.app.php"; 
 include "../classes/class.publicado.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("publicado");
-    $action         = Arch::get("action");
-    $flag_lido      = Arch::requestOrCookie("flag_lido");
-    $id_publicado   = Arch::requestOrCookie("id_publicado");
-    $cod_cde        = Arch::requestOrCookie("cod_cde");
-    $nome_titulo    = Arch::requestOrCookie("nome_titulo");
-//Arch::deleteCookie("flag_lido"); // MARRETA
-    $msg = "";
-    $publicado = new Publicado();
-    $audit = new Auditoria();
-    
-    if (strlen($flag_lido) == 0) {    // 1a vez Select from dB
-        setcookie("flag_lido", "ja lido");
-        $rs  = $publicado->selectId($id_publicado); 
-        $reg = $rs->fetch();            // PDO
-        $cod_cde        = $reg["cod_cde"];
-        $nome_titulo    = $reg["nome_titulo"];
-    }
+Arch::initController("publicado"); 
+    $operacao = "altera"; 
+    $id_publicado = Arch::get("id_publicado"); 
+    $action    = Arch::get("action"); 
+    $flag_lido = Arch::get("flag_lido"); 
+// mantém dados em cookies 
+    $cod_cde = Arch::requestOrCookie("cod_cde"); 
+    $nome_titulo = Arch::requestOrCookie("nome_titulo"); 
 
-    if ($action == 'grava') {
-        $msg = $publicado->valida($id_publicado, $cod_cde, $nome_titulo);
-        if (strlen($msg) == 0) {
-            $message = $publicado->update($id_publicado, $cod_cde, $nome_titulo);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Publicado alterado</p>";
-                $audit->report("Altera $id_publicado, $cod_cde, $nome_titulo");
-            }
-        Arch::deleteAllCookies();
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <form method='get'>
-        <p class=appTitle2>Publicado pela FEB</p>
+    $msg = ""; 
 
-        <p class=labelx>CDE</p>
-        <input type='text' name='cod_cde' value='<?php echo $cod_cde?>' class='inputx'/>
+    $publicado = new Publicado(); 
+    $audit = new Auditoria(); 
 
-        <p class=labelx>Título</p>
-        <input type='text' name='nome_titulo' value='<?php echo $nome_titulo?>'  class='inputx'/>       
+// na primeira vez carrega do DB 
+    if (strlen($flag_lido) == 0) { 
+        $rs = $publicado->selectId($id_publicado); 
+        $reg = $rs->fetch(); 
+// obtém valores das colunas 
+        $id_publicado = $reg["id_publicado"]; 
+        $cod_cde = $reg["cod_cde"]; 
+        $nome_titulo = $reg["nome_titulo"]; 
+    } 
+// validação 
+    if ($action == "altera") { 
+        $msg = $publicado->valida( 
+// colunas a validar 
+            $id_publicado, 
+            $cod_cde, 
+            $nome_titulo); 
 
-        <br><?php echo $msg ?><br>  <!-- mensagens -->
-        <?php
-        if (! strpos($msg, "alterado")) {  // omite botao altera
-            echo "<button type='submit' class='butbase' name='action' value='grava'>Altera</button>";
-        }
-        ?>
-        <input type='hidden' name='id_publicado' value='<?php echo $id_publicado?>'/>
-        <button type='submit' class='butbase' formaction='publicado.lista.php'>Volta</button>
-    </form>
-<?php 
+        if (strlen($msg) == 0) { 
+            $err = $publicado->update( 
+// colunas a atualizar 
+                $id_publicado, 
+                $cod_cde, 
+                $nome_titulo); 
+
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Publicado alterado</p>"; 
+//                $audit->report( 
+//                "Cria $id_centro, $id_publicado, $cod_cde, $nome_titulo"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
+
+Arch::initView(TRUE); 
+include "./publicado.form.php"; 
+
+// botão altera - omitido se já foi alterado 
+    if (! strpos($msg, "alterado")) { 
+        echo "<button type='submit' name='action' "; 
+        echo "value='altera' class='butbase'> 
+        Altera</button>"; 
+    } 
+    echo "<input type='hidden' name='id_publicado'"; 
+    echo "value='$id_publicado'/>"; 
+    echo "<input type='hidden' name='flag_lido'"; 
+    echo "value='lido'/>"; 
+
+// botão volta 
+    botaoVolta("publicado.lista.php"); 
+    echo "</form>"; 
+
 Arch::endView(); 
-?>
+?> 

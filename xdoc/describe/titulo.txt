@@ -1,0 +1,10 @@
+titulo 
+0|id_centro|integer|1||0
+1|id_titulo|integer|0||1
+2|nome_titulo|text|0||0
+3|sigla|text|0||0
+4|id_autor|integer|1||0
+5|id_espirito|integer|1||0
+6|id_cde|integer|1||0
+7|nro_volume|integer|0||0
+8|resenha|text|0||0

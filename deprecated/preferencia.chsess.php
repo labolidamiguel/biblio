@@ -1,0 +1,25 @@
+<?php
+include "../common/arch.php";
+include "../common/funcoes.php";
+include "../classes/class.usuario.php";
+include "../classes/class.centro.php";
+Arch::initController("@");
+    $centro = Arch::post("centro");
+    $perfis = ARCH::session("perfis");
+	$msg="";
+	//echo strpos($perfis,"9");
+	if ( strpos($perfis,"9")>0 ) {       // isRoot?
+	    if ( strlen($centro)>0   ) {
+	    	$_SESSION["id_centro"]=$centro;
+	    	$msg = "Voce agora esta operando no centro:".$centro;
+	    }
+	}else{
+		ARCH::logg("PROBLEMAS DE SEGURANCA",1);
+		ARCH::logg("O usuario NaoRoot entrou nesta pagina!",1);
+	}
+Arch::initView(TRUE);
+?>
+	<h2> Usuario logado </h2>
+	<b> <?php echo $msg; ?> </b> <br><br>
+	<a class="butbase" href='preferencia.php'> Voltar</a>
+<?php Arch::endView(); ?>

@@ -4,7 +4,6 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.prateleira.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController("prateleira");
     $id_centro  = Arch::session("id_centro");
@@ -32,11 +31,14 @@ Arch::initController("prateleira");
     if ($action == 'grava') {
         $msg = $prateleira->valida($id_centro, $id_prateleira, $cod_prateleira, $cde_inicial, $cde_final);
         if (strlen($msg) == 0) {
-            $message = $prateleira->update($id_centro, $id_prateleira, $cod_prateleira, $cde_inicial, $cde_final);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
+            $err = $prateleira->update(
+                $id_centro, $id_prateleira, $cod_prateleira, 
+                $cde_inicial, $cde_final);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>Problemas $err</p>";
             }else{
-                $msg="<p class=texgreen>* Prateleira alterada</p>";
+                $msg="<p class=texgreen>
+                * Prateleira alterada</p>";
                 $audit->report("Altera $id_centro, $id_prateleira, $cod_prateleira, $cde_inicial, $cde_final");
             }
 

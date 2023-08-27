@@ -1,9 +1,0 @@
-
-app/autor.cria.php
-app/etiqueta.cria.php
-app/etiqueta.rel.a4.30.php
-app/etiqueta.rel.a4.php
-app/usuario.muda.senha.php
-classes/class.exemplar.php
-classes/class.usuario.php
-log/log.html

@@ -1,0 +1,9 @@
+e leitor
+r id_centro     idCentro
+r id_leitor     Id 
+x nome_leitor   Nome
+x celular       Cel
+x email         E-Mail
+x endereco      Endereço
+x cep           CEP
+x notas         Notas

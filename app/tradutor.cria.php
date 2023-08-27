@@ -1,57 +1,66 @@
-<?php
+<?php                   // tradutor.cria.php
+// criado por GeraCria em 20-08-2023 16:25:31
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.tradutor.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("tradutor");
+Arch::initController("tradutor"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $id_tradutor = Arch::requestOrCookie("id_tradutor"); 
+    $nome_tradutor = Arch::requestOrCookie("nome_tradutor"); 
 
-    $id_centro      = Arch::session("id_centro");
-    $action         = Arch::get("action");
-    $id_tradutor    = Arch::requestOrCookie("id_tradutor");
-    $nome           = Arch::requestOrCookie("nome");
-    $callback       = Arch::requestOrCookie("callback");
+    $msg = ""; 
 
-    $msg = "";
-    $Tradutor = new Tradutor();
-        
-    if ($action == 'grava') {
-        $msg = $Tradutor->valida($id_centro, $id_tradutor, $nome);
+// instancia classe(s) 
+    $tradutor = new Tradutor(); 
+    $audit = new Auditoria(); 
 
-        if ( strlen($msg)==0) {
-            $audit = new Auditoria();
-            $message = $Tradutor->insert($id_centro, $nome);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Tradutor criado</p>";
-                $audit->report("Cria $id_centro, $nome" );
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <p class=appTitle2>Tradutor</p>
+    if ($action == 'grava') { 
+        $msg = $tradutor->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_tradutor, 
+            $nome_tradutor); 
+        if (strlen($msg) == 0) { 
+// cria nova instância 
+            $err = $tradutor->insert( 
+                $id_centro, 
+                $id_tradutor, 
+                $nome_tradutor); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Tradutor criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_centro, $id_tradutor, $nome_tradutor"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-    <form method='get'>
-        <p class=labelx>Nome</p>
-        <input type='text' name='nome' value='<?php echo $nome?>' class='inputx'/>
+Arch::initView(TRUE); 
+include "./tradutor.form.php"; 
 
-        <br>
-        <b><?php echo $msg ?></b> <br>  <!-- mensagens -->
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_tradutor'"; 
+    echo "value='$id_tradutor'/>"; 
 
-        <?php 
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_tradutor' value='<?php echo $id_tradutor?>'/>
-
-        <button type='submit' class='butbase' formaction='<?php echo $callback?>'>Volta</button>
-    </form>
-
-<?php Arch::endView(); 
-?>
+// botão volta 
+    botaoVolta("tradutor.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraCria 20-08-2023 16:25:31</p>"; 
+Arch::endView(); 
+?> 

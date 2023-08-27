@@ -1,0 +1,16 @@
+[GitHub] A new SSH authentication public key was added to your account
+Caixa de entrada
+
+GitHub <noreply@github.com>
+11:58 (há 39 minutos)
+para mim
+
+The following SSH key was added to your account:
+
+biblio cecx
+SHA256:XNoDzhfXlUrmfocp0dJT82ruMNiGvzMs3uGDVss8yRA
+
+If you believe this key was added in error, you can remove the key and disable
+access at the following location:
+
+https://github.com/settings/keys

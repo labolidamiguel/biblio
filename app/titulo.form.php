@@ -10,11 +10,11 @@
         <input type='text' name='sigla' class='inputx' value='<?php echo $sigla?>'/>
 
         <p class=labelx>Autor</p>
-        <input type='text' name='autor' class='inputx' value='<?php echo $autor?>' readonly/>
+        <input type='text' name='nome_autor' class='inputx' value='<?php echo $nome_autor?>' readonly/>
         <input type='submit' name='action' value='a' class='buthidelist' style='background-image: url(../layout/img/alte2.ico); background-repeat:no-repeat; background-size:26px 26px;'>
 
         <p class=labelx>Espírito</p>
-        <input type='text' name='espirito' class='inputx' value='<?php echo $espirito?>' readonly/>
+        <input type='text' name='nome_espirito' class='inputx' value='<?php echo $nome_espirito?>' readonly/>
         <input type='submit' name='action' value='e' class='buthidelist' style='background-image: url(../layout/img/alte2.ico); background-repeat:no-repeat; background-size:26px 26px;'>
 
         <p class=labelx>CDE</p>
@@ -33,7 +33,7 @@
 
         <br>
         
-        <b><?php echo $msg ?></b> <br>  <!-- MESSAGE -->
+        <b><?php echo $msg ?></b> <br>  <!-- MENSAGEM -->
 
         <?php 
 ?>

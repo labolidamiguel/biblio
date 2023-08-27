@@ -1,28 +1,12 @@
-
-  Arch::deleteCookie("flag_lido");
-  etiqueta A4 68x32
-  Leitor Aleni não deixa excluir-> criar emprestimo.exclui
-  Troca semha "Erro ao trocar de senha. Prov s antiga e incorr." mas troca OK
-  auditoria não exclui - formato data no celular dd/mm/aaaa
-  data no celular - criar selecao em php ou vide exemplar.altera.php
-  eliminar cookies
-  emprestimo.cria.php?action=valida incluir nome titulo e telefone
-  etiqueta    nopag definir critério  
-20230711 etiqueta em papel A4 com marcas de corte
-  etiqueta selecao A4 adesivo carta
-  exemplar.altera.php ==> marreta flag_lido lin 12, nopag fixHead
-  exemplar.altera.php comentada lin 62 $auditoria->report
-  http://127.0.0.1:88/
-  leitor.cria.php e-mail deve ser obrigatorio
-  login usuario.cria.php preferencia.php logged.settings
-  muda senha app/preferencia.php
-  mudanca de senha separado em usuario.senha.altera.php
-  renomear tabela, classe e app Estante por Prateleira
-  separar o codigo em ./app/usuario.mudasenha.php
-  titulo exemplar multiplos bugs
-  titulo.exclui não mostra nome_titulo na confirmação
-  usuario telefone e email devem ser obrigatorios
-  versão em .\common\arch.php
+ Arch::deleteCookie("flag_lido");
+ exemplar.altera.php comentada lin 62 $auditoria->report
+ senha 123    = 40bd001563085fc35165329ea1ff5c5ecbdbbeef
+ senha 123456 = 7c4a8d09ca3762af61e59520943dc26494f8941b
+ senha 654321 = dd5fef9c1c1da1394d6d34b248c51be2ad740840
+ senha 999999 = 1f5523a8f535289b3401b29958d01b2966ed61d2
+ titulo exemplar multiplos bugs
+ titulo.exclui não mostra nome_titulo na confirmação
+ versão em .\common\arch.php
 20221111 titulo.lista.php não funciona o edit
 20221119 emprestimo  erro app\emprestimo.web.php(55)
 20221122 exemplar    não mostra detalhe na 2a vez
@@ -30,7 +14,7 @@
 20221122 leitor.altera 46 // $audit->report("Alt  MARRETA
 20221126 estante CRUD dominio para CDE
 20221127 Editora lista order by nome
-20221127 app/exemplar.detalhe.web: tirar Tradutor: - não possui - da descrição
+20221127 app/exemplar.detalhe.web: tirar Tradutor: - não possui
 20221127 relatorio   excluir aplicação
 20221130 exemplar.dominio count em zero
 20221205 app         CRUD nopag fixHead
@@ -64,5 +48,29 @@
 20230320 acertos
 20230508 Empresta incluir CDE e prateleira no titulo.dominio.php
 20230517 app/main.web.php inicializa cookie pesq
-20230709 troca label Estante por Prateleira
-20230709 usuario incluidas colunas telefone e email
+20230726  duplicidade de nome do título
+20230726 Arch::requestOrCookie("pesq"); -> get
+20230726 emprestimo.cria.php?incluir nome titulo e telefone
+20230726 exemplar.altera.php não altera nro_edicao nem ano_publicacao
+20230726 usuario incluir telefone e e-mail
+20230806 // desabilita o biblio quando usuario não possui perfil '9'
+20230806 // e na tabela app col. codigo = stop e col. titulo = 'S'
+20230823 ALTER TABLE app RENAME perfil TO perfil_app;
+20230823 ALTER TABLE autor RENAME nome TO nome_autor;
+20230823 ALTER TABLE cde RENAME COLUMN classe TO clas_cde;
+20230823 ALTER TABLE centro RENAME nome TO nome_centro;
+20230823 ALTER TABLE centro RENAME sigla TO sigla_centro;
+20230823 ALTER TABLE editora RENAME nome TO nome_editora
+20230823 ALTER TABLE espirito RENAME nome TO nome_espirito;
+20230823 ALTER TABLE leitor RENAME nome TO nome_leitor;
+20230823 ALTER TABLE tradutor RENAME nome TO nome_tradutor;
+20230823 ALTER TABLE usuario RENAME nome TO nome_usuario;
+20230823 ALTER TABLE usuario RENAME perfis TO perfis_usuario;
+20230823 Leitor 37 Aleni não deixa excluir
+20230823 Troca de semha: exibe msg: "Erro ao trocar de senha.
+20230823 class.exemplar select "as" impróprio
+20230823 etiqueta    nopag definir critério  
+20230823 exemplar.altera.php ==> marreta flag_lido lin 12
+20230823 leitor.cria.php e-mail deve ser obrigatorio
+20230823 nome de instância em minúscula
+20230823 pesquisa livro sem login

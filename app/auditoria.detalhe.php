@@ -7,7 +7,7 @@ include "../classes/class.auditoria.php";
 Arch::initController("auditoria");
     $id_centro  = Arch::session("id_centro");
     $action     = Arch::get("action");
-    $nome       = Arch::get("nome");
+    $nome_usuario = Arch::get("nome_usuario");
     $app        = Arch::get("app");
     $mensagem   = Arch::get("mensagem");
     
@@ -16,7 +16,7 @@ Arch::initView(TRUE);
     echo "<form method='get'>";
 
     echo "<p class=labelx>Nome</p>";
-    echo "$nome";
+    echo "$nome_usuario";
         
     echo "<p class=labelx>App</p>";
     echo "$app";

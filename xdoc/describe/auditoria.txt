@@ -1,0 +1,7 @@
+auditoria 
+0|id_centro|varchar(8)|0||0
+1|id_usuario|varchar(8)|0||0
+2|codigo_app|varchar(32)|0||0
+3|data|varchar(10)|0||0
+4|hora|varchar(8)|0||0
+5|mensagem|varchar(256)|0||0

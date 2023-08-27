@@ -1,0 +1,20 @@
+dia?type=5&titl=MER simples&indx=0&hdr=&desc=&matrix=0&rows=2&cols=1&xvet=106&yvet=5 140&maxatrpub=32&maxatrpro=32&maxatrpri=32&maxmetpub=32&maxmetpro=32&maxmetpri=32&fpmeth=0&fptypcont=0&fptyproj=0&fphspf=10&fplocpf=33&fpenvir=4&fprisk=0
+box?type=28&uid=5E18EBCD023A&left=4&top=3&right=13&bottom=8&text=Autor&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18ECA900FF&left=4&top=17&right=13&bottom=22&text=CDE&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18ECCE03CF&left=4&top=31&right=13&bottom=36&text=Editora&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18EE8202D5&left=45&top=31&right=56&bottom=36&text=Empréstimo&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18EC9902F0&left=4&top=10&right=13&bottom=15&text=Espírito&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18EBC20101&left=29&top=31&right=38&bottom=36&text=Exemplar&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18EEE50227&left=46&top=10&right=55&bottom=15&text=Leitor&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=64AB45D90336&left=19&top=20&right=28&bottom=25&text=Prateleira&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18ECB20290&left=4&top=24&right=13&bottom=29&text=Tradutor&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E18EBA303B2&left=29&top=10&right=38&bottom=15&text=Título&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+lin?type=1&styl=0&mid=0&uid1=5E18EBA303B2&uid2=5E18EBC20101&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5E18EBCD023A&uid2=5E18EBA303B2&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5E18EC9902F0&uid2=5E18EBA303B2&car1=&car2=&text=
+lin?type=1&styl=0&mid=-1&uid1=5E18ECA900FF&uid2=5E18EBA303B2&car1=&car2=&text=
+lin?type=1&styl=0&mid=4716700&uid1=5E18EBC20101&uid2=5E18EE8202D5&car1=&car2=&text=
+lin?type=1&styl=0&mid=35974604&uid1=5E18ECB20290&uid2=5E18EBC20101&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5E18ECCE03CF&uid2=5E18EBC20101&car1=&car2=&text=
+lin?type=1&styl=0&mid=4716700&uid1=5E18EEE50227&uid2=5E18EE8202D5&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5E18ECA900FF&uid2=64AB45D90336&car1=&car2=&text=

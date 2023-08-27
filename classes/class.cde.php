@@ -16,7 +16,7 @@ class Cde {
         $sql = "SELECT * FROM cde WHERE id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
             $sql = $sql . "AND (cod_cde LIKE '%".$pesq."%' 
-            OR classe LIKE '%".$pesq."%')";
+            OR clas_cde LIKE '%".$pesq."%')";
         }
         $sql = $sql . " ORDER BY cod_cde ";
 
@@ -28,7 +28,7 @@ class Cde {
         $sql = "SELECT count(*) FROM cde WHERE id_centro = '$id_centro' ";
         if (strlen($pesq) > 0) {
             $sql = $sql . "AND (cod_cde LIKE '%".$pesq."%'
-            OR classe LIKE '%".$pesq."%')";
+            OR clas_cde LIKE '%".$pesq."%')";
         }
         $sql = $sql . ";";
         $rs = $this->$pdo->query($sql); // PDO
@@ -41,7 +41,7 @@ class Cde {
         if (strlen($pesq) > 0) {
             $sql = "SELECT * FROM cde WHERE id_centro = '$id_centro' 
             AND (cod_cde LIKE '%$pesq%'
-            OR classe LIKE '%$pesq%') 
+            OR clas_cde LIKE '%$pesq%') 
             ORDER BY cod_cde LIMIT $page , $linxpage;";
         } else {
             $sql = "SELECT * FROM cde WHERE id_centro = '$id_centro' 
@@ -56,7 +56,7 @@ class Cde {
         if (strlen($pesq) > 0) {
             $sql = "SELECT count(*) FROM cde WHERE id_centro = '$id_centro' 
             AND (cod_cde LIKE '%$pesq%'
-            OR classe LIKE '%$pesq%');";
+            OR clas_cde LIKE '%$pesq%');";
         } else {
             $sql = "SELECT count(*) FROM cde WHERE id_centro = '$id_centro'
             AND substr(cod_cde,1,1) = '$cde1';";
@@ -75,24 +75,24 @@ class Cde {
     
     function selectClasificacao($id_centro) {
         $rs = 0;
-        $sql = "SELECT id_centro, id_cde, cod_cde, classe, substr(cod_cde,1,1) as cde1 FROM cde WHERE id_centro = '$id_centro' AND (cod_cde LIKE '%0.00.00');";
+        $sql = "SELECT id_centro, id_cde, cod_cde, clas_cde, substr(cod_cde,1,1) as cde1 FROM cde WHERE id_centro = '$id_centro' AND (cod_cde LIKE '%0.00.00');";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
 
     function selectAll($id_centro, $pesq) {
         $rs = 0;
-        $sql = "SELECT * FROM cde WHERE id_centro = '$id_centro' AND (cod_cde LIKE '%".$pesq."%' OR classe LIKE '%".$pesq."%');";
+        $sql = "SELECT * FROM cde WHERE id_centro = '$id_centro' AND (cod_cde LIKE '%".$pesq."%' OR clas_cde LIKE '%".$pesq."%');";
         $rs = $this->$pdo->query($sql); // PDO
         return $rs;
     }
     
-    function valida($id_centro, $id_cde, $cod_cde, $classe) {
+    function valida($id_centro, $id_cde, $cod_cde, $clas_cde) {
         $msg = "";
         if (strlen($cod_cde) == 0) {
             $msg = $msg . "<p class=texred>* CDE deve ser preenchido</p>";
         }
-        if (strlen($classe) == 0) {
+        if (strlen($clas_cde) == 0) {
             $msg = $msg . "<p class=texred>* Classe deve ser preenchida</p>";
         }
         if ( strlen($cod_cde)>7 
@@ -115,30 +115,52 @@ class Cde {
 
     function existe($id_centro, $id_cde, $cod_cde) {
         if (strlen($id_cde) == 0) {$id_cde = 0;}
-        $sql = "SELECT COUNT(ALL) FROM cde WHERE id_centro = $id_centro AND cod_cde = '$cod_cde' AND id_cde <> $id_cde;";
+        $sql = "SELECT COUNT(ALL) FROM cde 
+                WHERE id_centro = $id_centro 
+                AND cod_cde = '$cod_cde' 
+                AND id_cde <> $id_cde;";
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         return $reg[0];
     }
 
-    function insert($id_centro, $cod_cde, $classe) {
-        $sql = "INSERT INTO cde (id_centro, id_cde, cod_cde, classe) VALUES ('$id_centro', NULL, '$cod_cde', '$classe');";
-        return $this->$pdo->query($sql); // PDO
+    function insert($id_centro, $id_cde, $cod_cde, $clas_cde) {
+        $sql = "INSERT INTO cde (
+        id_centro, id_cde, cod_cde, clas_cde) 
+        VALUES (
+        '$id_centro', NULL, '$cod_cde', '$clas_cde');";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
 
-    function update($id_centro, $id_cde, $cod_cde, $classe) {
-        $sql = "UPDATE cde SET cod_cde = '$cod_cde', classe = '$classe' WHERE id_centro = $id_centro AND id_cde = $id_cde;";
-        return $this->$pdo->query($sql); // PDO
+    function update($id_centro, $id_cde, $cod_cde, $clas_cde) {
+        $sql = "UPDATE cde SET
+                cod_cde = '$cod_cde', 
+                clas_cde = '$clas_cde' 
+                WHERE id_centro = $id_centro 
+                AND id_cde = $id_cde;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
     
     function delete($id_centro, $id_cde) {
-        $sql = "DELETE FROM cde WHERE id_centro = $id_centro AND id_cde = $id_cde;";
-        return $this->$pdo->query($sql); // PDO
+        $sql = "DELETE FROM cde 
+                WHERE id_centro = $id_centro 
+                AND id_cde = $id_cde;";
+        $this->$pdo->query($sql);       // PDO
+        $err = $this->$pdo->errorInfo();// get error
+        if ($err[0] == 0) return "";    // OK
+        return implode(",", $err);      // erro
     }
     
     function duplica($id_centro_novo) {
-        $sql = "INSERT INTO cde (id_centro, id_cde, cod_cde, classe)
-        SELECT $id_centro_novo, NULL, cod_cde, classe
+        $sql = "INSERT INTO cde (
+        id_centro, id_cde, cod_cde, clas_cde)
+        SELECT $id_centro_novo, NULL, cod_cde, clas_cde
         FROM cde
         WHERE id_centro = '1';";
         return $this->$pdo->query($sql); // PDO
@@ -152,7 +174,9 @@ class Cde {
         $rs = $this->$pdo->query($sql); // PDO
         $reg = $rs->fetch();            // PDO
         if (($reg[0]) > 0) {
-            $msg = "<p class=texred>* CDE não pode ser excluído,<br>&nbsp;&nbsp;há Título(s) associado(s)</p>";
+            $msg = "<p class=texred>
+            * CDE não pode ser excluído,
+            <br>&nbsp;&nbsp;há Título(s) associado(s)</p>";
         }
         return $msg;
     }

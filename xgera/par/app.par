@@ -1,0 +1,8 @@
+e app    
+r id_app  Id
+x codigo  Codigo
+x titulo  Titulo
+x imagem  Imagem
+x perfil_app Perfil
+x url     URL
+x ordem   Ordem

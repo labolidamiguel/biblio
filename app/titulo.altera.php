@@ -4,7 +4,6 @@ include "../common/funcoes.php";
 include "../classes/class.app.php";
 include "../classes/class.titulo.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
 Arch::initController("titulo");
     $action     = Arch::get("action");
@@ -18,9 +17,9 @@ Arch::initController("titulo");
     $id_cde     = Arch::requestOrCookie("id_cde");
     $nro_volume = Arch::requestOrCookie("nro_volume");
     $resenha    = Arch::requestOrCookie("resenha");
-    $autor      = Arch::requestOrCookie("autor");
-    $espirito   = Arch::requestOrCookie("espirito");
-    $cod_cde    = Arch::requestOrCookie("cod_cde");
+    $nome_autor    = Arch::requestOrCookie("nome_autor");
+    $nome_espirito = Arch::requestOrCookie("nome_espirito");
+    $cod_cde       = Arch::requestOrCookie("cod_cde");
     $msg = "";
 
     $titulo = new Titulo();
@@ -42,8 +41,8 @@ Arch::initController("titulo");
         $reg = $rs->fetch();            // PDO
         $nome_titulo = $reg["nome_titulo"];  
         $sigla      = $reg["sigla"];  
-        $autor      = $reg["autor"];
-        $espirito   = $reg["espirito"];  
+        $nome_autor = $reg["nome_autor"];
+        $nome_espirito = $reg["nome_espirito"];  
         $cod_cde    = $reg["cod_cde"];  
         $nro_volume = $reg["nro_volume"];
         $resenha    = $reg["resenha"];
@@ -55,9 +54,9 @@ Arch::initController("titulo");
     if ($action == 'grava') {
         $msg = $titulo->valida();
         if (strlen($msg) == 0) {        // sem erros
-            $message = $titulo->update($id_centro, $id_titulo, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha);
-            if ($message->code < 0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
+            $err = $titulo->update($id_centro, $id_titulo, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>Problemas: $err";
             }else{
                 $msg="<p class=texgreen>* Título alterado</p>";
                 $audit->report("Atualiza $id_centro, $id_titulo, $nome_titulo, $sigla, $id_autor, $id_espirito, $id_cde, $nro_volume, $resenha");

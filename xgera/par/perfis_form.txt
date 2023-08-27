@@ -1,0 +1,1 @@
+x perfis Perfis<br>1_Empréstimo,_Devolução.<br>3_Livro,_Busca_CDE.<br>5_Autor,_CDE,_Editora,_Espírito,_Leitor,_Tradutor.<br>7_Imprime,_Etiqueta,_Prateleira,_Auditoria.<br>9_Usuário,_Public.FEB,_App,_Centro,_Log.<br>

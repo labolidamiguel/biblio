@@ -1,0 +1,8 @@
+app 
+0|id_app|INTEGER|0||1
+1|codigo|varchar(40)|1||0
+2|titulo|varchar(40)|0||0
+3|imagem|varchar(40)|0||0
+4|perfil_app|varchar(40)|1||0
+5|url|varchar(255)|1||0
+6|ordem|int|1||0

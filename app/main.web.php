@@ -7,6 +7,23 @@ Arch::initController("@");
 
 Arch::deleteAllCookies(); // DELETE COOKIES DO BROWSER MENOS A DE CONTROLE DO INDICE DE SESSAO!
 
+    $app = new App();   
+
+// desabilita o aplicativo quando 
+// usuario não possui perfis 9
+// e na tabela app
+// coluna codigo = stop 
+// e coluna titulo = s
+    $perfis_usuario = $_SESSION["perfis_usuario"];
+    if (strpos($perfis_usuario, "9") === false) { // se não e root
+        $rs = $app->select_codigo("stop"); 
+        $reg = $rs->fetch(); 
+        $titulo = $reg["titulo"]; 
+        if (strcmp(strtoupper($titulo), "S") == 0) {
+            header("Location: ../stop.html");
+        }
+    }
+
 Arch::initView(TRUE);
 ?>
     <style>
@@ -31,29 +48,28 @@ Arch::initView(TRUE);
 <?php
     // MENU - APRESENTA BOTOES SEGUNDO PERFIL DO USUARIO
 
-    if ( isset($_SESSION["perfis"])) {
-        $userPerfis = $_SESSION["perfis"]; // declarada e recolhidaDB no login.web
+    if ( isset($_SESSION["perfis_usuario"])) {
+        $userPerfis = $_SESSION["perfis_usuario"]; // declarada e recolhidaDB no login.web
     }
 
     Arch::deleteCookie("pesq");         // inicializa string
-
-    $app = new App();
-    $rs = $app->select_all();//ordem
+//    $app = new App();
+    $rs = $app->select_all();       //ordem
     while( $reg = $rs->fetch()){        // PDO
         $id_app = $reg["id_app"];
         $codigo = $reg["codigo"];
         $titulo = $reg["titulo"];
         $imagem = $reg["imagem"] ;
-        $perfil = $reg["perfil"];
+        $perfil_app = $reg["perfil_app"];
         $url    = $reg["url"]   ;
         
-        if (strlen($titulo) > 2) {      // Se "tituloApp" vazio nao pinta botao
-            $found = strpos( $userPerfis , $perfil);
+        if (strlen($titulo) > 2) { // Se "tituloApp" vazio nao pinta botao
+            $found = strpos($userPerfis, $perfil_app);
             // Arch::logx("main.web:menu:found=".$found);
             // O strpos nao devolve sempre int. 
             // caso NotFound deveria devolver -1 ou boolean false 
             // safe colors 0 3 6 9 C F
-            switch($perfil) {
+            switch($perfil_app) {
                 case 0: $corfundo = "#90C"; break; // violeta
                 case 1: $corfundo = "#08F"; break; // azul
                 case 3: $corfundo = "#0A9"; break; // verde

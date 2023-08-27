@@ -8,7 +8,7 @@
 
 Arch::initController("buscacde");
     $id_centro  = Arch::session("id_centro");
-    $pesq       = Arch::requestOrCookie("pesq");
+    $pesq       = Arch::get("pesq");
     $callback   = Arch::requestOrCookie("callback");
     $iaba       = Arch::requestOrCookie("iaba");
     $cde1       = Arch::requestOrCookie("cde1");
@@ -29,8 +29,8 @@ Arch::initController("buscacde");
     }
 
 Arch::initView(TRUE);
-    $space5 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-    $space10 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    $space5 = str_repeat("&nbsp;", 5); 
+    $space10 = str_repeat("&nbsp;", 10); 
 ?>
 <style>
 #abas {     /* tabs */
@@ -84,7 +84,7 @@ Arch::initView(TRUE);
             $id_cde = $reg["id_cde"];
             $cod_cde = $reg["cod_cde"];
             $cde1 = $reg["cde1"];
-            $classif = $reg["classe"];
+            $classif = $reg["clas_cde"];
             echo "<tr onclick=window.location.href='?id_cde=$id_cde&cde1=$cde1&iaba=1'></a>";
             echo "<td>$cod_cde</td>";
             echo "<td>$classif</td>";
@@ -106,7 +106,7 @@ Arch::initView(TRUE);
         while ($reg = $rscla->fetch()){ // PDO
             $id_cde = $reg["id_cde"];
             $cod_cde = $reg["cod_cde"];
-            $classe = $reg["classe"];
+            $classe = $reg["clas_cde"];
             echo "<tr onclick=window.location.href='$callback?id_cde=$id_cde&cod_cde=$cod_cde&step=&action='></a>";
             echo "<td>$cod_cde</td>";
             echo "<td>$classe</td>";

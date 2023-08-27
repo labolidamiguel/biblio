@@ -1,0 +1,4 @@
+tradutor 
+0|id_centro|integer|1||0
+1|id_tradutor|integer|0||1
+2|nome_tradutor|text|0||0

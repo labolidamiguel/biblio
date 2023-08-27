@@ -1,0 +1,1 @@
+#objunid:diatype:dianame:diafile:objtype:objname:objfunc:objbatd:objbaxr:objcomp:objfpnt:objmope:objmntd:objmnxr:objmfac:objmnfp:objtabl

@@ -1,0 +1,7 @@
+emprestimo 
+0|id_centro|integer|1||0
+1|id_emprestimo|integer|0||1
+2|id_leitor|integer|1||0
+3|id_exemplar|integer|1||0
+4|emprestado|text|0||0
+5|devolvido|text|0||0

@@ -1,0 +1,26 @@
+dia?type=5&titl=menu&indx=0&hdr=&desc=&matrix=0&rows=2&cols=1&xvet=106&yvet=5 140&maxatrpub=32&maxatrpro=32&maxatrpri=32&maxmetpub=32&maxmetpro=32&maxmetpri=32&fpmeth=0&fptypcont=0&fptyproj=0&fphspf=10&fplocpf=33&fpenvir=4&fprisk=0
+box?type=11&uid=5E9CCDB203A9&left=13&top=3&right=17&bottom=7&text=&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CB7B703E7&left=53&top=35&right=67&bottom=40&text=action = decide&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=14&uid=5E9CB5DB014A&left=5&top=47&right=20&bottom=59&text=action::::&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=14&uid=5E9CB3D2012B&left=7&top=11&right=22&bottom=23&text=action::::&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E35845000CC&left=31&top=2&right=45&bottom=8&text=Biblio 20200419:Emprestimo&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CBD2701B4&left=50&top=45&right=67&bottom=53&text=cabecalho:dados:botão?action=valida&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=14&uid=5E9CB7870359&left=53&top=10&right=68&bottom=22&text=erro?::::&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CBCBF000B&left=50&top=71&right=68&bottom=79&text=etiqueta:botão?action=ok:botão?action=cancel&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CB6F302A8&left=8&top=35&right=17&bottom=40&text=init&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CBD7803C4&left=5&top=71&right=19&bottom=79&text=insert:location = menu:action = blank&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CBCC10343&left=27&top=73&right=41&bottom=79&text=location = menu:action = blank&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CBD24013C&left=50&top=57&right=67&bottom=67&text=mensagens:cabecalho:dados:botão?action=valida&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+box?type=28&uid=5E9CCC2A0110&left=33&top=14&right=43&bottom=19&text=validações&part=&inp=&out=&func=&complx=&fpoint=&desc=&requ=&tables=&attach=&fpar=0&fptd=0&fptr=0&fpmtype=0&fpmtd=0&fpmar=0&fpmrecl=0&fpmfact=0.00
+lin?type=1&styl=0&mid=0&uid1=5E9CB7870359&uid2=5E9CB7B703E7&car1=&car2=&text=:não
+lin?type=1&styl=0&mid=0&uid1=5E9CB6F302A8&uid2=5E9CB5DB014A&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5E9CB5DB014A&uid2=5E9CBCBF000B&car1=&car2=&text=decide
+lin?type=1&styl=0&mid=0&uid1=5E9CB5DB014A&uid2=5E9CBCC10343&car1=&car2=&text=cancel
+lin?type=1&styl=0&mid=0&uid1=5E9CB5DB014A&uid2=5E9CBD2701B4&car1=&car2=&text=entra
+lin?type=1&styl=0&mid=0&uid1=5E9CB5DB014A&uid2=5E9CBD24013C&car1=&car2=&text=valida
+lin?type=1&styl=0&mid=0&uid1=5E9CB5DB014A&uid2=5E9CBD7803C4&car1=&car2=&text=ok
+lin?type=1&styl=0&mid=0&uid1=5E9CB7870359&uid2=5E9CB6F302A8&car1=&car2=&text=sim
+lin?type=1&styl=0&mid=0&uid1=5E9CB7B703E7&uid2=5E9CB6F302A8&car1=&car2=&text=
+lin?type=1&styl=0&mid=3333500&uid1=5E9CB3D2012B&uid2=5E9CCC2A0110&car1=&car2=&text=valida
+lin?type=1&styl=0&mid=1851878498&uid1=5E9CCC2A0110&uid2=5E9CB7870359&car1=&car2=&text=
+lin?type=1&styl=0&mid=0&uid1=5E9CCDB203A9&uid2=5E9CB3D2012B&car1=&car2=&text=

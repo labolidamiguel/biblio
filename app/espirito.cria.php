@@ -1,57 +1,66 @@
-<?php
+<?php                   // espirito.cria.php
+// criado por GeraCria em 20-08-2023 15:26:21
 include "../common/arch.php";
-include "../common/funcoes.php";
+include "../common/funcoes.php"; 
 include "../classes/class.app.php";
 include "../classes/class.espirito.php";
 include "../classes/class.auditoria.php";
-include "../classes/class.message.php";
 
-Arch::initController("espirito");
+Arch::initController("espirito"); 
+    $operacao = "cria"; 
+    $id_centro = Arch::session("id_centro"); 
+    $action    = Arch::get("action"); 
+// mantém dados em cookies 
+    $id_espirito = Arch::requestOrCookie("id_espirito"); 
+    $nome_espirito = Arch::requestOrCookie("nome_espirito"); 
 
-    $id_centro      = Arch::session("id_centro");
-    $action         = Arch::get("action");
-    $id_espirito    = Arch::requestOrCookie("id_espirito");
-    $nome           = Arch::requestOrCookie("nome");
-    $callback       = Arch::requestOrCookie("callback");
+    $msg = ""; 
 
-    $msg = "";
-    $Espirito = new Espirito();
-        
-    if ($action == 'grava') {
-        $msg = $Espirito->valida($id_centro, $id_espirito, $nome);
+// instancia classe(s) 
+    $espirito = new Espirito(); 
+    $audit = new Auditoria(); 
 
-        if ( strlen($msg)==0) {
-            $audit = new Auditoria();
-            $message = $Espirito->insert($id_centro, $nome);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
-            }else{
-                $msg="<p class=texgreen>* Espírito criado</p>";
-                $audit->report("Cria $id_centro, $nome");
-            }
-        }
-    }
-    
-Arch::initView(TRUE);
-?>
-    <p class=appTitle2>Espírito</p>
+    if ($action == 'grava') { 
+        $msg = $espirito->valida( 
+// colunas a validar 
+            $id_centro, 
+            $id_espirito, 
+            $nome_espirito); 
+        if (strlen($msg) == 0) { 
+// cria nova instância 
+            $err = $espirito->insert( 
+                $id_centro, 
+                $id_espirito, 
+                $nome_espirito); 
+            if (strlen($err) > 0) { 
+                $msg = "<p class=texred> 
+                * Erro $err</p>"; 
+            }else{ 
+                $msg="<p class=texgreen> 
+                * Espirito criado</p>"; 
+                $audit->report( 
+                "Cria $id_centro, $id_centro, $id_espirito, $nome_espirito"); 
+                Arch::deleteAllCookies(); 
+            } 
+        } 
+    } 
 
-    <form method='get'>
-        <p class=labelx>Nome</p>
-        <input type='text' name='nome' value='<?php echo $nome?>' class='inputx'/>
+Arch::initView(TRUE); 
+include "./espirito.form.php"; 
 
-        <br>
-        <b><?php echo $msg ?></b> <br>  <!-- mensagens -->
+// se criado omite o botão Cria 
+    if (! strpos($msg, "criado")) { 
+// botão Cria 
+        echo "<button type='submit' name='action' "; 
+        echo "value='grava' class='butbase'>"; 
+        echo "Cria</button>"; 
+    } 
+    echo "<input type='hidden' name='id_espirito'"; 
+    echo "value='$id_espirito'/>"; 
 
-        <?php 
-        if (! strpos($msg, "criado")) {  // omite botao cria
-            echo "<button type='submit' name='action' value='grava' class='butbase'>Cria</button>";
-        }
-        ?>
-        <input type='hidden' name='id_espirito' value='<?php echo $id_espirito?>'/>
-
-        <button type='submit' class='butbase' formaction='<?php echo $callback?>'>Volta</button>
-    </form>
-
-<?php Arch::endView(); 
-?>
+// botão volta 
+    botaoVolta("espirito.lista.php"); 
+    echo "</form>"; 
+    echo "<p style='font-size:70%;'>GeraCria 20-08-2023 15:26:21</p>"; 
+Arch::endView(); 
+?> 

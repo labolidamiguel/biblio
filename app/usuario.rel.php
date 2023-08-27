@@ -9,16 +9,15 @@ include "../layout/inc.relatorio.prologo.php";
 
 Arch::initView(TRUE, TRUE);         // suprime top header
     $nomeRelatorio = "Cadastro de Usuário"; // TITULO rel.
-    $tamcol=array('30','10','14','50'); // tam. col
-    $titcol=array('Nome','Perfis','Telefone','Email');
-    $sql = 
-    "SELECT 
-        nome,
-        perfis,
-        telefone,
-        email
-    FROM usuario
-    WHERE usuario.id_centro = $id_centro;";
+    $tamcol = array('30','10','14','50'); // tam. col
+    $titcol = array('Nome','Perfis','Telefone','Email');
+    $sql = "SELECT 
+            nome_usuario,
+            perfis,
+            telefone,
+            email
+            FROM usuario
+            WHERE usuario.id_centro = $id_centro;";
 
 include "../layout/inc.relatorio.epilogo.php";
 

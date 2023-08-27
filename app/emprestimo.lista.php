@@ -44,9 +44,9 @@ Arch::initView(TRUE);
     while($reg = $rs->fetch()) {    // PDO
         $id_emprestimo = $reg["id_emprestimo"];
         echo "<tr>";
-        echo "<td>" . $reg["leitor"]."</td>";
+        echo "<td>" . $reg["nome_leitor"]."</td>";
         echo "<td>" . $reg["nome_titulo"]."</td>";
-        echo "<td>" . $reg["exemplar"]."</td>";
+        echo "<td>" . $reg["nro_exemplar"]."</td>"; // 20230821
         echo "<td>" . $reg["emprestado"]."</td>";
 //        echo "<td>" . $reg["devolvido"]."</td>";
         echo "<td><a href='emprestimo.altera.php?id_emprestimo=$id_emprestimo'><img border='0' alt='alt' src='../layout/img/devo1.ico' width='20' height='20'></a><br></td>";

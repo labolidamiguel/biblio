@@ -17,12 +17,13 @@ Arch::initController("auditoria");
     if ($action == 'exclui') {
         $msg = $auditoria->valida($id_centro, $data1, $data2);
         if (strlen($msg) == 0) {
-            $message = $auditoria->delete($id_centro, $data1, $data2);
-            if ($message->code<0) {
-                $msg="<p class=texred>Problemas ".$message->description."</p>";
+            $err = $auditoria->delete(
+                $id_centro, $data1, $data2);
+            if (strlen($err) > 0) {
+                $msg="<p class=texred>Problemas $err</p>";
             }else{
                 $msg="<p class=texgreen>* Excluido</p>";
-                $auditoria->report("Cria $id_centro, $data1, $data2");
+                $auditoria->report("Exclui $id_centro, $data1, $data2");
             }
         }
         Arch::deleteAllCookies();
